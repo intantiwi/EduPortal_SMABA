@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petualangan Gelombang Bunyi</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- React & ReactDOM via cdnjs (Lebih handal dan jarang diblokir jaringan sekolah) -->
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  
+  <!-- Babel via cdnjs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.6/babel.min.js"></script>
+
+  <!-- Animasi dipindah ke head agar tidak mengganggu render iframe React -->
+  <style>
+    @keyframes wiggle {
+      0% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-3deg) scale(1.05); }
+      50% { transform: rotate(0deg) scale(1); }
+      75% { transform: rotate(3deg) scale(1.05); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <!-- Indikator Loading agar layar tidak blank putih saat memproses -->
+    <div style="text-align: center; padding: 50px; font-family: sans-serif; color: #475569;">
+      <h2 style="font-size: 1.5rem; margin-bottom: 10px;">⏳ Sedang Memuat Media Ajar...</h2>
+      <p>Mohon tunggu sebentar. Jika tidak kunjung muncul, pastikan koneksi internet Anda stabil.</p>
+    </div>
+  </div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    function App() {
+      const [activeTab, setActiveTab] = useState('doppler');
+
+      const TABS = [
+        { id: 'doppler', label: '1. Efek Doppler', icon: <span className="text-xl">🌬️</span> },
+        { id: 'dawai', label: '2. Dawai', icon: <span className="text-xl">🎸</span> },
+        { id: 'pob', label: '3. Pipa Organa Terbuka', icon: <span className="text-xl">🔊</span> },
+        { id: 'pot', label: '4. Pipa Organa Tertutup', icon: <span className="text-xl">🎷</span> },
+        { id: 'intensitas', label: '5. Intensitas Bunyi', icon: <span className="text-xl">⚡</span> },
+        { id: 'ti', label: '6. Taraf Intensitas', icon: <span className="text-xl">📊</span> },
+        { id: 'layangan', label: '7. Layangan Bunyi', icon: <span className="text-xl">〰️</span> },
+        { id: 'resonansi', label: '8. Resonansi', icon: <span className="text-xl">📻</span> },
+      ];
+
+      return (
+        <div className="min-h-screen bg-slate-50 font-sans text-slate-800">
+          {/* Header */}
+          <header className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-6 shadow-lg">
+            <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-extrabold tracking-tight flex items-center gap-3">
+                  <span className="text-3xl">🔊</span>
+                  Petualangan Gelombang Bunyi
+                </h1>
+                <p className="mt-2 text-blue-100 text-lg">Materi Fisika SMA Kelas XI - Interaktif & Menyenangkan!</p>
+              </div>
+              <div className="mt-4 md:mt-0 bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm border border-white/30 text-sm font-medium">
+                👨‍🏫 Media Ajar Guru Fisika
+              </div>
+            </div>
+          </header>
+
+          <main className="max-w-6xl mx-auto my-8 px-4 flex flex-col md:flex-row gap-6">
+            {/* Sidebar Navigation */}
+            <nav className="w-full md:w-72 flex-shrink-0 flex flex-col gap-2">
+              {TABS.map(tab => (
+                <NavButton 
+                  key={tab.id}
+                  id={tab.id} 
+                  active={activeTab} 
+                  onClick={setActiveTab} 
+                  icon={tab.icon} 
+                  label={tab.label} 
+                />
+              ))}
+            </nav>
+
+            {/* Content Area */}
+            <div className="flex-1 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden min-h-[600px]">
+              {activeTab === 'doppler' && <TabDoppler />}
+              {activeTab === 'dawai' && <TabDawai />}
+              {activeTab === 'pob' && <TabPOB />}
+              {activeTab === 'pot' && <TabPOT />}
+              {activeTab === 'intensitas' && <TabIntensitas />}
+              {activeTab === 'ti' && <TabTI />}
+              {activeTab === 'layangan' && <TabLayangan />}
+              {activeTab === 'resonansi' && <TabResonansi />}
+            </div>
+          </main>
+        </div>
+      );
+    }
+
+    // --- TAB 1: Efek Doppler ---
+    function TabDoppler() {
+      const canvasRef = useRef(null);
+      const [sourceSpeed, setSourceSpeed] = useState(0); 
+      const isAnimating = true;
+      
+      const waveSpeed = 100; 
+      
+      useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let animationId;
+        let lastTime = performance.now();
+        
+        let sourceX = canvas.width / 2;
+        const sourceY = canvas.height / 2;
+        let wavefronts = [];
+        let timeAccumulator = 0;
+        const emissionRate = 0.2; 
+
+        const render = (time) => {
+          const dt = (time - lastTime) / 1000; 
+          lastTime = time;
+
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          if (isAnimating) {
+            sourceX += sourceSpeed * 2 * dt; 
+            if (sourceX > canvas.width + 50) sourceX = -50;
+            if (sourceX < -50) sourceX = canvas.width + 50;
+
+            timeAccumulator += dt;
+            if (timeAccumulator > emissionRate) {
+              wavefronts.push({ x: sourceX, y: sourceY, radius: 0 });
+              timeAccumulator = 0;
+            }
+
+            wavefronts.forEach(wave => { wave.radius += waveSpeed * dt; });
+            wavefronts = wavefronts.filter(wave => wave.radius < canvas.width);
+          }
+
+          ctx.lineWidth = 2;
+          wavefronts.forEach((wave) => {
+            const opacity = Math.max(0, 1 - wave.radius / (canvas.width * 0.8));
+            ctx.strokeStyle = `rgba(239, 68, 68, ${opacity})`; 
+            ctx.beginPath();
+            ctx.arc(wave.x, wave.y, wave.radius, 0, Math.PI * 2);
+            ctx.stroke();
+          });
+
+          // Draw Source
+          ctx.fillStyle = '#ef4444'; 
+          ctx.beginPath();
+          ctx.arc(sourceX, sourceY, 8, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = 'white';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          // Draw Observer
+          const observerX = canvas.width - 50;
+          const observerY = canvas.height / 2;
+          
+          ctx.strokeStyle = '#334155';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.arc(observerX, observerY - 10, 6, 0, Math.PI * 2); 
+          ctx.moveTo(observerX, observerY - 4);
+          ctx.lineTo(observerX, observerY + 12); 
+          ctx.lineTo(observerX - 6, observerY + 20); 
+          ctx.moveTo(observerX, observerY + 12);
+          ctx.lineTo(observerX + 6, observerY + 20); 
+          ctx.stroke();
+          ctx.fillText("Pendengar", observerX - 25, observerY + 35);
+
+          animationId = requestAnimationFrame(render);
+        };
+
+        animationId = requestAnimationFrame(render);
+        return () => cancelAnimationFrame(animationId);
+      }, [sourceSpeed, isAnimating]);
+
+      const vs = sourceSpeed; 
+      const v = 340; 
+      const fs = 1000; 
+      
+      let fp = 0;
+      let status = "Sumber Diam";
+      if (vs > 0) {
+        status = "Sumber Mendekati Pendengar (Melengking)";
+        fp = (v / (v - vs)) * fs;
+      } else if (vs < 0) {
+        status = "Sumber Menjauhi Pendengar (Mengebass)";
+        fp = (v / (v - Math.abs(vs))) * fs;
+      } else {
+        fp = fs;
+      }
+
+      return (
+        <div className="p-8 animate-fade-in flex flex-col h-full">
+          <h2 className="text-2xl font-bold text-slate-800 mb-2">1. Misteri Sirine Ambulans 🚑 (Efek Doppler)</h2>
+          <p className="text-slate-600 mb-6">
+            Fenomena **Efek Doppler** terjadi ketika sumber bunyi dan pendengar bergerak relatif. Frekuensi yang didengar akan berbeda dengan frekuensi asli sumber. Coba atur kecepatan ambulans!
+          </p>
+
+          <div className="bg-slate-900 rounded-xl overflow-hidden shadow-xl mb-6 relative">
+            <canvas ref={canvasRef} width={800} height={250} className="w-full h-auto" />
+            <div className="absolute top-4 right-4 bg-white/10 backdrop-blur border border-white/20 text-white p-3 rounded-lg text-sm">
+              <div className="font-mono">
+                <div className="text-slate-300">f Sumber (f<sub>s</sub>)</div>
+                <div className="text-xl font-bold mb-2">{fs} Hz</div>
+                <div className="text-green-300">f Didengar (f<sub>p</sub>)</div>
+                <div className="text-2xl font-bold text-green-400">{Math.round(fp)} Hz</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white border-2 border-slate-100 p-6 rounded-xl">
+            <div className="flex flex-col md:flex-row gap-8 items-center">
+              <div className="flex-1 w-full">
+                <label className="block text-sm font-bold text-slate-700 mb-2">
+                  Kecepatan Sumber (v<sub>s</sub>): <span className="text-blue-600">{vs} m/s</span>
+                </label>
+                <input 
+                  type="range" min="-150" max="150" step="10" value={sourceSpeed}
+                  onChange={(e) => setSourceSpeed(Number(e.target.value))}
+                  className="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                />
+                <div className="flex justify-between text-xs text-slate-500 mt-2">
+                  <span>Menjauh (-)</span><span>Diam (0)</span><span>Mendekat (+)</span>
+                </div>
+              </div>
+              <div className="flex-1 bg-slate-50 p-4 rounded-lg border border-slate-200 w-full">
+                <h4 className="font-bold text-slate-700 mb-1">Status Visual:</h4>
+                <p className="text-blue-600 font-medium">{status}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // --- TAB 2: Dawai ---
+    function TabDawai() {
+      const [n, setN] = useState(0);
+
+      const generatePath = (harmonic, sign) => {
+        let d = "M 0 50 ";
+        for (let i = 0; i <= 400; i += 5) {
+          const x = i;
+          const y = 50 + sign * 40 * Math.sin(((harmonic + 1) * Math.PI * x) / 400);
+          d += `L ${x} ${y} `;
+        }
+        return d;
+      };
+
+      const nadaLabels = ["Nada Dasar", "Nada Atas 1", "Nada Atas 2", "Nada Atas 3"];
+
+      return (
+        <div className="p-8 animate-fade-in flex flex-col h-full">
+          <h2 className="text-2xl font-bold text-slate-800 mb-4 border-b pb-2 border-slate-200">2. Gelombang pada Dawai 🎸</h2>
+          <p className="text-lg text-slate-600 mb-6">
+            Saat senar gitar dipetik, terbentuk **gelombang stasioner**. Karena kedua ujung senar terikat, ujung-ujungnya selalu berupa **Simpul (Node)**.
+          </p>
+
+          <div className="flex flex-col lg:flex-row gap-6 mb-8">
+            <div className="flex-1 bg-amber-50 border-2 border-amber-200 rounded-2xl p-6">
+              <h3 className="font-bold text-amber-800 mb-4 flex items-center gap-2"><span className="text-xl">🎸</span> Harmonik Dawai</h3>
+              
+              <div className="mb-6 bg-white p-4 rounded-xl shadow-inner border border-amber-100 flex justify-center items-center h-40">
+                <svg viewBox="-10 0 420 100" className="w-full h-full overflow-visible">
+                  <rect x="-10" y="20" width="10" height="60" fill="#78350f" rx="2" />
+                  <rect x="400" y="20" width="10" height="60" fill="#78350f" rx="2" />
+                  <line x1="0" y1="50" x2="400" y2="50" stroke="#d4d4d8" strokeWidth="1" strokeDasharray="4 4" />
+                  <path d={generatePath(n, 1)} fill="none" stroke="#f59e0b" strokeWidth="3" className="animate-pulse" />
+                  <path d={generatePath(n, -1)} fill="none" stroke="#fbbf24" strokeWidth="3" opacity="0.6" />
+                </svg>
+              </div>
+
+              <label className="block text-sm font-bold text-slate-700 mb-2">Pilih Nada (n = {n})</label>
+              <input 
+                type="range" min="0" max="3" step="1" value={n}
+                onChange={(e) => setN(Number(e.target.value))}
+                className="w-full h-3 bg-amber-200 rounded-lg appearance-none cursor-pointer accent-amber-600"
+              />
+              <div className="text-center font-bold text-amber-900 mt-3 text-lg">{nadaLabels[n]}</div>
+            </div>
+
+            <div className="flex-1 flex flex-col gap-4">
+              <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                <h4 className="font-bold text-slate-800 mb-2">Sifat Geometris:</h4>
+                <ul className="list-disc list-inside text-slate-600">
+                  <li>Jumlah Perut (Antinode): <strong>{n + 1}</strong></li>
+                  <li>Jumlah Simpul (Node): <strong>{n + 2}</strong></li>
+                  <li>Panjang Gelombang (λ): <strong>2L / {n + 1}</strong></li>
+                </ul>
+              </div>
+              <div className="bg-blue-50 p-5 rounded-xl border border-blue-200 text-center flex-1 flex flex-col justify-center">
+                <h4 className="font-bold text-blue-800 mb-2">Rumus Frekuensi</h4>
+                <div className="text-2xl font-mono text-blue-900 bg-white p-3 rounded-lg border border-blue-100 inline-block mx-auto">
+                  f<sub>{n}</sub> = {(n + 1)} · v / 2L
+                </div>
+                <p className="text-sm text-blue-700 mt-3">Frekuensi berbanding lurus dengan {n+1}.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // --- TAB 3: Pipa Organa Terbuka (POB) ---
+    function TabPOB() {
+      const [n, setN] = useState(0); 
+
+      const generatePath = (harmonic, sign) => {
+        let d = "M 0 " + (50 + sign * 40); 
+        for (let i = 0; i <= 400; i += 5) {
+          const x = i;
+          const y = 50 + sign * 40 * Math.cos(((harmonic + 1) * Math.PI * x) / 400);
+          d += `L ${x} ${y} `;
+        }
+        return d;
+      };
+
+      return (
+        <div className="p-8 animate-fade-in flex flex-col h-full">
+          <h2 className="text-2xl font-bold text-slate-800 mb-4 border-b pb-2 border-slate-200">3. Pipa Organa Terbuka 🌬️</h2>
+          <p className="text-lg text-slate-600 mb-6">
+            Contohnya adalah seruling (flute). Pipa organa terbuka memiliki kedua ujung yang terbuka terhadap udara bebas. Oleh karena itu, di kedua ujungnya selalu terbentuk **Perut (Antinode)**.
+          </p>
+
+          <div className="flex flex-col lg:flex-row gap-6 mb-8">
+            <div className="flex-1 bg-sky-50 border-2 border-sky-200 rounded-2xl p-6">
+              <h3 className="font-bold text-sky-800 mb-4">Simulasi Udara di dalam Pipa</h3>
+              
+              <div className="mb-6 bg-white p-4 rounded-xl shadow-inner border border-sky-100 flex justify-center items-center h-40">
+                <svg viewBox="0 0 400 100" className="w-full h-full">
+                  <line x1="0" y1="10" x2="400" y2="10" stroke="#94a3b8" strokeWidth="4" />
+                  <line x1="0" y1="90" x2="400" y2="90" stroke="#94a3b8" strokeWidth="4" />
+                  <path d={generatePath(n, 1)} fill="none" stroke="#0ea5e9" strokeWidth="3" strokeDasharray="5 5" className="animate-[pulse_2s_ease-in-out_infinite]"/>
+                  <path d={generatePath(n, -1)} fill="none" stroke="#38bdf8" strokeWidth="3" opacity="0.6" />
+                </svg>
+              </div>
+
+              <label className="block text-sm font-bold text-slate-700 mb-2">Harmonik ke (n = {n})</label>
+              <input 
+                type="range" min="0" max="3" step="1" value={n}
+                onChange={(e) => setN(Number(e.target.value))}
+                className="w-full h-3 bg-sky-200 rounded-lg appearance-none cursor-pointer accent-sky-600"
+              />
+            </div>
+
+            <div className="flex-1 flex flex-col gap-4">
+              <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                <h4 className="font-bold text-slate-800 mb-2">Sifat POB:</h4>
+                <ul className="list-disc list-inside text-slate-600">
+                  <li>Pola = Mirip Dawai (hanya terbalik simpul/perutnya)</li>
+                  <li>Jumlah Simpul: <strong>{n + 1}</strong></li>
+                  <li>Jumlah Perut: <strong>{n + 2}</strong></li>
+                </ul>
+              </div>
+              <div className="bg-blue-50 p-5 rounded-xl border border-blue-200 text-center flex-1 flex flex-col justify-center">
+                <h4 className="font-bold text-blue-800 mb-2">Rumus Frekuensi (Sama dgn Dawai!)</h4>
+                <div className="text-2xl font-mono text-blue-900 bg-white p-3 rounded-lg border border-blue-100 inline-block mx-auto">
+                  f<sub>{n}</sub> = {(n + 1)} · v / 2L
+                </div>
+                <p className="text-sm text-blue-700 mt-2 font-semibold">Perbandingan: f₀ : f₁ : f₂ = 1 : 2 : 3</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // --- TAB 4: Pipa Organa Tertutup (POT) ---
+    function TabPOT() {
+      const [n, setN] = useState(0); 
+
+      const generatePath = (harmonic, sign) => {
+        let d = "M 0 50 "; 
+        for (let i = 0; i <= 400; i += 5) {
+          const x = i;
+          const y = 50 + sign * 40 * Math.sin(((2 * harmonic + 1) * Math.PI * x) / (2 * 400));
+          d += `L ${x} ${y} `;
+        }
+        return d;
+      };
+
+      return (
+        <div className="p-8 animate-fade-in flex flex-col h-full">
+          <h2 className="text-2xl font-bold text-slate-800 mb-4 border-b pb-2 border-slate-200">4. Pipa Organa Tertutup 🎷</h2>
+          <p className="text-lg text-slate-600 mb-6">
+            Contohnya klarinet. Salah satu ujung tertutup (membentuk **Simpul** karena udara tak bisa bergerak), sementara ujung lainnya terbuka (membentuk **Perut**).
+          </p>
+
+          <div className="flex flex-col lg:flex-row gap-6 mb-8">
+            <div className="flex-1 bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-6">
+              <h3 className="font-bold text-emerald-800 mb-4">Simulasi Udara Pipa Tertutup</h3>
+              
+              <div className="mb-6 bg-white p-4 rounded-xl shadow-inner border border-emerald-100 flex justify-center items-center h-40">
+                <svg viewBox="-10 0 410 100" className="w-full h-full overflow-visible">
+                  <line x1="0" y1="10" x2="400" y2="10" stroke="#94a3b8" strokeWidth="4" />
+                  <line x1="0" y1="90" x2="400" y2="90" stroke="#94a3b8" strokeWidth="4" />
+                  <rect x="-10" y="10" width="10" height="80" fill="#475569" /> 
+                  <path d={generatePath(n, 1)} fill="none" stroke="#10b981" strokeWidth="3" className="animate-pulse" />
+                  <path d={generatePath(n, -1)} fill="none" stroke="#34d399" strokeWidth="3" opacity="0.6" />
+                </svg>
+              </div>
+
+              <label className="block text-sm font-bold text-slate-700 mb-2">Harmonik ke (n = {n})</label>
+              <input 
+                type="range" min="0" max="3" step="1" value={n}
+                onChange={(e) => setN(Number(e.target.value))}
+                className="w-full h-3 bg-emerald-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+              />
+            </div>
+
+            <div className="flex-1 flex flex-col gap-4">
+              <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                <h4 className="font-bold text-slate-800 mb-2">Sifat POT:</h4>
+                <ul className="list-disc list-inside text-slate-600">
+                  <li>Panjang Gelombang (λ): <strong>4L / {2*n + 1}</strong></li>
+                  <li>Simpul = Perut = <strong>{n + 1}</strong></li>
+                </ul>
+              </div>
+              <div className="bg-emerald-100 p-5 rounded-xl border border-emerald-300 text-center flex-1 flex flex-col justify-center">
+                <h4 className="font-bold text-emerald-900 mb-2">Rumus Frekuensi Berbeda!</h4>
+                <div className="text-2xl font-mono text-emerald-900 bg-white p-3 rounded-lg border border-emerald-200 inline-block mx-auto">
+                  f<sub>{n}</sub> = {(2 * n + 1)} · v / 4L
+                </div>
+                <p className="text-sm text-emerald-700 mt-2 font-semibold">Perbandingan: f₀ : f₁ : f₂ = 1 : 3 : 5 (Hanya bilangan ganjil!)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // --- TAB 5: Intensitas Bunyi ---
+    function TabIntensitas() {
+      const [distance, setDistance] = useState(2); 
+      const [power, setPower] = useState(100); 
+
+      const intensity = power / (4 * Math.PI * Math.pow(distance, 2));
+      
+      return (
+        <div className="p-8 animate-fade-in">
+          <h2 className="text-2xl font-bold text-slate-800 mb-4 border-b pb-2 border-slate-200">5. Intensitas Bunyi 💡</h2>
+          <p className="text-lg leading-relaxed text-slate-600 mb-6">
+            Intensitas (I) adalah besarnya energi bunyi tiap satuan waktu (Daya) yang menembus luasan bidang bola sebesar 1 m². Semakin jauh dari sumber, suaranya akan **menyebar**, sehingga intensitas mengecil sebanding dengan kuadrat jaraknya.
+          </p>
+
+          <div className="flex flex-col lg:flex-row gap-6 mb-8">
+            <div className="flex-1 bg-white border-2 border-slate-200 rounded-2xl p-6 shadow-sm">
+              <h3 className="font-bold text-slate-800 text-lg mb-4">Rumus Intensitas</h3>
+              <div className="bg-slate-100 p-6 rounded-xl text-center font-mono text-2xl text-slate-800 border border-slate-300 shadow-inner">
+                I = P / A <br/><span className="text-base text-slate-500 mt-2 block">atau</span> I = P / (4π r²)
+              </div>
+              <p className="text-sm text-slate-600 mt-4 text-center">
+                P = Daya Akustik Sumber (Watt)<br/>
+                r = Jarak dari sumber (Meter)
+              </p>
+            </div>
+
+            <div className="flex-1 bg-indigo-600 text-white rounded-2xl p-6 shadow-lg flex flex-col justify-center relative overflow-hidden">
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-48 h-48 border-4 border-white/10 rounded-full"></div>
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 w-32 h-32 border-4 border-white/20 rounded-full"></div>
+
+              <h3 className="font-bold text-xl mb-4 relative z-10">Kalkulator Intensitas</h3>
+              
+              <div className="space-y-4 relative z-10">
+                <div>
+                  <div className="flex justify-between text-sm mb-1">
+                    <span>Daya Speaker (P)</span> <span>{power} Watt</span>
+                  </div>
+                  <input type="range" min="10" max="1000" step="10" value={power} onChange={(e) => setPower(Number(e.target.value))} className="w-full h-2 bg-indigo-300 rounded-lg appearance-none cursor-pointer" />
+                </div>
+                
+                <div>
+                  <div className="flex justify-between text-sm mb-1">
+                    <span>Jarak Pendengar (r)</span> <span>{distance} Meter</span>
+                  </div>
+                  <input type="range" min="1" max="50" step="1" value={distance} onChange={(e) => setDistance(Number(e.target.value))} className="w-full h-2 bg-indigo-300 rounded-lg appearance-none cursor-pointer" />
+                </div>
+
+                <div className="bg-indigo-800 p-4 rounded-xl border border-indigo-400 mt-4 text-center">
+                  <div className="text-indigo-200 text-xs uppercase tracking-wider mb-1">Hasil Intensitas (I)</div>
+                  <div className="font-mono text-3xl font-bold text-yellow-300">
+                    {intensity.toExponential(2)} <span className="text-sm">W/m²</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // --- TAB 6: Taraf Intensitas ---
+    function TabTI() {
+      const [sources, setSources] = useState(1);
+      const ti1 = 60;
+      const tiTotal = ti1 + 10 * Math.log10(sources);
+
+      return (
+        <div className="p-8 animate-fade-in">
+          <h2 className="text-2xl font-bold text-slate-800 mb-4 border-b pb-2 border-slate-200">6. Taraf Intensitas Bunyi (TI) 📢</h2>
+          <p className="text-lg leading-relaxed text-slate-600 mb-6">
+            Telinga kita merasakan kenyaringan suara dalam skala logaritmik, bukan linear. Oleh karena itu Fisikawan mendefinisikan **Taraf Intensitas** dalam satuan desibel (dB).
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div className="bg-red-50 p-6 rounded-2xl border border-red-200">
+              <h3 className="font-bold text-red-800 mb-3">Rumus Dasar TI</h3>
+              <div className="bg-white p-3 rounded-lg text-center font-mono text-xl text-red-900 border border-red-200 mb-4 shadow-sm">
+                TI = 10 · log(I / I₀)
+              </div>
+              <p className="text-sm text-red-700">Dimana I₀ = 10⁻¹² W/m² (Intensitas Ambang Pendengaran - suara terkecil yang bisa didengar).</p>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl shadow-md border border-slate-200">
+              <h3 className="font-bold text-slate-800 mb-4">Kasus: Mesin yang Identik Banyak</h3>
+              <p className="text-sm text-slate-600 mb-4">Jika 1 mesin menghasilkan TI = {ti1} dB, berapa TI jika ada n mesin dinyalakan bersamaan?</p>
+              
+              <label className="block text-sm font-bold text-slate-700 mb-2">Jumlah Mesin (n) = {sources}</label>
+              <input 
+                type="range" min="1" max="1000" step="1" value={sources}
+                onChange={(e) => setSources(Number(e.target.value))}
+                className="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-red-600 mb-6"
+              />
+              
+              <div className="flex items-center justify-between bg-slate-900 text-white p-4 rounded-xl">
+                <div>
+                  <div className="text-slate-400 text-xs">Rumus: TIₙ = TI₁ + 10 log(n)</div>
+                  <div className="font-mono text-sm mt-1">{ti1} + 10 log({sources})</div>
+                </div>
+                <div className="text-3xl font-bold text-red-400">
+                  {tiTotal.toFixed(1)} dB
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-slate-100 rounded-xl p-4 border border-slate-200">
+            <h4 className="font-bold text-slate-700 mb-2 text-sm uppercase tracking-wide">Referensi Desibel (dB)</h4>
+            <div className="flex justify-between text-sm text-slate-600">
+              <span>Daun jatuh (10 dB)</span>
+              <span>Percakapan (60 dB)</span>
+              <span>Konser Rock (110 dB)</span>
+              <span className="text-red-500 font-bold">Ambang Sakit (120 dB)</span>
+            </div>
+            <div className="w-full h-2 bg-gradient-to-r from-green-300 via-yellow-400 to-red-600 rounded-full mt-2"></div>
+          </div>
+        </div>
+      );
+    }
+
+    // --- TAB 7: Layangan Bunyi ---
+    function TabLayangan() {
+      const canvasRef = useRef(null);
+      const [f2, setF2] = useState(22); 
+      const f1 = 20; 
+      
+      useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let animationId;
+        let time = 0;
+
+        const render = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          const w = canvas.width;
+          const h = canvas.height;
+          const centerY = h / 2;
+          const speed = 0.5;
+
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(59, 130, 246, 0.3)';
+          ctx.lineWidth = 1.5;
+          for (let x = 0; x < w; x++) {
+            const y = Math.sin((x + time * speed) * f1 * 0.01) * 30;
+            ctx.lineTo(x, centerY + y - 40);
+          }
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(239, 68, 68, 0.3)';
+          for (let x = 0; x < w; x++) {
+            const y = Math.sin((x + time * speed) * f2 * 0.01) * 30;
+            ctx.lineTo(x, centerY + y - 40);
+          }
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.strokeStyle = '#8b5cf6';
+          ctx.lineWidth = 3;
+          for (let x = 0; x < w; x++) {
+            const y1 = Math.sin((x + time * speed) * f1 * 0.01) * 30;
+            const y2 = Math.sin((x + time * speed) * f2 * 0.01) * 30;
+            ctx.lineTo(x, centerY + y1 + y2 + 40);
+          }
+          ctx.stroke();
+
+          time += 1;
+          animationId = requestAnimationFrame(render);
+        };
+
+        animationId = requestAnimationFrame(render);
+        return () => cancelAnimationFrame(animationId);
+      }, [f1, f2]);
+
+      const fLayangan = Math.abs(f1 - f2);
+
+      return (
+        <div className="p-8 animate-fade-in flex flex-col h-full">
+          <h2 className="text-2xl font-bold text-slate-800 mb-2">7. Layangan Bunyi (Beats) 〰️</h2>
+          <p className="text-slate-600 mb-6">
+            Layangan terjadi akibat **interferensi konstruktif dan destruktif** secara bergantian dari dua gelombang bunyi yang frekuensinya memiliki perbedaan sangat kecil. Terdengar seperti suara "nguing... nguing..." yang mengeras dan melemah.
+          </p>
+
+          <div className="bg-slate-900 rounded-xl overflow-hidden shadow-xl mb-6 p-4">
+            <canvas ref={canvasRef} width={800} height={250} className="w-full h-auto bg-slate-900 rounded-lg" />
+            <div className="mt-4 flex justify-around text-xs font-mono text-white/70">
+              <span>Atas: Gelombang 1 (f₁) & Gelombang 2 (f₂)</span>
+              <span>Bawah: Gelombang Superposisi (Hasil)</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div className="bg-white p-5 rounded-xl border border-slate-200">
+              <label className="block text-sm font-bold text-slate-700 mb-2">
+                Ubah Frekuensi Gelombang 2 (f₂): <span className="text-blue-600">{f2} Hz</span>
+              </label>
+              <input 
+                type="range" min="15" max="25" step="1" value={f2}
+                onChange={(e) => setF2(Number(e.target.value))}
+                className="w-full h-3 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+              />
+              <p className="text-xs text-slate-500 mt-3">*f₁ dijaga tetap pada {f1} Hz.</p>
+            </div>
+
+            <div className="bg-purple-100 p-5 rounded-xl border border-purple-200 text-center">
+              <h4 className="font-bold text-purple-900 mb-2">Frekuensi Layangan</h4>
+              <div className="font-mono text-lg text-purple-800 bg-white p-2 rounded-lg border border-purple-200 mb-2">
+                f_layangan = | f₁ - f₂ |
+              </div>
+              <div className="text-2xl font-bold text-purple-700">
+                = | {f1} - {f2} | = <span className="text-3xl">{fLayangan} Hz</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // --- TAB 8: Resonansi ---
+    function TabResonansi() {
+      const [active, setActive] = useState(null); 
+
+      const hitFork = (forkType) => {
+        setActive(forkType);
+        setTimeout(() => setActive(null), 2500); 
+      };
+
+      return (
+        <div className="p-8 animate-fade-in flex flex-col h-full">
+          <h2 className="text-2xl font-bold text-slate-800 mb-4 border-b pb-2 border-slate-200">8. Resonansi Bunyi 🔔</h2>
+          <p className="text-lg leading-relaxed text-slate-600 mb-6">
+            Resonansi adalah peristiwa **ikut bergetarnya suatu benda** karena ada benda lain yang bergetar. Syarat utamanya: **Frekuensi alaminya harus sama** (atau kelipatannya).
+          </p>
+
+          <div className="bg-teal-50 border border-teal-200 rounded-2xl p-6 mb-8 text-center">
+            <h3 className="font-bold text-teal-800 mb-4 text-lg">Eksperimen Garpu Tala</h3>
+            <p className="text-sm text-teal-700 mb-8">Pukul Garpu Tala A atau C, dan lihat siapa yang ikut bergetar!</p>
+            
+            <div className="flex justify-center items-end gap-12 mb-8">
+              <div className="flex flex-col items-center">
+                <div className={`w-12 h-24 border-b-4 border-l-4 border-r-4 border-slate-400 rounded-b-xl relative transition-all ${active === 'A' ? 'animate-[wiggle_0.1s_ease-in-out_infinite]' : ''}`}>
+                   {active === 'A' && <div className="absolute -top-6 -left-4 text-xl animate-ping">🔊</div>}
+                </div>
+                <div className="w-2 h-16 bg-slate-500"></div>
+                <div className="bg-slate-800 text-white font-mono text-xs px-3 py-1 rounded mt-2">A: 440 Hz</div>
+                <button onClick={() => hitFork('A')} className="mt-4 px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 text-sm font-bold shadow">Pukul A!</button>
+              </div>
+
+              <div className="flex flex-col items-center">
+                 <div className={`w-12 h-24 border-b-4 border-l-4 border-r-4 border-slate-400 rounded-b-xl relative transition-all ${active === 'A' ? 'animate-[wiggle_0.1s_ease-in-out_infinite_0.2s]' : ''}`}>
+                   {active === 'A' && <div className="absolute -top-6 -right-4 text-xl animate-ping text-teal-500">✨</div>}
+                </div>
+                <div className="w-2 h-16 bg-slate-500"></div>
+                <div className="bg-slate-800 text-white font-mono text-xs px-3 py-1 rounded mt-2">B: 440 Hz</div>
+                <div className="mt-4 h-9 flex items-center text-xs font-bold text-slate-400">(Ikut / Tidak?)</div>
+              </div>
+
+              <div className="flex flex-col items-center">
+                 <div className={`w-10 h-20 border-b-4 border-l-4 border-r-4 border-slate-400 rounded-b-xl relative transition-all ${active === 'C' ? 'animate-[wiggle_0.08s_ease-in-out_infinite]' : ''}`}>
+                   {active === 'C' && <div className="absolute -top-6 -left-4 text-xl animate-ping">🔊</div>}
+                </div>
+                <div className="w-2 h-16 bg-slate-500"></div>
+                <div className="bg-slate-800 text-white font-mono text-xs px-3 py-1 rounded mt-2">C: 512 Hz</div>
+                <button onClick={() => hitFork('C')} className="mt-4 px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 text-sm font-bold shadow">Pukul C!</button>
+              </div>
+            </div>
+
+            <div className="bg-white p-4 rounded-xl shadow-sm inline-block border border-teal-100">
+              <h4 className="font-bold text-teal-900 mb-1">Penjelasan:</h4>
+              <p className="text-sm text-slate-600">
+                {active === 'A' 
+                  ? "Garpu Tala B ikut bergetar (Resonansi) karena frekuensi alaminya SAMA dengan A (440 Hz). C diam karena berbeda frekuensi." 
+                  : active === 'C'
+                  ? "Hanya C yang bergetar. A dan B diam karena frekuensinya berbeda (440 Hz vs 512 Hz). Tidak terjadi Resonansi!"
+                  : "Menunggu Anda memukul garpu tala..."}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // --- Komponen Pendukung Navigasi ---
+    function NavButton({ active, onClick, id, icon, label }) {
+      const isActive = active === id;
+      return (
+        <button
+          onClick={() => onClick(id)}
+          className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-left w-full font-medium ${
+            isActive 
+              ? 'bg-blue-600 text-white shadow-md transform scale-[1.02]' 
+              : 'bg-white text-slate-600 hover:bg-blue-50 border border-slate-200 hover:border-blue-200'
+          }`}
+        >
+          <div className={`${isActive ? 'text-white' : 'text-blue-500'}`}>
+            {icon}
+          </div>
+          <span className="truncate">{label}</span>
+        </button>
+      );
+    }
+
+    // Render ke DOM
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>

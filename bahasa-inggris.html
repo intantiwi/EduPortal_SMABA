@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLearn: Exposition Text Interactive Media</title>
+    <!-- Tailwind CSS for sleek, modern UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playpen+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom styling to blend modern UI with fun learning elements -->
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f0fdf4; /* Light mint background */
+        }
+        .header-font {
+            font-family: 'Playpen Sans', cursive;
+        }
+        /* Glassmorphism effects */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(228, 231, 235, 0.5);
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased text-gray-800">
+
+    <!-- Top Interactive Navbar -->
+    <header class="sticky top-0 z-50 bg-emerald-900 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-emerald-500 p-2 rounded-xl text-emerald-950 animate-bounce">
+                    <i class="fa-solid fa-leaf text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-extrabold tracking-tight header-font flex items-center gap-2">
+                        EcoLearn <span class="text-emerald-300 text-sm font-normal hidden sm:inline px-2 py-0.5 bg-emerald-850 rounded-full border border-emerald-700">Analytical Exposition</span>
+                    </h1>
+                    <p class="text-xs text-emerald-200">Interactive English Class with Ms. Clara ✨</p>
+                </div>
+            </div>
+            <!-- Quick Progress Tracker/Indicator -->
+            <div class="hidden md:flex items-center space-x-2 text-sm bg-emerald-800 px-3 py-1.5 rounded-lg border border-emerald-700">
+                <span class="w-2.5 h-2.5 bg-green-400 rounded-full animate-ping"></span>
+                <span class="font-medium">Active Topic: Keeping the Environment Clean</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Welcome Teacher Banner -->
+    <div class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <div class="w-16 h-16 rounded-full bg-white text-emerald-600 flex items-center justify-center text-3xl shadow-inner font-bold border-4 border-emerald-400">
+                    👩‍🏫
+                </div>
+                <div>
+                    <h2 class="text-lg md:text-xl font-bold header-font">Hello, future Eco-Warriors! 👋</h2>
+                    <p class="text-sm text-emerald-100 max-w-xl">
+                        I am Ms. Clara, your English teacher today. Let's learn how to convince people to save our planet using the power of <b>Analytical Exposition Text</b>! Ready to make a real change? Go explore the tabs below!
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-semibold backdrop-blur-sm">💡 Grade 11 English</span>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-semibold backdrop-blur-sm">⚡ Interactive Simulation</span>
+                <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-semibold backdrop-blur-sm">🎯 Interactive Quiz</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Container containing Sidebar & Content Workspace -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-2 sm:px-6 lg:px-8 py-6 flex flex-col lg:flex-row gap-6">
+        
+        <!-- Sidebar Navigation (Perfect desktop view, adapts beautifully on Tablet/Mobile as a top sticky grid) -->
+        <nav class="w-full lg:w-1/4 flex-shrink-0">
+            <div class="bg-white rounded-2xl shadow-md p-4 sticky top-24 border border-emerald-100/60">
+                <h3 class="text-xs font-bold text-emerald-800 uppercase tracking-widest mb-3 px-2">Learning Chapters</h3>
+                <div class="space-y-2 flex flex-col sm:grid sm:grid-cols-2 lg:flex lg:flex-col gap-2 sm:gap-4 lg:gap-2">
+                    
+                    <!-- Tab Button 1 -->
+                    <button onclick="switchTab('gallery')" id="btn-gallery" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left transition-all duration-300 font-semibold bg-emerald-50 text-emerald-800 border-l-4 border-emerald-600 shadow-sm">
+                        <div class="p-1.5 rounded-lg bg-emerald-500 text-white shadow-sm flex-shrink-0">
+                            <i class="fa-solid fa-images w-5 text-center"></i>
+                        </div>
+                        <div class="leading-tight">
+                            <span class="block text-sm">Chapter 1</span>
+                            <span class="text-xs font-normal text-emerald-600/90">Pollution Spotlights</span>
+                        </div>
+                    </button>
+
+                    <!-- Tab Button 2 -->
+                    <button onclick="switchTab('exposition')" id="btn-exposition" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left transition-all duration-300 font-semibold hover:bg-gray-50 text-gray-600 border-l-4 border-transparent">
+                        <div class="p-1.5 rounded-lg bg-gray-400 text-white flex-shrink-0">
+                            <i class="fa-solid fa-file-text w-5 text-center"></i>
+                        </div>
+                        <div class="leading-tight">
+                            <span class="block text-sm">Chapter 2</span>
+                            <span class="text-xs font-normal text-gray-550">The Exposition Text</span>
+                        </div>
+                    </button>
+
+                    <!-- Tab Button 3 -->
+                    <button onclick="switchTab('simulation')" id="btn-simulation" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left transition-all duration-300 font-semibold hover:bg-gray-50 text-gray-600 border-l-4 border-transparent">
+                        <div class="p-1.5 rounded-lg bg-gray-400 text-white flex-shrink-0">
+                            <i class="fa-solid fa-gamepad w-5 text-center"></i>
+                        </div>
+                        <div class="leading-tight">
+                            <span class="block text-sm">Chapter 3</span>
+                            <span class="text-xs font-normal text-gray-550">Eco-City Simulation</span>
+                        </div>
+                    </button>
+
+                    <!-- Tab Button 4 -->
+                    <button onclick="switchTab('quiz')" id="btn-quiz" class="tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left transition-all duration-300 font-semibold hover:bg-gray-50 text-gray-600 border-l-4 border-transparent">
+                        <div class="p-1.5 rounded-lg bg-gray-400 text-white flex-shrink-0">
+                            <i class="fa-solid fa-circle-question w-5 text-center"></i>
+                        </div>
+                        <div class="leading-tight">
+                            <span class="block text-sm">Chapter 4</span>
+                            <span class="text-xs font-normal text-gray-550">Grammar & Vocab Quiz</span>
+                        </div>
+                    </button>
+                    
+                </div>
+                
+                <!-- Quick Teacher Quote Sidebar Box -->
+                <div class="mt-6 p-4 rounded-xl bg-gradient-to-br from-amber-50 to-orange-100 border border-amber-200 hidden lg:block">
+                    <p class="text-xs text-amber-800 font-medium italic">
+                        "Hey guys! Make sure you go through Chapter 1 and 2 carefully before hitting the simulation and the quiz! You'll find many keywords there!"
+                    </p>
+                    <span class="block text-right text-amber-900 font-bold text-[10px] mt-2">- Ms. Clara</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Content Workspaces (Toggled dynamically by JavaScript) -->
+        <div class="w-full lg:w-3/4 flex flex-col gap-6">
+
+            <!-- ================= CHAPTER 1: POLLUTION SPOTLIGHTS ================= -->
+            <section id="tab-gallery" class="tab-content flex flex-col gap-6">
+                <div class="bg-white rounded-3xl p-6 shadow-md border border-emerald-150">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="text-3xl">📸</span>
+                        <div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-800 header-font">Pictures of Waste Pollution in Cities</h3>
+                            <p class="text-sm text-gray-500">Click on the glowing hotspots of each card to inspect the real environmental issues in modern cities!</p>
+                        </div>
+                    </div>
+
+                    <!-- Grid of Pollution Cards with Hotspot Actions -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                        
+                        <!-- Card 1: River of Plastic -->
+                        <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm relative group hover:shadow-md transition-all">
+                            <!-- SVG River Pollution Visual Mockup -->
+                            <div class="h-48 bg-gradient-to-b from-blue-300 to-emerald-700 relative overflow-hidden flex items-center justify-center">
+                                <svg viewBox="0 0 400 200" class="w-full h-full object-cover">
+                                    <!-- Background City Sky Line -->
+                                    <path d="M 0 100 L 40 80 L 80 110 L 120 70 L 160 90 L 200 60 L 240 100 L 400 100 L 400 200 L 0 200 Z" fill="#475569" opacity="0.4"/>
+                                    <!-- Polluted Muddy water waves -->
+                                    <path d="M 0 110 Q 100 80 200 120 T 400 130 L 400 200 L 0 200 Z" fill="#78350f" opacity="0.85"/>
+                                    <path d="M 0 130 Q 120 160 250 120 T 400 150 L 400 200 L 0 200 Z" fill="#451a03" opacity="0.9"/>
+                                    <!-- River plastic trash bits -->
+                                    <rect x="50" y="140" width="30" height="15" rx="5" fill="#ef4444" transform="rotate(15 50 140)" />
+                                    <circle cx="120" cy="150" r="10" fill="#3b82f6" opacity="0.8"/>
+                                    <ellipse cx="220" cy="160" rx="25" ry="8" fill="#eab308" transform="rotate(-10 220 160)"/>
+                                    <path d="M 280 135 L 310 140 L 300 155 Z" fill="#10b981"/>
+                                    <!-- Floating bubbles -->
+                                    <circle cx="80" cy="130" r="4" fill="#ffffff" opacity="0.6"/>
+                                    <circle cx="150" cy="140" r="6" fill="#ffffff" opacity="0.4"/>
+                                    <circle cx="330" cy="160" r="5" fill="#ffffff" opacity="0.5"/>
+                                </svg>
+                                <span class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Toxic River</span>
+                                
+                                <!-- Spotlights/Interactive Hotspots -->
+                                <button onclick="showSpotlight('spot-river', 'Floating Trash', 'Thousands of tons of plastic wrap and household bottles block the natural flow of rivers daily, triggering heavy urban flooding during rainy seasons!')" class="absolute bottom-10 left-12 w-8 h-8 rounded-full bg-red-500/80 border-2 border-white text-white flex items-center justify-center animate-ping text-xs font-bold focus:outline-none"></button>
+                                <button onclick="showSpotlight('spot-river', 'Floating Trash', 'Thousands of tons of plastic wrap and household bottles block the natural flow of rivers daily, triggering heavy urban flooding during rainy seasons!')" class="absolute bottom-10 left-12 w-8 h-8 rounded-full bg-red-600 border-2 border-white text-white flex items-center justify-center text-xs font-bold focus:outline-none"><i class="fa-solid fa-circle-info"></i></button>
+
+                                <button onclick="showSpotlight('spot-chemical', 'Chemical Discoloration', 'Industrial and domestic chemicals turn clear streams into toxic muddy sludges, threatening aquatic life and ruining clean drinking water reserves!')" class="absolute bottom-6 right-24 w-8 h-8 rounded-full bg-yellow-500/80 border-2 border-white text-white flex items-center justify-center animate-ping text-xs font-bold focus:outline-none"></button>
+                                <button onclick="showSpotlight('spot-chemical', 'Chemical Discoloration', 'Industrial and domestic chemicals turn clear streams into toxic muddy sludges, threatening aquatic life and ruining clean drinking water reserves!')" class="absolute bottom-6 right-24 w-8 h-8 rounded-full bg-yellow-600 border-2 border-white text-white flex items-center justify-center text-xs font-bold focus:outline-none"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="font-bold text-lg text-slate-800">Clogged Urban Waterways</h4>
+                                <p class="text-xs text-slate-500 mt-1">A typical scene in heavily populated areas lacking trash containment bins.</p>
+                                <div class="mt-3 flex justify-between items-center text-xs">
+                                    <span class="text-rose-600 font-semibold"><i class="fa-solid fa-water"></i> High Hazard</span>
+                                    <span class="text-slate-400">Hover or Tap Hotspots</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Smog and Burning Waste -->
+                        <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm relative group hover:shadow-md transition-all">
+                            <!-- SVG Air Pollution Visual Mockup -->
+                            <div class="h-48 bg-gradient-to-b from-gray-400 to-stone-800 relative overflow-hidden flex items-center justify-center">
+                                <svg viewBox="0 0 400 200" class="w-full h-full object-cover">
+                                    <!-- City outline -->
+                                    <rect x="20" y="60" width="30" height="140" fill="#374151" opacity="0.8"/>
+                                    <rect x="60" y="90" width="40" height="110" fill="#1f2937" opacity="0.8"/>
+                                    <rect x="120" y="40" width="35" height="160" fill="#111827" opacity="0.9"/>
+                                    <!-- Smokestack and Burning Trash heap -->
+                                    <path d="M 280 120 L 300 200 L 340 200 L 320 120 Z" fill="#292524"/>
+                                    <!-- Animated Dark Smog clouds -->
+                                    <ellipse cx="290" cy="100" rx="30" ry="15" fill="#4a4a4a" opacity="0.9"/>
+                                    <circle cx="320" cy="80" r="25" fill="#3a3a3a" opacity="0.85"/>
+                                    <ellipse cx="250" cy="60" rx="60" ry="20" fill="#5a5a5a" opacity="0.6"/>
+                                    <!-- Fire at the bottom of heap -->
+                                    <path d="M 310 200 Q 320 170 325 185 T 340 200 Z" fill="#f97316"/>
+                                    <path d="M 318 200 Q 323 180 326 190 T 332 200 Z" fill="#ef4444"/>
+                                    <path d="M 322 200 Q 325 188 327 193 T 329 200 Z" fill="#eab308"/>
+                                </svg>
+                                <span class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Air Contamination</span>
+                                
+                                <!-- Spotlights/Interactive Hotspots -->
+                                <button onclick="showSpotlight('spot-burn', 'Trash Burning', 'Burning household waste emits heavy toxic dioxins, lead, and carbon monoxide directly into the air we breathe, heavily increasing respiratory illnesses!')" class="absolute bottom-6 right-16 w-8 h-8 rounded-full bg-red-500/80 border-2 border-white text-white flex items-center justify-center animate-ping text-xs font-bold focus:outline-none"></button>
+                                <button onclick="showSpotlight('spot-burn', 'Trash Burning', 'Burning household waste emits heavy toxic dioxins, lead, and carbon monoxide directly into the air we breathe, heavily increasing respiratory illnesses!')" class="absolute bottom-6 right-16 w-8 h-8 rounded-full bg-red-600 border-2 border-white text-white flex items-center justify-center text-xs font-bold focus:outline-none"><i class="fa-solid fa-circle-info"></i></button>
+
+                                <button onclick="showSpotlight('spot-smog', 'Toxic Smog Blanket', 'Trapped heat and lack of trees allow micro-smoke particles to form a toxic blanket of smog. Over 90% of urban residents are breathing unhealthy contaminated air!')" class="absolute top-12 left-1/3 w-8 h-8 rounded-full bg-yellow-500/80 border-2 border-white text-white flex items-center justify-center animate-ping text-xs font-bold focus:outline-none"></button>
+                                <button onclick="showSpotlight('spot-smog', 'Toxic Smog Blanket', 'Trapped heat and lack of trees allow micro-smoke particles to form a toxic blanket of smog. Over 90% of urban residents are breathing unhealthy contaminated air!')" class="absolute top-12 left-1/3 w-8 h-8 rounded-full bg-yellow-600 border-2 border-white text-white flex items-center justify-center text-xs font-bold focus:outline-none"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="font-bold text-lg text-slate-800">Uncontrolled Open Incineration</h4>
+                                <p class="text-xs text-slate-500 mt-1">Soot and harmful chemicals released by community burning habits.</p>
+                                <div class="mt-3 flex justify-between items-center text-xs">
+                                    <span class="text-rose-600 font-semibold"><i class="fa-solid fa-smog"></i> High Hazard</span>
+                                    <span class="text-slate-400">Hover or Tap Hotspots</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Interactive Dynamic Information Pop-up Panel (Changes state dynamically) -->
+                    <div id="spotlight-panel" class="mt-6 p-5 bg-gradient-to-r from-emerald-50 to-teal-50 border-2 border-dashed border-emerald-200 rounded-2xl flex items-start gap-4 transition-all duration-300">
+                        <div class="text-4xl text-emerald-600 mt-1" id="spotlight-icon">💡</div>
+                        <div>
+                            <h4 id="spotlight-title" class="font-bold text-emerald-900 text-lg">Click any glowing button inside the photos above!</h4>
+                            <p id="spotlight-desc" class="text-sm text-emerald-700 leading-relaxed mt-1">
+                                Hello Eco-warrior! Find and click the glowing indicators <span class="inline-flex w-5 h-5 bg-emerald-550 rounded-full text-white items-center justify-center text-[10px]"><i class="fa-solid fa-circle-info"></i></span> or <span class="inline-flex w-5 h-5 bg-yellow-500 rounded-full text-white items-center justify-center text-[10px]"><i class="fa-solid fa-triangle-exclamation"></i></span> to reveal detailed insights into each urban pollution source. Let's research the facts!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= CHAPTER 2: THE EXPOSITION TEXT ================= -->
+            <section id="tab-exposition" class="tab-content hidden flex flex-col gap-6">
+                
+                <!-- Quick Overview of situation -->
+                <div class="bg-amber-50 border border-amber-200 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row items-start md:items-center gap-4">
+                    <div class="bg-amber-100 p-4 rounded-full text-amber-600 text-4xl flex-shrink-0">
+                        📖
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-amber-900 text-lg header-font">Let's Read & Deconstruct!</h4>
+                        <p class="text-sm text-amber-800 leading-relaxed">
+                            Based on the shocking conditions in the images, we must persuade other people to clean up our environment. That's why we write an <b>Analytical Exposition Text</b>! Look at the structure below. Tap on paragraphs to see their role in the argument!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Interactive Text Decoder -->
+                <div class="bg-white rounded-3xl p-6 shadow-md border border-emerald-150">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-150 pb-4 mb-6 gap-4">
+                        <div>
+                            <h3 class="text-xl md:text-2xl font-bold text-slate-800 header-font">Why We Should Keep Our Environment Clean</h3>
+                            <span class="text-xs text-slate-400">Class 11 - Reading Exposition Comprehension</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="text-xs font-semibold px-2 py-1 bg-sky-100 text-sky-850 rounded">Hover / Click Highlighted Words</span>
+                            <span class="text-xs font-semibold px-2 py-1 bg-emerald-100 text-emerald-850 rounded">Click Paragraph Roles</span>
+                        </div>
+                    </div>
+
+                    <!-- Two-column text and decoder visualizer -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        
+                        <!-- Left: Interactive Essay Content -->
+                        <div class="lg:col-span-8 space-y-4">
+                            
+                            <!-- Paragraph 1 -->
+                            <div onclick="selectParagraph('para-thesis')" id="para-thesis" class="p-4 rounded-xl border border-transparent hover:bg-emerald-50/50 cursor-pointer transition-all duration-300 relative group">
+                                <span class="absolute -left-2 top-4 w-1 h-12 bg-emerald-500 rounded group-hover:scale-125 transition-transform"></span>
+                                <h5 class="text-xs font-extrabold text-emerald-600 tracking-wider uppercase mb-1">Paragraph 1</h5>
+                                <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                                    In today’s modern world, waste pollution has become a critical threat facing our cities. If you look at our clogged rivers and toxic urban air, it is very clear that we must change our behavior. I strongly believe that <span class="bg-sky-100 px-1 rounded cursor-pointer font-medium text-sky-900 hover:bg-sky-200" title="Thesis Statement (Main opinion)">we should keep our environment clean</span> for our health and for future generations.
+                                </p>
+                            </div>
+
+                            <!-- Paragraph 2 -->
+                            <div onclick="selectParagraph('para-arg1')" id="para-arg1" class="p-4 rounded-xl border border-transparent hover:bg-emerald-50/50 cursor-pointer transition-all duration-300 relative group">
+                                <span class="absolute -left-2 top-4 w-1 h-12 bg-emerald-500 rounded group-hover:scale-125 transition-transform"></span>
+                                <h5 class="text-xs font-extrabold text-emerald-600 tracking-wider uppercase mb-1">Paragraph 2</h5>
+                                <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                                    <span class="bg-amber-100 px-1 rounded font-medium text-amber-900 hover:bg-amber-200 cursor-pointer" title="Transition Connector (First point)">Firstly</span>, keeping the city environment clean protects our family from dangerous health epidemics. Littered streets and plastic mountains are the perfect breeding ground for mosquitoes, rodents, and severe disease-carrying bacteria. When we leave plastic trash on the road, rainwater collects in them, breeding mosquitoes that spread dengue fever. This proves that neglecting garbage issues directly threatens our survival.
+                                </p>
+                            </div>
+
+                            <!-- Paragraph 3 -->
+                            <div onclick="selectParagraph('para-arg2')" id="para-arg2" class="p-4 rounded-xl border border-transparent hover:bg-emerald-50/50 cursor-pointer transition-all duration-300 relative group">
+                                <span class="absolute -left-2 top-4 w-1 h-12 bg-emerald-500 rounded group-hover:scale-125 transition-transform"></span>
+                                <h5 class="text-xs font-extrabold text-emerald-600 tracking-wider uppercase mb-1">Paragraph 3</h5>
+                                <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                                    <span class="bg-amber-100 px-1 rounded font-medium text-amber-900 hover:bg-amber-200 cursor-pointer" title="Transition Connector (Second point)">Secondly</span>, trash clogging the drainage canals is the primary cause of urban flash floods. When heavy rainfall strikes a city overflowing with unmanaged waste, the blocked sewer pipes <span class="bg-purple-100 px-1 rounded font-medium text-purple-900 hover:bg-purple-200 cursor-pointer" title="Causal Link (Action-Consequence relation)">cannot process the water stream</span>. Consequently, water spills over to streets, entering citizens’ homes and destroying public infrastructure worth millions of dollars.
+                                </p>
+                            </div>
+
+                            <!-- Paragraph 4 -->
+                            <div onclick="selectParagraph('para-reit')" id="para-reit" class="p-4 rounded-xl border border-transparent hover:bg-emerald-50/50 cursor-pointer transition-all duration-300 relative group">
+                                <span class="absolute -left-2 top-4 w-1 h-12 bg-emerald-500 rounded group-hover:scale-125 transition-transform"></span>
+                                <h5 class="text-xs font-extrabold text-emerald-600 tracking-wider uppercase mb-1">Paragraph 4</h5>
+                                <p class="text-gray-700 leading-relaxed text-sm md:text-base">
+                                    In conclusion, keeping our environment tidy is not just a secondary recommendation; <span class="bg-pink-100 px-1 rounded font-medium text-pink-900 hover:bg-pink-200 cursor-pointer" title="Mental Verb (Expressing strong conviction)">it is an absolute necessity</span>. If we want to enjoy clean fresh air and prevent dangerous flooding, every member of our community must act responsibly. Therefore, we must immediately adopt better recycling habits and keep garbage where it belongs.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <!-- Right: Interactive Parser Decoder Display -->
+                        <div class="lg:col-span-4 bg-slate-50 rounded-2xl p-5 border border-slate-250/70 h-fit">
+                            <h4 class="font-bold text-slate-800 text-sm tracking-wide uppercase mb-3"><i class="fa-solid fa-flask-vial text-emerald-600 mr-2"></i>Text Analyzer</h4>
+                            
+                            <!-- Static/Dynamic card explaining paragraphs -->
+                            <div id="decoder-view" class="space-y-4">
+                                <div class="p-4 rounded-xl bg-emerald-600 text-white shadow-sm">
+                                    <h5 class="font-extrabold text-base header-font" id="dec-title">Ready to Decode?</h5>
+                                    <p class="text-xs text-emerald-100 mt-2 leading-relaxed" id="dec-body">
+                                        Click on any of the paragraphs on the left! I will break down the structure, purpose, and language features commonly used in High School Exposition writing!
+                                    </p>
+                                </div>
+                                <div class="text-xs text-slate-500 leading-relaxed p-3 bg-white rounded-lg border">
+                                    💡 <b>Pro-Tip from Ms. Clara:</b><br>
+                                    Analytical exposition texts always have 3 major sections:
+                                    <ul class="list-disc list-inside mt-1 font-semibold space-y-1">
+                                        <li>Thesis (Introduce Opinion)</li>
+                                        <li>Arguments (Explain Reasons)</li>
+                                        <li>Reiteration (Restate Opinion)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= CHAPTER 3: ECO-CITY SIMULATION ================= -->
+            <section id="tab-simulation" class="tab-content hidden flex flex-col gap-6">
+                <div class="bg-white rounded-3xl p-6 shadow-md border border-emerald-150">
+                    <div class="flex items-center justify-between border-b border-gray-150 pb-4 mb-4">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-3xl">🎮</span>
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-bold text-gray-800 header-font">Community Eco-City Simulator</h3>
+                                <p class="text-sm text-gray-500">Toggle community behaviors below and see the impact on your neighborhood environment instantly!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simulator Main Grid -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        
+                        <!-- Left Layout: Control Panel for Actions -->
+                        <div class="lg:col-span-5 bg-emerald-50/50 rounded-2xl p-5 border border-emerald-100 flex flex-col justify-between">
+                            <div>
+                                <h4 class="font-bold text-emerald-900 text-base mb-4 flex items-center gap-2">
+                                    <i class="fa-solid fa-sliders text-emerald-600"></i> Change Community Actions:
+                                </h4>
+                                
+                                <!-- Toggle 1: Garbage disposal behavior -->
+                                <div class="bg-white p-3 rounded-xl border border-emerald-100 shadow-sm flex items-center justify-between mb-3 transition-all hover:shadow-md">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-2xl" id="icon-toggle-sorting">🗑️</span>
+                                        <div>
+                                            <span class="block text-sm font-bold text-slate-800">Trash Sorting</span>
+                                            <span class="text-xs text-slate-500" id="desc-toggle-sorting">Organic & inorganic mixed.</span>
+                                        </div>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="toggle-sorting" onchange="runSimulation()" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-550"></div>
+                                    </label>
+                                </div>
+
+                                <!-- Toggle 2: Single-use Plastics ban -->
+                                <div class="bg-white p-3 rounded-xl border border-emerald-100 shadow-sm flex items-center justify-between mb-3 transition-all hover:shadow-md">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-2xl" id="icon-toggle-plastic">🛍️</span>
+                                        <div>
+                                            <span class="block text-sm font-bold text-slate-800">Reusable Bags Only</span>
+                                            <span class="text-xs text-slate-500" id="desc-toggle-plastic">Plastic bags are used.</span>
+                                        </div>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="toggle-plastic" onchange="runSimulation()" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-550"></div>
+                                    </label>
+                                </div>
+
+                                <!-- Toggle 3: Trash burning habits -->
+                                <div class="bg-white p-3 rounded-xl border border-emerald-100 shadow-sm flex items-center justify-between mb-3 transition-all hover:shadow-md">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-2xl" id="icon-toggle-burning">🔥</span>
+                                        <div>
+                                            <span class="block text-sm font-bold text-slate-800">Stop Open Burning</span>
+                                            <span class="text-xs text-slate-500" id="desc-toggle-burning">Leaves & plastic burned.</span>
+                                        </div>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="toggle-burning" onchange="runSimulation()" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-550"></div>
+                                    </label>
+                                </div>
+
+                                <!-- Toggle 4: Community Cleaning Drive -->
+                                <div class="bg-white p-3 rounded-xl border border-emerald-100 shadow-sm flex items-center justify-between mb-3 transition-all hover:shadow-md">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-2xl" id="icon-toggle-cleanup">🧹</span>
+                                        <div>
+                                            <span class="block text-sm font-bold text-slate-800">Weekly Cleanup</span>
+                                            <span class="text-xs text-slate-500" id="desc-toggle-cleanup">No social cooperation.</span>
+                                        </div>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="toggle-cleanup" onchange="runSimulation()" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-550"></div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Live Feedback Performance Text -->
+                            <div class="mt-4 p-4 rounded-xl bg-white border border-emerald-200">
+                                <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-800 block mb-1">Environmental Appraisal</span>
+                                <h5 id="grade-title" class="font-bold text-emerald-950 text-base">Alert: Hazardous Habitat</h5>
+                                <p id="grade-desc" class="text-xs text-emerald-700 leading-relaxed mt-1">Our people are not cooperating. Our air, rivers, and soil are filled with disease-carrying materials.</p>
+                            </div>
+                        </div>
+
+                        <!-- Right Layout: Live Environment Visualizer Display (SVG based) -->
+                        <div class="lg:col-span-7 flex flex-col justify-between">
+                            <div class="border-2 border-slate-200 rounded-2xl overflow-hidden shadow-inner h-80 relative bg-sky-200 transition-colors duration-500" id="sim-visual-bg">
+                                
+                                <!-- SVG Environment Illustration drawing elements which update on action toggle -->
+                                <svg viewBox="0 0 500 300" class="w-full h-full" id="sim-svg-scene">
+                                    <!-- Atmosphere overlay sky smog color -->
+                                    <rect id="svg-sky-smog" x="0" y="0" width="500" height="300" fill="#78716c" opacity="0.5" class="transition-all duration-700"/>
+                                    
+                                    <!-- Sun elements -->
+                                    <circle cx="430" cy="60" r="30" fill="#facc15" class="transition-all duration-700"/>
+                                    <circle id="svg-sun-glow" cx="430" cy="60" r="45" fill="#fef08a" opacity="0.3" class="transition-all duration-700 animate-pulse"/>
+                                    
+                                    <!-- Background Mountains / Hills -->
+                                    <path d="M 0 180 Q 150 140 300 180 T 500 150 L 500 300 L 0 300 Z" fill="#15803d" opacity="0.6"/>
+                                    <path id="svg-mountain-back" d="M 0 160 Q 150 120 300 160 T 500 130 L 500 300 L 0 300 Z" fill="#166534" opacity="0.5"/>
+
+                                    <!-- Main Grass Field Area -->
+                                    <path d="M -20 200 Q 130 180 250 200 T 520 180 L 520 300 L -20 300 Z" fill="#22c55e" id="svg-grass" class="transition-all duration-750"/>
+
+                                    <!-- Dynamic elements: Pollution Cloud Smoke -->
+                                    <g id="svg-smog-clouds" class="transition-all duration-700 opacity-100">
+                                        <ellipse cx="80" cy="80" rx="40" ry="12" fill="#78716c" opacity="0.7" />
+                                        <ellipse cx="180" cy="60" rx="30" ry="8" fill="#78716c" opacity="0.5" />
+                                        <ellipse cx="290" cy="90" rx="50" ry="15" fill="#78716c" opacity="0.6" />
+                                    </g>
+
+                                    <!-- Healthy Green Trees -->
+                                    <g id="svg-trees" class="transition-all duration-700">
+                                        <!-- Tree 1 -->
+                                        <rect x="40" y="160" width="10" height="40" fill="#7c2d12" />
+                                        <circle cx="45" cy="150" r="22" fill="#166534" id="tree-leaves-1" class="transition-all duration-500"/>
+                                        <!-- Tree 2 -->
+                                        <rect x="110" y="170" width="8" height="30" fill="#7c2d12" />
+                                        <circle cx="114" cy="160" r="18" fill="#166534" id="tree-leaves-2" class="transition-all duration-500" />
+                                    </g>
+
+                                    <!-- Stream / River in the front -->
+                                    <path id="svg-river-stream" d="M -10 260 Q 150 210 300 270 T 510 240 L 510 310 L -10 310 Z" fill="#7c2d12" class="transition-all duration-700"/>
+
+                                    <!-- Flying Birds (Active when ecosystem is clean) -->
+                                    <g id="svg-birds" class="transition-all duration-700 opacity-0 transform translate-y-10">
+                                        <path d="M 120 70 Q 125 65 130 70 Q 135 65 140 70" fill="none" stroke="#1e293b" stroke-width="2" />
+                                        <path d="M 230 50 Q 235 45 240 50 Q 245 45 250 50" fill="none" stroke="#1e293b" stroke-width="2" />
+                                    </g>
+
+                                    <!-- Floating Trash piles in river/grass (Active when garbage sorting/cleanup is neglected) -->
+                                    <g id="svg-trash-piles" class="transition-all duration-700 opacity-100">
+                                        <!-- Trash pile in grass -->
+                                        <ellipse cx="220" cy="205" rx="20" ry="8" fill="#eab308" opacity="0.9" />
+                                        <rect x="210" y="195" width="8" height="8" rx="2" fill="#3b82f6" />
+                                        <!-- Trash pile in River -->
+                                        <ellipse cx="140" cy="255" rx="35" ry="10" fill="#b45309" opacity="0.9" />
+                                        <circle cx="130" cy="252" r="6" fill="#ef4444" />
+                                        <rect x="150" y="248" width="12" height="6" fill="#38bdf8" />
+                                    </g>
+                                </svg>
+                                
+                                <!-- Floating Interactive HUD Panel on Scene -->
+                                <div class="absolute top-3 right-3 bg-white/95 px-4 py-2 rounded-xl shadow border border-emerald-100/60 flex items-center space-x-3 backdrop-blur-sm">
+                                    <span class="text-xs font-extrabold text-emerald-800 tracking-wider">ECO HEALTH:</span>
+                                    <div class="w-24 bg-slate-200 rounded-full h-3 flex overflow-hidden">
+                                        <div id="sim-progress-bar" class="bg-red-500 h-full transition-all duration-700" style="width: 10%"></div>
+                                    </div>
+                                    <span id="sim-percent" class="text-xs font-bold text-slate-800">10%</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Simulation Action Footer Guidance -->
+                            <div class="mt-4 p-4 rounded-xl bg-slate-50 border border-slate-250 flex items-center gap-4 text-xs">
+                                <span class="text-2xl animate-pulse">🌟</span>
+                                <p class="text-slate-600 leading-relaxed">
+                                    <b>How to play:</b> Click the toggle switches on the left panel! Watch how preventing plastic usage, cleaning trash weekly, stopping burning, and sorting waste magically updates the background ecosystem health score.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= CHAPTER 4: GRAMMAR & VOCAB QUIZ ================= -->
+            <section id="tab-quiz" class="tab-content hidden flex flex-col gap-6">
+                <div class="bg-white rounded-3xl p-6 shadow-md border border-emerald-150">
+                    
+                    <!-- Header of the quiz with current question state trackers -->
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-150 pb-4 mb-6 gap-2">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-3xl">🎯</span>
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-bold text-gray-800 header-font">Quick Waste Management Quiz</h3>
+                                <p class="text-sm text-gray-500">Solve these 5 multiple-choice questions about exposition vocabulary and environmental actions!</p>
+                            </div>
+                        </div>
+                        <div class="bg-emerald-50 text-emerald-800 px-4 py-1.5 rounded-full font-bold text-xs border border-emerald-200">
+                            Score: <span id="quiz-live-score">0</span> / 5
+                        </div>
+                    </div>
+
+                    <!-- Main Quiz Area containing the slide decks -->
+                    <div id="quiz-card-container" class="relative overflow-hidden min-h-[350px]">
+                        
+                        <!-- Dynamic Question Card Target -->
+                        <div id="quiz-quest-card" class="transition-all duration-500 transform translate-x-0 opacity-100">
+                            <!-- Question and answers will be injected here by Javascript -->
+                        </div>
+
+                        <!-- Completed Quiz Results Screen (Hidden initially) -->
+                        <div id="quiz-result-card" class="hidden flex flex-col items-center justify-center py-8 text-center">
+                            <div class="text-6xl mb-4 animate-bounce">🏆</div>
+                            <h4 class="font-bold text-2xl text-slate-800 header-font">Congratulations, Eco-Warrior!</h4>
+                            <p class="text-slate-600 max-w-md mt-2 leading-relaxed" id="quiz-congratulation-text">
+                                You finished Ms. Clara's quiz! You are ready to educate your real community on keeping the environment clean. Fantastic effort!
+                            </p>
+                            
+                            <!-- Summary Grade Circle badge -->
+                            <div class="my-6 w-24 h-24 rounded-full bg-emerald-500 text-white flex items-center justify-center text-3xl font-extrabold shadow-lg shadow-emerald-200 border-4 border-emerald-100" id="quiz-badge-score">
+                                5/5
+                            </div>
+
+                            <button onclick="restartQuiz()" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition shadow hover:shadow-md">
+                                <i class="fa-solid fa-rotate-left mr-2"></i> Retake the Quiz
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- Progress Bar Indicator inside the quiz footer -->
+                    <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <div class="w-full bg-slate-100 rounded-full h-2 mr-4 overflow-hidden">
+                            <div id="quiz-indicator-progress" class="bg-emerald-500 h-full transition-all duration-300" style="width: 20%"></div>
+                        </div>
+                        <span class="text-xs font-bold text-slate-400 flex-shrink-0" id="quiz-indicator-text">Question 1 of 5</span>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Interactive Footer of educational app -->
+    <footer class="bg-emerald-950 text-white/80 py-6 border-t border-emerald-900 mt-12 text-center text-xs">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="font-bold header-font text-emerald-400 mb-1">EcoLearn: Keeps Our Environment Sparkling ✨</p>
+            <p>Designed as an English Learning Media for SMA Grade 11. Powered by HTML5, Tailwind CSS, and pure Interactive Magic.</p>
+            <p class="mt-3 text-emerald-600/90">&copy; 2026 Ms. Clara's Interactive Classroom. All rights protected.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC FOR HIGH-PERFORMANCE INTERACTIONS -->
+    <script>
+        // Tab switching logic for seamless page transitions without page reloads
+        function switchTab(tabName) {
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(element => {
+                element.classList.add('hidden');
+            });
+            // Show selected content
+            document.getElementById('tab-' + tabName).classList.remove('hidden');
+
+            // Reset navigation state button highlights
+            document.querySelectorAll('.tab-btn').forEach(button => {
+                button.className = "tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left transition-all duration-300 font-semibold hover:bg-emerald-50/20 text-gray-600 border-l-4 border-transparent";
+                // Reset internal SVG/Icon box container background colors
+                const iconBox = button.querySelector('div');
+                if (iconBox) {
+                    iconBox.className = "p-1.5 rounded-lg bg-gray-400 text-white flex-shrink-0";
+                }
+            });
+
+            // Highlight active button tab
+            const activeBtn = document.getElementById('btn-' + tabName);
+            activeBtn.className = "tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left transition-all duration-300 font-semibold bg-emerald-50 text-emerald-800 border-l-4 border-emerald-600 shadow-sm";
+            const activeIconBox = activeBtn.querySelector('div');
+            if (activeIconBox) {
+                activeIconBox.className = "p-1.5 rounded-lg bg-emerald-500 text-white shadow-sm flex-shrink-0";
+            }
+        }
+
+        // Chapter 1 Spotlights info reveal trigger
+        function showSpotlight(id, title, description) {
+            const titleEl = document.getElementById('spotlight-title');
+            const descEl = document.getElementById('spotlight-desc');
+            const iconEl = document.getElementById('spotlight-icon');
+
+            // Apply attention focus animation to info pop-up
+            const container = document.getElementById('spotlight-panel');
+            container.classList.add('scale-[1.01]', 'bg-amber-50', 'border-amber-400');
+            container.classList.remove('from-emerald-50', 'to-teal-50', 'border-emerald-200');
+
+            setTimeout(() => {
+                container.classList.remove('scale-[1.01]');
+            }, 200);
+
+            // Change content dynamically
+            if (id.includes('burn') || id.includes('smog')) {
+                iconEl.innerText = "💨";
+            } else {
+                iconEl.innerText = "🌊";
+            }
+            titleEl.innerText = title;
+            descEl.innerText = description;
+        }
+
+        // Chapter 2 Text Highlighter & Decoder view logic
+        function selectParagraph(paraId) {
+            // Deselect all paragraphs
+            document.querySelectorAll("[id^='para-']").forEach(para => {
+                para.classList.remove('bg-emerald-100', 'border-emerald-300');
+                para.classList.add('border-transparent');
+            });
+
+            // Select clicked paragraph
+            const targetPara = document.getElementById(paraId);
+            targetPara.classList.remove('border-transparent');
+            targetPara.classList.add('bg-emerald-100', 'border-emerald-300');
+
+            // Update parser analysis panel based on clicked paragraph type
+            const decTitle = document.getElementById('dec-title');
+            const decBody = document.getElementById('dec-body');
+
+            if (paraId === 'para-thesis') {
+                decTitle.innerText = "Thesis (Statement of Opinion)";
+                decBody.innerHTML = `
+                    <p class="font-semibold text-emerald-100 mb-2">Primary Objective: To introduce the general topic and declare your ultimate perspective clearly.</p>
+                    <p class="text-[11px] leading-relaxed text-emerald-200">
+                        In this paragraph, Ms. Clara introduces <b>waste pollution</b> and provides a clear thesis stance: <i>"We should keep our environment clean for our health..."</i>. This acts as the anchor for the whole exposition text.
+                    </p>
+                `;
+            } else if (paraId === 'para-arg1') {
+                decTitle.innerText = "Argument 1 (Reasoning)";
+                decBody.innerHTML = `
+                    <p class="font-semibold text-emerald-100 mb-2">Primary Objective: To support your thesis with concrete logical claims or real scientific facts.</p>
+                    <p class="text-[11px] leading-relaxed text-emerald-200">
+                        Notice how this paragraph starts with the sequence transitional connector <b>"Firstly"</b>. The argument states that clean places stop diseases. It provides facts about mosquitoes laying eggs in plastic puddles.
+                    </p>
+                `;
+            } else if (paraId === 'para-arg2') {
+                decTitle.innerText = "Argument 2 (Consequence)";
+                decBody.innerHTML = `
+                    <p class="font-semibold text-emerald-100 mb-2">Primary Objective: To provide additional distinct supporting logic to build heavy momentum.</p>
+                    <p class="text-[11px] leading-relaxed text-emerald-200">
+                        The paragraph starts with <b>"Secondly"</b> and discusses the direct relationship between blocked waterways and flash floods. It explains that plastic acts as a barrier, causing massive public damages.
+                    </p>
+                `;
+            } else if (paraId === 'para-reit') {
+                decTitle.innerText = "Reiteration (Restatement)";
+                decBody.innerHTML = `
+                    <p class="font-semibold text-emerald-100 mb-2">Primary Objective: To reinforce your central thesis by summarizing arguments with strong concluding thoughts.</p>
+                    <p class="text-[11px] leading-relaxed text-emerald-200">
+                        This starts with <b>"In conclusion"</b>. Rather than introducing new facts, it acts as a summary and states that a clean habitat is <i>"an absolute necessity"</i>. It closes with a strong call-to-action command.
+                    </p>
+                `;
+            }
+        }
+
+        // Chapter 3 Eco-City Simulation core logic
+        function runSimulation() {
+            // Check current statuses of switches
+            const hasSorting = document.getElementById('toggle-sorting').checked;
+            const hasPlasticBan = document.getElementById('toggle-plastic').checked;
+            const hasNoBurning = document.getElementById('toggle-burning').checked;
+            const hasCleanup = document.getElementById('toggle-cleanup').checked;
+
+            // Update text guides corresponding to toggles
+            document.getElementById('desc-toggle-sorting').innerText = hasSorting ? "Trash properly separated!" : "Organic & inorganic mixed.";
+            document.getElementById('icon-toggle-sorting').innerText = hasSorting ? "🟢" : "🗑️";
+
+            document.getElementById('desc-toggle-plastic').innerText = hasPlasticBan ? "Using reusable fabric bags." : "Plastic bags are used.";
+            document.getElementById('icon-toggle-plastic').innerText = hasPlasticBan ? "🟢" : "🛍️";
+
+            document.getElementById('desc-toggle-burning').innerText = hasNoBurning ? "Recycling & Composting active." : "Leaves & plastic burned.";
+            document.getElementById('icon-toggle-burning').innerText = hasNoBurning ? "🟢" : "🔥";
+
+            document.getElementById('desc-toggle-cleanup').innerText = hasCleanup ? "Active local teamwork!" : "No social cooperation.";
+            document.getElementById('icon-toggle-cleanup').innerText = hasCleanup ? "🟢" : "🧹";
+
+            // Compute cumulative Score based on state
+            let score = 10; // Baseline starting score
+            if (hasSorting) score += 20;
+            if (hasPlasticBan) score += 25;
+            if (hasNoBurning) score += 20;
+            if (hasCleanup) score += 25;
+
+            // Update Dynamic progress tracking elements
+            const progressBar = document.getElementById('sim-progress-bar');
+            progressBar.style.width = score + "%";
+            document.getElementById('sim-percent').innerText = score + "%";
+
+            // Dynamic color thresholds for the gauge bar
+            if (score < 40) {
+                progressBar.className = "bg-red-500 h-full transition-all duration-700";
+            } else if (score < 80) {
+                progressBar.className = "bg-yellow-500 h-full transition-all duration-700";
+            } else {
+                progressBar.className = "bg-green-500 h-full transition-all duration-700";
+            }
+
+            // Reference SVG nodes to manipulate appearance
+            const skySmog = document.getElementById('svg-sky-smog');
+            const sunGlow = document.getElementById('svg-sun-glow');
+            const visualBg = document.getElementById('sim-visual-bg');
+            const smogClouds = document.getElementById('svg-smog-clouds');
+            const birds = document.getElementById('svg-birds');
+            const river = document.getElementById('svg-river-stream');
+            const trashPiles = document.getElementById('svg-trash-piles');
+            const grass = document.getElementById('svg-grass');
+
+            const treeLeaves1 = document.getElementById('tree-leaves-1');
+            const treeLeaves2 = document.getElementById('tree-leaves-2');
+
+            // Grade title state
+            const gradeTitle = document.getElementById('grade-title');
+            const gradeDesc = document.getElementById('grade-desc');
+
+            // Manipulate environment SVGs and classes dynamically based on Score level
+            if (score <= 35) {
+                // Polluted state
+                skySmog.setAttribute('opacity', '0.6');
+                visualBg.className = "border-2 border-slate-200 rounded-2xl overflow-hidden shadow-inner h-80 relative bg-stone-300 transition-colors duration-500";
+                smogClouds.className.baseVal = "transition-all duration-700 opacity-100";
+                birds.className.baseVal = "transition-all duration-700 opacity-0 transform translate-y-10";
+                river.setAttribute('fill', '#78350f'); // Muddy brown river
+                trashPiles.className.baseVal = "transition-all duration-700 opacity-100";
+                grass.setAttribute('fill', '#71717a'); // Dull gray-green land
+
+                treeLeaves1.setAttribute('fill', '#451a03'); // Brown dead trees
+                treeLeaves2.setAttribute('fill', '#451a03');
+
+                gradeTitle.innerText = "🚨 Grade: Bad Environment";
+                gradeTitle.className = "font-bold text-red-700 text-base";
+                gradeDesc.innerText = "The atmosphere is toxic. The community experiences extreme risks of infectious epidemics and river floods.";
+            } 
+            else if (score < 75) {
+                // Intermediate cleanup state
+                skySmog.setAttribute('opacity', '0.3');
+                visualBg.className = "border-2 border-slate-200 rounded-2xl overflow-hidden shadow-inner h-80 relative bg-sky-100 transition-colors duration-500";
+                smogClouds.className.baseVal = "transition-all duration-700 opacity-40";
+                birds.className.baseVal = "transition-all duration-700 opacity-20 transform translate-y-2";
+                river.setAttribute('fill', '#0284c7'); // Teal blue river
+                trashPiles.className.baseVal = "transition-all duration-700 opacity-40";
+                grass.setAttribute('fill', '#4ade80'); // Green land
+
+                treeLeaves1.setAttribute('fill', '#15803d');
+                treeLeaves2.setAttribute('fill', '#15803d');
+
+                gradeTitle.innerText = "⚠️ Grade: Improving Habitat";
+                gradeTitle.className = "font-bold text-amber-600 text-base";
+                gradeDesc.innerText = "Excellent progress! The rivers look much healthier, although small amounts of waste are still visible. Keep pushing!";
+            } 
+            else {
+                // Perfect eco-city green state
+                skySmog.setAttribute('opacity', '0');
+                visualBg.className = "border-2 border-slate-200 rounded-2xl overflow-hidden shadow-inner h-80 relative bg-sky-300 transition-colors duration-500";
+                smogClouds.className.baseVal = "transition-all duration-700 opacity-0";
+                birds.className.baseVal = "transition-all duration-700 opacity-100 transform translate-y-0";
+                river.setAttribute('fill', '#38bdf8'); // Sparkling clean blue water
+                trashPiles.className.baseVal = "transition-all duration-700 opacity-0";
+                grass.setAttribute('fill', '#22c55e'); // Rich vivid green grass
+
+                treeLeaves1.setAttribute('fill', '#166534');
+                treeLeaves2.setAttribute('fill', '#166534');
+
+                gradeTitle.innerText = "🟢 Grade: Eco-Paradise!";
+                gradeTitle.className = "font-bold text-emerald-600 text-base animate-pulse";
+                gradeDesc.innerText = "Absolutely stunning! The town is fully clean, disease risks are at 0%, and nature thrives beautifully. Ms. Clara is super proud!";
+            }
+        }
+
+        // Chapter 4 Interactive Quiz Question Set Data
+        const quizData = [
+            {
+                question: "Which term describes a text that tries to persuade readers about an opinion by presenting supportive arguments?",
+                options: [
+                    { key: "A", text: "Report Text" },
+                    { key: "B", text: "Analytical Exposition Text" },
+                    { key: "C", text: "Narrative Text" },
+                    { key: "D", text: "Descriptive Text" }
+                ],
+                answer: "B",
+                explanation: "Correct! Analytical Exposition text is specifically written to persuade the reader about an issue by backing it up with logical points."
+            },
+            {
+                question: "Complete this sentence: 'Unmanaged plastic bags block water channels and _______ heavy urban flooding.'",
+                options: [
+                    { key: "A", text: "trigger" },
+                    { key: "B", text: "reiterate" },
+                    { key: "C", text: "conclude" },
+                    { key: "D", text: "prevent" }
+                ],
+                answer: "A",
+                explanation: "Spot on! 'Trigger' means to cause an event to happen. Blocked canals trigger heavy urban flooding!"
+            },
+            {
+                question: "What is the structural term for the final concluding paragraph of an exposition text?",
+                options: [
+                    { key: "A", text: "Thesis" },
+                    { key: "B", text: "Resolution" },
+                    { key: "C", text: "Reiteration" },
+                    { key: "D", text: "Complication" }
+                ],
+                answer: "C",
+                explanation: "Amazing! Reiteration acts as the summary restating the writer's thesis belief forcefully to close the text."
+            },
+            {
+                question: "Choose the correct causal conjunction (kata hubung sebab-akibat) to join these ideas: 'We trash rivers. _______, the flow gets blocked.'",
+                options: [
+                    { key: "A", text: "Firstly" },
+                    { key: "B", text: "On the other hand" },
+                    { key: "C", text: "Consequently" },
+                    { key: "D", text: "In addition" }
+                ],
+                answer: "C",
+                explanation: "Perfect! 'Consequently' links actions directly to their resultant effects (sebab-akibat)."
+            },
+            {
+                question: "What does the action verb 'compost' mean in terms of waste solutions?",
+                options: [
+                    { key: "A", text: "To throw plastics directly into the nearest river." },
+                    { key: "B", text: "To burn everything under high temperatures." },
+                    { key: "C", text: "To convert organic waste into natural nutrient fertilizer." },
+                    { key: "D", text: "To purchase single-use plastic grocery bags." }
+                ],
+                answer: "C",
+                explanation: "Fantastic answer! Composting converts organic remnants (like vegetable skins) into valuable natural plant food, bypassing landfills!"
+            }
+        ];
+
+        // Internal state trackers for the quiz
+        let currentQuestionIndex = 0;
+        let userScore = 0;
+        let selectedAnswer = null;
+        let hasAnsweredCurrent = false;
+
+        // Render current question structure into UI
+        function renderQuizQuestion() {
+            const container = document.getElementById('quiz-quest-card');
+            const data = quizData[currentQuestionIndex];
+
+            // Update footer metrics
+            document.getElementById('quiz-indicator-text').innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            document.getElementById('quiz-indicator-progress').style.width = ((currentQuestionIndex + 1) / quizData.length * 100) + "%";
+            document.getElementById('quiz-live-score').innerText = userScore;
+
+            // Generate structural answer cards list
+            let optionsHtml = '';
+            data.options.forEach(opt => {
+                optionsHtml += `
+                    <button id="opt-btn-${opt.key}" onclick="selectQuizOption('${opt.key}')" class="quiz-option-btn w-full text-left p-4 rounded-xl border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/30 transition-all flex items-center justify-between font-medium text-sm md:text-base">
+                        <span class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center font-extrabold text-slate-600 border border-slate-200 text-xs">${opt.key}</span>
+                            <span class="text-slate-700">${opt.text}</span>
+                        </span>
+                        <span id="opt-icon-${opt.key}"></span>
+                    </button>
+                `;
+            });
+
+            // Set main inner content HTML dynamic blueprint
+            container.innerHTML = `
+                <div class="space-y-4">
+                    <!-- Displaying the Question Box -->
+                    <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl">
+                        <span class="text-xs font-bold text-emerald-800 uppercase tracking-widest block mb-1">Vocabulary & Grammar Focus</span>
+                        <h4 class="font-bold text-slate-800 text-base md:text-lg leading-relaxed">${data.question}</h4>
+                    </div>
+
+                    <!-- Options list grid layout -->
+                    <div class="space-y-2.5">
+                        ${optionsHtml}
+                    </div>
+
+                    <!-- Explanation display feedback area (Hidden initially) -->
+                    <div id="quiz-explanation-box" class="hidden p-4 rounded-xl text-sm leading-relaxed transition-all duration-300 flex items-start gap-3">
+                        <span class="text-2xl" id="quiz-explanation-emoji">💡</span>
+                        <div id="quiz-explanation-text-box"></div>
+                    </div>
+
+                    <!-- Next button control wrapper -->
+                    <div class="flex justify-end mt-4">
+                        <button id="quiz-next-btn" onclick="submitOrNext()" disabled class="px-6 py-2.5 bg-emerald-600 disabled:bg-slate-300 text-white font-bold rounded-xl transition shadow hover:shadow-md cursor-pointer">
+                            Check Answer
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Reset selection values
+            selectedAnswer = null;
+            hasAnsweredCurrent = false;
+        }
+
+        // Click handler inside option buttons
+        function selectQuizOption(key) {
+            if (hasAnsweredCurrent) return; // Prevent changing after clicking 'check'
+
+            selectedAnswer = key;
+
+            // Reset styling colors of other choices
+            document.querySelectorAll('.quiz-option-btn').forEach(btn => {
+                btn.className = "quiz-option-btn w-full text-left p-4 rounded-xl border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/30 transition-all flex items-center justify-between font-medium text-sm md:text-base";
+            });
+
+            // Highlight chosen item option button
+            const selectedBtn = document.getElementById('opt-btn-' + key);
+            selectedBtn.className = "quiz-option-btn w-full text-left p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50/50 transition-all flex items-center justify-between font-bold text-sm md:text-base";
+
+            // Activate confirmation check button
+            document.getElementById('quiz-next-btn').removeAttribute('disabled');
+        }
+
+        // Action when student clicks check/next button
+        function submitOrNext() {
+            const data = quizData[currentQuestionIndex];
+            const nextBtn = document.getElementById('quiz-next-btn');
+
+            if (!hasAnsweredCurrent) {
+                // User is evaluating the answer they chose
+                hasAnsweredCurrent = true;
+                const isCorrect = (selectedAnswer === data.answer);
+
+                const optionButton = document.getElementById('opt-btn-' + selectedAnswer);
+                const explanationBox = document.getElementById('quiz-explanation-box');
+                const explanationTextBox = document.getElementById('quiz-explanation-text-box');
+                const explanationEmoji = document.getElementById('quiz-explanation-emoji');
+
+                if (isCorrect) {
+                    userScore++;
+                    optionButton.className = "quiz-option-btn w-full text-left p-4 rounded-xl border-2 border-green-500 bg-green-50/80 transition-all flex items-center justify-between font-bold text-sm md:text-base";
+                    document.getElementById('opt-icon-' + selectedAnswer).innerHTML = `<i class="fa-solid fa-circle-check text-green-600 text-xl"></i>`;
+
+                    // Fun teacher positive remarks
+                    explanationBox.className = "p-4 rounded-xl text-sm leading-relaxed bg-green-50 text-green-800 border border-green-200 flex items-start gap-3 animate-bounce";
+                    explanationEmoji.innerText = "🎉";
+                    explanationTextBox.innerHTML = `<strong>Awesome Job, Eco-hero!</strong><br>${data.explanation}`;
+                } else {
+                    // Wrong choice formatting
+                    optionButton.className = "quiz-option-btn w-full text-left p-4 rounded-xl border-2 border-red-500 bg-red-50/80 transition-all flex items-center justify-between font-bold text-sm md:text-base";
+                    document.getElementById('opt-icon-' + selectedAnswer).innerHTML = `<i class="fa-solid fa-circle-xmark text-red-600 text-xl"></i>`;
+
+                    // Highlight the correct one
+                    document.getElementById('opt-btn-' + data.answer).className = "quiz-option-btn w-full text-left p-4 rounded-xl border-2 border-green-500 bg-green-50/40 transition-all flex items-center justify-between font-bold text-sm md:text-base";
+
+                    // Friendly teacher correction remarks
+                    explanationBox.className = "p-4 rounded-xl text-sm leading-relaxed bg-amber-50 text-amber-800 border border-amber-200 flex items-start gap-3";
+                    explanationEmoji.innerText = "💪";
+                    explanationTextBox.innerHTML = `<strong>Don't worry, keep learning!</strong><br>The correct answer was <b>${data.answer}</b>. Here's why: ${data.explanation}`;
+                }
+
+                // Show feedback panel
+                explanationBox.classList.remove('hidden');
+
+                // Update dynamic button to act as a move-forward transition
+                nextBtn.innerText = (currentQuestionIndex < quizData.length - 1) ? "Next Question →" : "Finish & Check Result";
+                document.getElementById('quiz-live-score').innerText = userScore;
+            } else {
+                // User clicked to move to the next slide question
+                if (currentQuestionIndex < quizData.length - 1) {
+                    currentQuestionIndex++;
+                    renderQuizQuestion();
+                } else {
+                    // Reach end of overall quiz array
+                    showFinalQuizScore();
+                }
+            }
+        }
+
+        // Show Final Score board
+        function showFinalQuizScore() {
+            document.getElementById('quiz-quest-card').classList.add('hidden');
+            const resultCard = document.getElementById('quiz-result-card');
+            resultCard.classList.remove('hidden');
+
+            const congratsText = document.getElementById('quiz-congratulation-text');
+            const badgeScore = document.getElementById('quiz-badge-score');
+
+            badgeScore.innerText = `${userScore}/${quizData.length}`;
+
+            // Adapt encouraging tone messages depending on marks achieved
+            if (userScore === 5) {
+                congratsText.innerHTML = `
+                    <span class="text-emerald-600 font-extrabold block text-lg mb-1">Wow! A Perfect 100% Score! 🌟</span>
+                    You are Ms. Clara's ultimate Eco-Champion! You perfectly understand the importance of waste recycling and exposition texts. Excellent!
+                `;
+                badgeScore.className = "my-6 w-24 h-24 rounded-full bg-emerald-500 text-white flex items-center justify-center text-3xl font-extrabold shadow-lg shadow-emerald-200 border-4 border-emerald-100 animate-pulse";
+            } else if (userScore >= 3) {
+                congratsText.innerHTML = `
+                    <span class="text-emerald-600 font-extrabold block text-lg mb-1">Superb Work! 🎉</span>
+                    You did a fantastic job! You have a great grasp of both grammar and ecological solutions. Let's make our actual school cleaner today!
+                `;
+                badgeScore.className = "my-6 w-24 h-24 rounded-full bg-emerald-550 text-white flex items-center justify-center text-3xl font-extrabold shadow-lg shadow-emerald-200 border-4 border-emerald-100";
+            } else {
+                congratsText.innerHTML = `
+                    <span class="text-amber-600 font-extrabold block text-lg mb-1">Good attempt! Keep Growing! 👍</span>
+                    You are on the right path, but some terms could use a quick review! Why not reread Ms. Clara's Chapter 2 Exposition Text again and retry? You can do this!
+                `;
+                badgeScore.className = "my-6 w-24 h-24 rounded-full bg-amber-500 text-white flex items-center justify-center text-3xl font-extrabold shadow-lg shadow-amber-200 border-4 border-amber-100";
+            }
+        }
+
+        // Restart quiz states from beginning
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userScore = 0;
+            document.getElementById('quiz-result-card').classList.add('hidden');
+            document.getElementById('quiz-quest-card').classList.remove('hidden');
+            renderQuizQuestion();
+        }
+
+        // Initialization trigger during body rendering completion
+        window.onload = function() {
+            // Initiate Simulator default behaviors
+            runSimulation();
+            // Load initial quiz state
+            renderQuizQuestion();
+        }
+    </script>
+</body>
+</html>

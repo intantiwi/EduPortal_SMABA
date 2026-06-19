@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sosiologi Seru: Ketimpangan Sosial & Kesejahteraan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col md:flex-row">
+
+    <!-- MOBILE HEADER (Hanya tampil di Mobile/Tablet kecil) -->
+    <header class="md:hidden bg-indigo-900 text-white p-4 flex justify-between items-center shadow-md sticky top-0 z-50">
+        <div class="flex items-center space-x-2">
+            <div class="bg-amber-400 p-2 rounded-lg text-indigo-950">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-sm leading-tight">Sosiologi EduWeb</h1>
+                <p class="text-xs text-indigo-200">Kelas XI SMA</p>
+            </div>
+        </div>
+        <button id="mobile-menu-btn" class="p-2 hover:bg-indigo-800 rounded-lg transition-colors" aria-label="Toggle Menu">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </header>
+
+    <!-- SIDEBAR NAVIGATION (Responsif & Modern) -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-72 bg-indigo-950 text-white flex flex-col transform -translate-x-full md:translate-x-0 md:relative md:flex transition-transform duration-300 ease-in-out shadow-xl border-r border-indigo-900/50">
+        <!-- Sidebar Brand Info -->
+        <div class="p-6 border-b border-indigo-900 flex items-center space-x-3">
+            <div class="bg-amber-400 p-2.5 rounded-xl text-indigo-950 shadow-md shadow-amber-400/20">
+                <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <h2 class="font-extrabold text-lg leading-tight tracking-wide">SOSIO-SMART</h2>
+                <span class="text-xs bg-indigo-800/80 text-amber-300 px-2.5 py-0.5 rounded-full font-medium border border-indigo-700">Media Ajar Interaktif</span>
+            </div>
+        </div>
+
+        <!-- Profil Guru (Personal Touch) -->
+        <div class="px-6 py-4 border-b border-indigo-900/50 bg-indigo-900/30 flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-400 to-orange-400 flex items-center justify-center font-bold text-indigo-950 shadow-md">
+                🎓
+            </div>
+            <div>
+                <p class="text-xs text-indigo-300">Guru Sosiologi Kamu</p>
+                <p class="text-sm font-semibold text-white">Pak Sosio & Tim</p>
+            </div>
+        </div>
+
+        <!-- Menu List -->
+        <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+            <button onclick="switchTab('materi')" id="nav-materi" class="nav-item w-full flex items-center space-x-3 px-4 py-3.5 rounded-xl transition-all duration-200 bg-indigo-800/80 text-white font-semibold shadow-md shadow-indigo-950/20">
+                <i data-lucide="book-open" class="w-5 h-5"></i>
+                <span class="text-sm">1. Materi Ketimpangan</span>
+            </button>
+            
+            <button onclick="switchTab('simulasi')" id="nav-simulasi" class="nav-item w-full flex items-center space-x-3 px-4 py-3.5 rounded-xl transition-all duration-200 text-indigo-300 hover:bg-indigo-900/50 hover:text-white font-medium">
+                <i data-lucide="sliders" class="w-5 h-5"></i>
+                <span class="text-sm">2. Lab Simulasi Dampak</span>
+            </button>
+            
+            <button onclick="switchTab('kuis')" id="nav-kuis" class="nav-item w-full flex items-center space-x-3 px-4 py-3.5 rounded-xl transition-all duration-200 text-indigo-300 hover:bg-indigo-900/50 hover:text-white font-medium">
+                <i data-lucide="check-square" class="w-5 h-5"></i>
+                <span class="text-sm">3. Kuis Cepat Sosio</span>
+            </button>
+        </nav>
+
+        <!-- Footer Sidebar -->
+        <div class="p-6 border-t border-indigo-900 text-xs text-indigo-300 space-y-2 bg-indigo-950/80">
+            <p class="font-medium text-white">💡 Tips Belajar:</p>
+            <p class="leading-relaxed">Cobalah eksplorasi menu simulasi untuk melihat bagaimana kebijakan sosial berpengaruh langsung pada kesejahteraan warga!</p>
+        </div>
+    </aside>
+
+    <!-- Overlay untuk mobile menu -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/50 z-30 hidden md:hidden transition-opacity"></div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 flex flex-col min-h-screen overflow-x-hidden">
+        <!-- Top bar / Jumbotron sambutan -->
+        <div class="bg-gradient-to-r from-indigo-900 to-indigo-800 text-white px-6 md:px-10 py-8 shadow-sm">
+            <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <span class="inline-block bg-indigo-700/60 text-amber-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-600">Bab: Ketimpangan Sosial</span>
+                    <h2 class="text-2xl md:text-3.5xl font-extrabold tracking-tight" id="header-title">Belajar Ketimpangan Sosial</h2>
+                    <p class="text-indigo-200 text-sm mt-1" id="header-desc">Yuk, pahami mengapa perbedaan di masyarakat bisa memicu jurang ketimpangan, serta bagaimana solusinya!</p>
+                </div>
+                <div class="bg-indigo-700/40 backdrop-blur-sm border border-indigo-600 p-4 rounded-xl flex items-center space-x-3 self-start md:self-auto shrink-0">
+                    <span class="text-2xl">🔥</span>
+                    <div>
+                        <p class="text-xs text-indigo-200 font-medium">Status Belajar Kamu</p>
+                        <p class="text-sm font-bold text-amber-300" id="study-status">Mulai Petualangan Belajarmu!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT AREA -->
+        <div class="flex-1 p-4 md:p-8 max-w-5xl w-full mx-auto">
+            
+            <!-- MENU 1: MATERI KETIMPANGAN SOSIAL -->
+            <section id="tab-materi" class="space-y-6 animate-fade-in">
+                <!-- Welcome Card -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200/80">
+                    <div class="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-600 shrink-0 text-xl">
+                            📢
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-slate-800">Halo, Calon Sosiolog Masa Depan! 👋</h3>
+                            <p class="text-slate-600 text-sm md:text-base leading-relaxed">
+                                Pernah nggak sih kamu melihat gedung pencakar langit megah, tapi tepat di sebelahnya ada permukiman kumuh yang padat? Nah, itulah salah satu potret nyata dari <strong>Ketimpangan Sosial</strong>. Yuk, kita kupas tuntas materinya dengan santai dan mudah dipahami!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Materi Navigation Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-50 hover:bg-indigo-50/50 p-5 rounded-xl border border-slate-200/60 transition-all duration-200">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded-md">Definisi</span>
+                            <h4 class="font-bold text-slate-800 mt-2 mb-1">Apa Itu Ketimpangan Sosial?</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Ketimpangan sosial adalah kondisi ketidakseimbangan atau jarak yang terjadi di tengah masyarakat dalam hal distribusi sumber daya, peluang, kekuasaan, dan kesejahteraan. Simpelnya: ada jurang pemisah yang lebar antara "si kaya" dan "si miskin" atau kelompok dominan dan marginal.
+                            </p>
+                        </div>
+                        <div class="bg-slate-50 hover:bg-emerald-50/50 p-5 rounded-xl border border-slate-200/60 transition-all duration-200">
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-md">Penyebab</span>
+                            <h4 class="font-bold text-slate-800 mt-2 mb-1">Kenapa Bisa Terjadi?</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Terjadi karena kombinasi berbagai faktor eksternal (sistem atau kebijakan pembangunan yang timpang) dan faktor internal (kondisi keterbatasan kemampuan diri). Yuk scroll ke bawah untuk bahas detail faktornya!
+                            </p>
+                        </div>
+                        <div class="bg-slate-50 hover:bg-amber-50/50 p-5 rounded-xl border border-slate-200/60 transition-all duration-200">
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-md">Dampak</span>
+                            <h4 class="font-bold text-slate-800 mt-2 mb-1">Dampak Buruk yang Mengintai</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Jika dibiarkan, ketimpangan bisa memicu kecemburuan sosial, kriminalitas yang meningkat, potensi konflik horizontal antar-kelompok, hingga melemahnya solidaritas sosial bangsa. Gawat kan?
+                            </p>
+                        </div>
+                        <div class="bg-slate-50 hover:bg-rose-50/50 p-5 rounded-xl border border-slate-200/60 transition-all duration-200">
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">Solusi</span>
+                            <h4 class="font-bold text-slate-800 mt-2 mb-1">Gimana Cara Mengatasinya?</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Kuncinya adalah keadilan sosial! Melalui pendidikan gratis yang berkualitas, pembangunan infrastruktur daerah pelosok, kemudahan akses modal UMKM, hingga program bantuan sosial yang tepat sasaran.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEKSI MATERI BARU: FAKTOR PENYEBAB KETIMPANGAN -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200/80 space-y-6">
+                    <div class="border-b border-slate-100 pb-4">
+                        <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Materi Utama</span>
+                        <h3 class="text-xl font-extrabold text-slate-850 mt-2 flex items-center gap-2">
+                            🔍 Faktor-Faktor Penyebab Ketimpangan Sosial
+                        </h3>
+                        <p class="text-slate-500 text-xs md:text-sm mt-1">Gimana sih ceritanya jurang ketimpangan di masyarakat kita bisa begitu lebar? Mari kita kupas dalang utamanya!</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Faktor Struktural -->
+                        <div class="bg-indigo-50/40 p-5 rounded-2xl border border-indigo-100 flex flex-col sm:flex-row gap-4 hover:shadow-md hover:shadow-indigo-50 transition-shadow duration-200">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-600 shrink-0 text-2xl shadow-inner">
+                                🏛️
+                            </div>
+                            <div class="space-y-1">
+                                <h4 class="font-bold text-indigo-950 text-sm md:text-base">1. Faktor Struktural (Sistem & Kebijakan)</h4>
+                                <p class="text-xs md:text-sm text-slate-650 leading-relaxed">
+                                    Ini bersumber dari <strong>kebijakan pemerintah atau tatanan hukum/ekonomi</strong> yang tidak adil. Gampangnya, aturan main di masyarakat belum merata. Contohnya, pembangunan yang hanya dipusatkan di kota besar (*urban-centric*), sehingga daerah pelosok tertinggal. Di sini, masyarakat miskin bukan karena malas, melainkan karena sistem yang belum memberi mereka kesempatan yang setara.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Faktor Kultural -->
+                        <div class="bg-amber-50/40 p-5 rounded-2xl border border-amber-100 flex flex-col sm:flex-row gap-4 hover:shadow-md hover:shadow-amber-50 transition-shadow duration-200">
+                            <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600 shrink-0 text-2xl shadow-inner">
+                                🧠
+                            </div>
+                            <div class="space-y-1">
+                                <h4 class="font-bold text-amber-950 text-sm md:text-base">2. Faktor Kultural (Budaya & Sikap Hidup)</h4>
+                                <p class="text-xs md:text-sm text-slate-650 leading-relaxed">
+                                    Faktor ini berhubungan erat dengan <strong>pola pikir, sikap hidup, dan nilai adat istiadat</strong> yang diyakini oleh masyarakat. Ada nilai budaya yang positif (kerja keras, hemat), namun ada juga sikap negatif seperti malas, boros, cepat pasrah pada nasib (*fatalistik*), atau anti terhadap kemajuan IPTEK. Budaya negatif ini sering kali menghambat mobilitas sosial mereka sendiri.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Faktor Geografis -->
+                        <div class="bg-emerald-50/40 p-5 rounded-2xl border border-emerald-100 flex flex-col sm:flex-row gap-4 hover:shadow-md hover:shadow-emerald-50 transition-shadow duration-200">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0 text-2xl shadow-inner">
+                                🗺️
+                            </div>
+                            <div class="space-y-1">
+                                <h4 class="font-bold text-emerald-950 text-sm md:text-base">3. Faktor Geografis (Letak & Kondisi Alam)</h4>
+                                <p class="text-xs md:text-sm text-slate-650 leading-relaxed">
+                                    Indonesia adalah negara kepulauan yang sangat luas! <strong>Kondisi topografi, iklim, kesuburan tanah, serta keterisolasian daerah</strong> mempengaruhi laju ekonomi daerah tersebut. Daerah dataran rendah atau pesisir pantai strategis biasanya tumbuh pesat berkat akses perdagangan, berbeda dengan saudara kita di wilayah pegunungan dalam yang jalurnya masih terputus dan sulit dijangkau.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Faktor Demografis -->
+                        <div class="bg-rose-50/40 p-5 rounded-2xl border border-rose-100 flex flex-col sm:flex-row gap-4 hover:shadow-md hover:shadow-rose-50 transition-shadow duration-200">
+                            <div class="w-12 h-12 rounded-xl bg-rose-100 flex items-center justify-center text-rose-600 shrink-0 text-2xl shadow-inner">
+                                👥
+                            </div>
+                            <div class="space-y-1">
+                                <h4 class="font-bold text-rose-950 text-sm md:text-base">4. Faktor Demografis (Kependudukan)</h4>
+                                <p class="text-xs md:text-sm text-slate-650 leading-relaxed">
+                                    Ini menyangkut masalah <strong>jumlah, laju pertumbuhan, persebaran, dan komposisi umur</strong> penduduk. Wilayah dengan ledakan jumlah penduduk tetapi minim ketersediaan lapangan kerja baru akan rentan memicu kantong kemiskinan. Begitu pula perbedaan drastis tingkat kesehatan dan mutu pendidikan dasar antardaerah yang melahirkan jurang kompetensi tenaga kerja.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion Detail Materi -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 space-y-4">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">💡 Bedah Lebih Dalam: Bentuk-Bentuk Ketimpangan</h3>
+                    
+                    <!-- Accordion Item 1 -->
+                    <div class="border border-slate-100 rounded-xl overflow-hidden">
+                        <button onclick="toggleAccordion(1)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-indigo-50/30 transition-colors">
+                            <span class="font-semibold text-sm text-indigo-950 flex items-center gap-2">
+                                <span class="bg-indigo-100 text-indigo-700 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                                Ketimpangan Desa dan Kota
+                            </span>
+                            <i id="accordion-icon-1" data-lucide="chevron-down" class="w-5 h-5 text-indigo-900 transition-transform"></i>
+                        </button>
+                        <div id="accordion-content-1" class="hidden p-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 bg-white">
+                            Pernah perhatiin nggak kalau di kota besar fasilitas hiburan, rumah sakit canggih, dan perguruan tinggi melimpah ruah? Sedangkan di sebagian desa terpencil, akses jalan saja masih rusak dan susah sinyal. Hal ini dipicu oleh pemusatan pembangunan (urban sentris) yang membuat masyarakat desa tertinggal dari segi ekonomi dan teknologi.
+                        </div>
+                    </div>
+
+                    <!-- Accordion Item 2 -->
+                    <div class="border border-slate-100 rounded-xl overflow-hidden">
+                        <button onclick="toggleAccordion(2)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-indigo-50/30 transition-colors">
+                            <span class="font-semibold text-sm text-indigo-950 flex items-center gap-2">
+                                <span class="bg-indigo-100 text-indigo-700 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                                Ketimpangan Gender
+                            </span>
+                            <i id="accordion-icon-2" data-lucide="chevron-down" class="w-5 h-5 text-indigo-900 transition-transform"></i>
+                        </button>
+                        <div id="accordion-content-2" class="hidden p-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 bg-white">
+                            Ketimpangan gender terjadi saat salah satu jenis kelamin (sering kali perempuan) memiliki ruang gerak, kesempatan karir, atau gaji yang lebih rendah karena stigma budaya patriarki. Padahal, baik laki-laki maupun perempuan punya potensi yang sama hebatnya untuk membangun bangsa!
+                        </div>
+                    </div>
+
+                    <!-- Accordion Item 3 -->
+                    <div class="border border-slate-100 rounded-xl overflow-hidden">
+                        <button onclick="toggleAccordion(3)" class="w-full flex justify-between items-center p-4 bg-slate-50 hover:bg-indigo-50/30 transition-colors">
+                            <span class="font-semibold text-sm text-indigo-950 flex items-center gap-2">
+                                <span class="bg-indigo-100 text-indigo-700 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                                Ketimpangan Kualitas Sumber Daya Manusia (SDM)
+                            </span>
+                            <i id="accordion-icon-3" data-lucide="chevron-down" class="w-5 h-5 text-indigo-900 transition-transform"></i>
+                        </button>
+                        <div id="accordion-content-3" class="hidden p-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 bg-white">
+                            Siapa yang menguasai ilmu pengetahuan dan teknologi (IPTEK), dialah yang paling berpeluang untuk sukses di era modern. Sayangnya, sekolah dengan fasilitas canggih biasanya berbiaya mahal. Anak-anak yang kurang beruntung harus puas dengan fasilitas apa adanya, sehingga terjadi jurang kualitas SDM yang nyata di dunia kerja.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ajakan untuk Lanjut -->
+                <div class="bg-gradient-to-r from-amber-400 to-orange-400 text-indigo-950 rounded-2xl p-6 shadow-md flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="space-y-1">
+                        <h4 class="font-extrabold text-lg">Sudah paham teori dasarnya?</h4>
+                        <p class="text-sm text-indigo-900 font-medium">Yuk, sekarang kita uji secara langsung di lab simulasi interaktif!</p>
+                    </div>
+                    <button onclick="switchTab('simulasi')" class="bg-indigo-950 text-white hover:bg-indigo-900 px-6 py-3 rounded-xl font-bold text-sm shadow-lg transition-transform hover:scale-105 active:scale-95 shrink-0">
+                        Ke Lab Simulasi Dampak 🧪
+                    </button>
+                </div>
+            </section>
+
+            <!-- MENU 2: SIMULASI HUBUNGAN KETIMPANGAN DAN KESEJAHTERAAN -->
+            <section id="tab-simulasi" class="space-y-6 hidden animate-fade-in">
+                <!-- Panduan Simulasi -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80">
+                    <div class="flex items-start space-x-3">
+                        <span class="text-3xl">🧪</span>
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-lg">Laboratorium Simulasi Kebijakan Sosial</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed mt-1">
+                                Selamat datang di lab simulasi! Di sini kamu berperan sebagai <strong>Menteri Sosial & Pembangunan</strong>. Atur tingkat kebijakan di bawah ini dengan menggeser <em>slider</em>, lalu lihat bagaimana dampaknya langsung mempengaruhi <strong>Koefisien Gini (Tingkat Ketimpangan)</strong> dan <strong>Indeks Kesejahteraan Masyarakat</strong> secara instan!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid Kontrol & Visualisasi -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    
+                    <!-- Panel Kontrol (Kiri) -->
+                    <div class="lg:col-span-5 bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 space-y-6">
+                        <h4 class="font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-3">
+                            <i data-lucide="sliders-horizontal" class="w-5 h-5 text-indigo-600"></i>
+                            Kontrol Kebijakan Publik
+                        </h4>
+
+                        <!-- Slider 1 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <label for="slide-pendidikan" class="text-xs font-bold text-slate-700 uppercase tracking-wide">🎓 Akses Pendidikan & Beasiswa</label>
+                                <span id="val-pendidikan" class="bg-indigo-50 text-indigo-700 text-xs font-extrabold px-2 py-0.5 rounded-full border border-indigo-100">Sedang</span>
+                            </div>
+                            <input type="range" id="slide-pendidikan" min="0" max="100" value="50" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                            <p class="text-[11px] text-slate-500">Makin tinggi nilai, makin banyak warga miskin dapat beasiswa kuliah gratis.</p>
+                        </div>
+
+                        <!-- Slider 2 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <label for="slide-umkm" class="text-xs font-bold text-slate-700 uppercase tracking-wide">💼 Permodalan & Pelatihan UMKM</label>
+                                <span id="val-umkm" class="bg-emerald-50 text-emerald-700 text-xs font-extrabold px-2 py-0.5 rounded-full border border-emerald-100">Sedang</span>
+                            </div>
+                            <input type="range" id="slide-umkm" min="0" max="100" value="50" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+                            <p class="text-[11px] text-slate-500">Memberikan modal bagi pengusaha mikro agar tidak kalah bersaing dengan korporasi raksasa.</p>
+                        </div>
+
+                        <!-- Slider 3 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <label for="slide-infrastruktur" class="text-xs font-bold text-slate-700 uppercase tracking-wide">🛣️ Pemerataan Infrastruktur Desa</label>
+                                <span id="val-infrastruktur" class="bg-amber-50 text-amber-700 text-xs font-extrabold px-2 py-0.5 rounded-full border border-amber-100">Sedang</span>
+                            </div>
+                            <input type="range" id="slide-infrastruktur" min="0" max="100" value="50" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600">
+                            <p class="text-[11px] text-slate-500">Pembangunan jalan, listrik, internet gratis, dan air bersih di wilayah pelosok Nusantara.</p>
+                        </div>
+
+                        <button onclick="resetSliders()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset Kebijakan ke Default
+                        </button>
+                    </div>
+
+                    <!-- Panel Hasil Visualisasi & Feedback Guru (Kanan) -->
+                    <div class="lg:col-span-7 bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 flex flex-col justify-between space-y-6">
+                        
+                        <!-- Indikator Angka & Chart Buatan Sendiri -->
+                        <div>
+                            <h4 class="font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-3 mb-6">
+                                <i data-lucide="line-chart" class="w-5 h-5 text-indigo-600"></i>
+                                Indikator Keberhasilan Sosial
+                            </h4>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- Gini Coefficient Gauge -->
+                                <div class="bg-slate-50 border border-slate-100 p-4 rounded-xl flex flex-col items-center text-center">
+                                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wide">Koefisien Gini (Ketimpangan)</span>
+                                    <div class="relative flex items-center justify-center my-3">
+                                        <!-- Ring Gauge -->
+                                        <svg class="w-24 h-24 transform -rotate-90">
+                                            <circle cx="48" cy="48" r="40" stroke="#e2e8f0" stroke-width="8" fill="transparent" />
+                                            <circle id="gini-circle" cx="48" cy="48" r="40" stroke="#f43f5e" stroke-width="8" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="125.6" />
+                                        </svg>
+                                        <span id="gini-value" class="absolute text-xl font-extrabold text-rose-500">0.50</span>
+                                    </div>
+                                    <span id="gini-status" class="text-xs bg-rose-50 text-rose-700 px-3 py-1 rounded-full font-bold border border-rose-100">Ketimpangan Sedang</span>
+                                    <p class="text-[10px] text-slate-500 mt-2">Gini mendekati 0 = Adil Merata.<br>Gini mendekati 1 = Sangat Timpang.</p>
+                                </div>
+
+                                <!-- Well-being Score Gauge -->
+                                <div class="bg-slate-50 border border-slate-100 p-4 rounded-xl flex flex-col items-center text-center">
+                                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wide">Kesejahteraan Rakyat</span>
+                                    <div class="relative flex items-center justify-center my-3">
+                                        <!-- Ring Gauge -->
+                                        <svg class="w-24 h-24 transform -rotate-90">
+                                            <circle cx="48" cy="48" r="40" stroke="#e2e8f0" stroke-width="8" fill="transparent" />
+                                            <circle id="wellbeing-circle" cx="48" cy="48" r="40" stroke="#10b981" stroke-width="8" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="125.6" />
+                                        </svg>
+                                        <span id="wellbeing-value" class="absolute text-xl font-extrabold text-emerald-500">50%</span>
+                                    </div>
+                                    <span id="wellbeing-status" class="text-xs bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-bold border border-emerald-100">Menengah</span>
+                                    <p class="text-[10px] text-slate-500 mt-2">Makin tinggi persentase, masyarakat makin makmur, sehat, dan berdaya.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Feedback Komentar dari Guru -->
+                        <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-4 flex items-start space-x-3">
+                            <span class="text-2xl mt-1 shrink-0">👨‍🏫</span>
+                            <div>
+                                <h5 class="text-xs font-extrabold text-indigo-950 uppercase tracking-wider">Komentar Analisis Pak Sosio:</h5>
+                                <p id="guru-comment" class="text-sm text-indigo-900 mt-1 leading-relaxed">
+                                    Wah, kebijakanmu masih standar nih! Masih banyak warga yang kesulitan mengakses fasilitas terbaik. Coba naikkan anggaran beasiswa dan pemerataan infrastruktur desa agar ketimpangan menyusut drastis!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Ajakan untuk Kuis -->
+                <div class="bg-gradient-to-r from-indigo-900 to-indigo-850 text-white rounded-2xl p-6 shadow-md flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="space-y-1">
+                        <h4 class="font-extrabold text-lg">Gimana? Keren kan efek kebijakannya?</h4>
+                        <p class="text-sm text-indigo-200">Sekarang saatnya asah otak di Kuis Cepat untuk menguji pemahaman teorimu!</p>
+                    </div>
+                    <button onclick="switchTab('kuis')" class="bg-amber-400 text-indigo-950 hover:bg-amber-300 px-6 py-3 rounded-xl font-bold text-sm shadow-lg transition-transform hover:scale-105 active:scale-95 shrink-0">
+                        Ayo Mulai Kuis! ⚡
+                    </button>
+                </div>
+            </section>
+
+            <!-- MENU 3: KUIS CEPAT KETIMPANGAN SOSIAL -->
+            <section id="tab-kuis" class="space-y-6 hidden animate-fade-in">
+                <!-- Welcome Kuis -->
+                <div id="quiz-welcome" class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200/80 text-center space-y-4">
+                    <div class="w-16 h-16 rounded-full bg-amber-100 text-amber-500 mx-auto flex items-center justify-center text-3xl">
+                        📝
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-slate-800">Uji Pemahaman Sosiologimu!</h3>
+                    <p class="text-slate-600 max-w-lg mx-auto text-sm leading-relaxed">
+                        Pak Sosio sudah menyiapkan <strong>5 Soal Pilihan Ganda</strong> tentang ketimpangan sosial untuk menguji ketajaman analisismu. Ada feedback seru dan penjelasan singkat di setiap jawaban lho!
+                    </p>
+                    <button onclick="startQuiz()" class="bg-indigo-900 hover:bg-indigo-850 text-white font-bold px-8 py-3.5 rounded-xl text-sm shadow-lg transition-all hover:scale-105 active:scale-95 inline-flex items-center gap-2">
+                        <i data-lucide="play-circle" class="w-4 h-4"></i> Mulai Kuis Sekarang
+                    </button>
+                </div>
+
+                <!-- Area Pertanyaan Kuis (Akan diisi via JavaScript) -->
+                <div id="quiz-container" class="hidden space-y-6">
+                    <!-- Progress & Status Kuis -->
+                    <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200/80 flex justify-between items-center">
+                        <span class="text-xs font-bold text-slate-500" id="quiz-progress-text">PERTANYAAN 1 DARI 5</span>
+                        <!-- Progress bar -->
+                        <div class="w-1/2 bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div id="quiz-progress-bar" class="bg-indigo-600 h-2 w-1/5 transition-all duration-300"></div>
+                        </div>
+                        <span id="quiz-score-badge" class="text-xs bg-amber-50 text-amber-700 px-3 py-1 rounded-full font-bold border border-amber-100">Skor: 0</span>
+                    </div>
+
+                    <!-- Card Pertanyaan Utama -->
+                    <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200/80 space-y-6">
+                        <h4 id="quiz-question" class="text-base md:text-lg font-bold text-slate-800 leading-relaxed">
+                            <!-- Pertanyaan dimuat di sini -->
+                        </h4>
+
+                        <!-- Pilihan Jawaban -->
+                        <div id="quiz-options" class="grid grid-cols-1 gap-3">
+                            <!-- Pilihan dimuat di sini -->
+                        </div>
+                    </div>
+
+                    <!-- Area Feedback dari Jawaban -->
+                    <div id="quiz-feedback" class="hidden bg-slate-50 rounded-2xl p-6 shadow-sm border border-slate-200/80 space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <div id="feedback-icon-container" class="w-10 h-10 rounded-full flex items-center justify-center text-lg">
+                                <!-- Icon/Emoji -->
+                            </div>
+                            <h4 id="feedback-title" class="font-extrabold text-base">
+                                <!-- Hasil Correct/Incorrect -->
+                            </h4>
+                        </div>
+                        <p id="feedback-text" class="text-slate-600 text-sm leading-relaxed">
+                            <!-- Penjelasan jawaban -->
+                        </p>
+                        <button onclick="nextQuestion()" class="bg-indigo-900 hover:bg-indigo-850 text-white font-bold px-6 py-2.5 rounded-xl text-xs shadow-md transition-colors inline-flex items-center gap-2">
+                            <span>Lanjut Soal Berikutnya</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Layar Hasil Akhir (Scoreboard) -->
+                <div id="quiz-results" class="hidden bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200/80 text-center space-y-6">
+                    <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full mx-auto flex items-center justify-center text-4xl shadow-inner">
+                        🏆
+                    </div>
+                    <div>
+                        <h3 class="text-xl md:text-2xl font-extrabold text-slate-800">Kuis Selesai! Kerja Bagus!</h3>
+                        <p class="text-slate-500 text-xs mt-1">Ini ringkasan hasil latihan kamu hari ini</p>
+                    </div>
+
+                    <div class="max-w-xs mx-auto bg-slate-50 border border-slate-100 p-6 rounded-2xl">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Total Skor Kamu</p>
+                        <p id="result-score" class="text-5xl md:text-6xl font-black text-indigo-900 my-2">100</p>
+                        <p id="result-correct-count" class="text-xs font-bold text-slate-600">Menjawab benar 5 dari 5 pertanyaan</p>
+                    </div>
+
+                    <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-5 max-w-xl mx-auto flex items-start space-x-4 text-left">
+                        <span class="text-3xl">👨‍🏫</span>
+                        <div>
+                            <h5 class="text-sm font-extrabold text-indigo-950 uppercase tracking-wider">Apresiasi Pak Sosio:</h5>
+                            <p id="result-commentary" class="text-sm text-indigo-900 mt-1 leading-relaxed">
+                                Luar biasa banget! Kamu paham betul konsep ketimpangan sosial dan cara pemecahannya. Masa depan pembangunan keadilan sosial ada di tangan anak-anak hebat seperti kamu! Pertahankan ya!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-3">
+                        <button onclick="startQuiz()" class="w-full sm:w-auto bg-indigo-900 hover:bg-indigo-850 text-white font-bold px-6 py-3 rounded-xl text-xs transition-colors shadow-md flex items-center justify-center gap-2">
+                            <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Coba Kuis Lagi
+                        </button>
+                        <button onclick="switchTab('materi')" class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-6 py-3 rounded-xl text-xs transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="book" class="w-4 h-4"></i> Baca Materi Lagi
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- FOOTER PEMBELAJARAN -->
+        <footer class="bg-white border-t border-slate-200 py-6 px-4 text-center text-xs text-slate-500 mt-auto">
+            <div class="max-w-5xl mx-auto space-y-1">
+                <p class="font-bold text-indigo-900">SOSIO-SMART &copy; 2026</p>
+                <p>Dikembangkan dengan penuh dedikasi untuk memudahkan siswa memahami Fenomena Ketimpangan Sosial di Indonesia.</p>
+                <p class="text-[10px] text-slate-400">Dirancang secara responsif untuk kenyamanan belajar di semua jenis layar ponsel cerdas, tablet, dan desktop.</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- JS LOGIC - INTERAKTIF & DYNAMIC -->
+    <script>
+        // 1. INisialisasi Icon Lucide
+        lucide.createIcons();
+
+        // 2. NAVIGASI / SWITCH TAB (TIDAK RE-LOAD HALAMAN)
+        function switchTab(tabName) {
+            // Sembunyikan semua tab
+            document.getElementById('tab-materi').classList.add('hidden');
+            document.getElementById('tab-simulasi').classList.add('hidden');
+            document.getElementById('tab-kuis').classList.add('hidden');
+            
+            // Tampilkan tab aktif
+            document.getElementById('tab-' + tabName).classList.remove('hidden');
+
+            // Reset menu styling di navigasi sidebar
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.className = "nav-item w-full flex items-center space-x-3 px-4 py-3.5 rounded-xl transition-all duration-200 text-indigo-300 hover:bg-indigo-900/50 hover:text-white font-medium";
+            });
+
+            // Styling aktif
+            const activeNav = document.getElementById('nav-' + tabName);
+            activeNav.className = "nav-item w-full flex items-center space-x-3 px-4 py-3.5 rounded-xl transition-all duration-200 bg-indigo-800/80 text-white font-semibold shadow-md shadow-indigo-950/20";
+
+            // Atur judul & deksripsi header atas sesuai tab
+            const headerTitle = document.getElementById('header-title');
+            const headerDesc = document.getElementById('header-desc');
+
+            if (tabName === 'materi') {
+                headerTitle.textContent = "Materi Ketimpangan Sosial";
+                headerDesc.textContent = "Yuk, pahami mengapa perbedaan di masyarakat bisa memicu jurang ketimpangan, serta bagaimana solusinya!";
+                updateStudyStatus("Sedang Membaca Materi 📖");
+            } else if (tabName === 'simulasi') {
+                headerTitle.textContent = "Laboratorium Simulasi Sosial";
+                headerDesc.textContent = "Simulasikan keputusan kebijakan publikmu dan saksikan dampaknya langsung terhadap kesejahteraan!";
+                updateStudyStatus("Sedang Bereksperimen 🧪");
+            } else if (tabName === 'kuis') {
+                headerTitle.textContent = "Kuis Cepat Pemahaman";
+                headerDesc.textContent = "Ayo ukur seberapa jago kamu menganalisis topik ketimpangan dengan kuis seru dari Pak Sosio!";
+                updateStudyStatus("Sedang Mengerjakan Kuis 📝");
+            }
+
+            // Tutup sidebar di mobile setelah pilih menu
+            closeMobileSidebar();
+        }
+
+        function updateStudyStatus(statusText) {
+            document.getElementById('study-status').textContent = statusText;
+        }
+
+        // 3. RESPONSIVE SIDEBAR TOGGLE (MOBILE)
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        });
+
+        overlay.addEventListener('click', closeMobileSidebar);
+
+        function closeMobileSidebar() {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+
+        // 4. ACCORDION DETAIL MATERI
+        function toggleAccordion(id) {
+            const content = document.getElementById(`accordion-content-${id}`);
+            const icon = document.getElementById(`accordion-icon-${id}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // 5. SIMULASI KESEJAHTERAAN & KETIMPANGAN (LANCAR & INSTAN)
+        const slidePendidikan = document.getElementById('slide-pendidikan');
+        const slideUmkm = document.getElementById('slide-umkm');
+        const slideInfrastruktur = document.getElementById('slide-infrastruktur');
+
+        const valPendidikan = document.getElementById('val-pendidikan');
+        const valUmkm = document.getElementById('val-umkm');
+        const valInfrastruktur = document.getElementById('val-infrastruktur');
+
+        const giniValueEl = document.getElementById('gini-value');
+        const giniCircle = document.getElementById('gini-circle');
+        const giniStatus = document.getElementById('gini-status');
+
+        const wellbeingValueEl = document.getElementById('wellbeing-value');
+        const wellbeingCircle = document.getElementById('wellbeing-circle');
+        const wellbeingStatus = document.getElementById('wellbeing-status');
+
+        const guruComment = document.getElementById('guru-comment');
+
+        // Event listener untuk update instan
+        [slidePendidikan, slideUmkm, slideInfrastruktur].forEach(slider => {
+            slider.addEventListener('input', runSimulation);
+        });
+
+        function getLevelText(value) {
+            if (value < 35) return "Rendah";
+            if (value < 75) return "Sedang";
+            return "Tinggi";
+        }
+
+        function runSimulation() {
+            const edu = parseInt(slidePendidikan.value);
+            const umkm = parseInt(slideUmkm.value);
+            const infra = parseInt(slideInfrastruktur.value);
+
+            // Update label teks
+            valPendidikan.textContent = getLevelText(edu);
+            valUmkm.textContent = getLevelText(umkm);
+            valInfrastruktur.textContent = getLevelText(infra);
+
+            // Perhitungan Simulasi Logika Sosiologis
+            // Gini Coefficient (0.25 - 0.65) -> Makin besar investasi di pendidikan & UMKM, Gini menyusut (merata)
+            // Rumus: Base Gini adalah 0.65 (sangat buruk), berkurang seiring investasi sosial meningkat
+            let giniResult = 0.65 - (edu * 0.0022) - (umkm * 0.0012) - (infra * 0.0006);
+            giniResult = Math.max(0.20, Math.min(0.65, giniResult)); // limit range
+
+            // Kesejahteraan (0 - 100) -> kombinasi ketiganya dengan bobot tertentu
+            let wellbeingResult = Math.round((edu * 0.4) + (umkm * 0.3) + (infra * 0.3));
+
+            // UPDATE GAUGES
+            giniValueEl.textContent = giniResult.toFixed(2);
+            // Gini Arc Circle (Stroke Dashoffset control, max dash = 251.2)
+            // Gini buruk (0.65) -> fill merah penuh. Gini bagus (0.20) -> fill dikit.
+            const giniPercent = (giniResult - 0.20) / (0.65 - 0.20);
+            giniCircle.style.strokeDashoffset = 251.2 * (1 - giniPercent);
+
+            if (giniResult <= 0.35) {
+                giniStatus.textContent = "Ketimpangan Rendah (Bagus!)";
+                giniStatus.className = "text-xs bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-bold border border-emerald-100";
+                giniValueEl.className = "absolute text-xl font-extrabold text-emerald-500";
+                giniCircle.setAttribute("stroke", "#10b981");
+            } else if (giniResult <= 0.50) {
+                giniStatus.textContent = "Ketimpangan Sedang";
+                giniStatus.className = "text-xs bg-amber-50 text-amber-700 px-3 py-1 rounded-full font-bold border border-amber-100";
+                giniValueEl.className = "absolute text-xl font-extrabold text-amber-500";
+                giniCircle.setAttribute("stroke", "#f59e0b");
+            } else {
+                giniStatus.textContent = "Ketimpangan Tinggi (Bahaya!)";
+                giniStatus.className = "text-xs bg-rose-50 text-rose-700 px-3 py-1 rounded-full font-bold border border-rose-100";
+                giniValueEl.className = "absolute text-xl font-extrabold text-rose-500";
+                giniCircle.setAttribute("stroke", "#f43f5e");
+            }
+
+            // Wellbeing Arc Circle
+            wellbeingValueEl.textContent = `${wellbeingResult}%`;
+            wellbeingCircle.style.strokeDashoffset = 251.2 * (1 - (wellbeingResult / 100));
+
+            if (wellbeingResult >= 75) {
+                wellbeingStatus.textContent = "Sejahtera & Makmur";
+                wellbeingStatus.className = "text-xs bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-bold border border-emerald-100";
+                wellbeingValueEl.className = "absolute text-xl font-extrabold text-emerald-500";
+                wellbeingCircle.setAttribute("stroke", "#10b981");
+            } else if (wellbeingResult >= 45) {
+                wellbeingStatus.textContent = "Menengah";
+                wellbeingStatus.className = "text-xs bg-amber-50 text-amber-700 px-3 py-1 rounded-full font-bold border border-amber-100";
+                wellbeingValueEl.className = "absolute text-xl font-extrabold text-amber-500";
+                wellbeingCircle.setAttribute("stroke", "#f59e0b");
+            } else {
+                wellbeingStatus.textContent = "Tertinggal / Rentan";
+                wellbeingStatus.className = "text-xs bg-rose-50 text-rose-700 px-3 py-1 rounded-full font-bold border border-rose-100";
+                wellbeingValueEl.className = "absolute text-xl font-extrabold text-rose-500";
+                wellbeingCircle.setAttribute("stroke", "#f43f5e");
+            }
+
+            // GURU COMMENTARY ENGINE (DYNAMIC & PERSONAL)
+            let comment = "";
+            if (edu > 80 && umkm > 80 && infra > 80) {
+                comment = "Luar biasa! Kombinasi maut kebijakanmu berhasil menciptakan masyarakat adil, makmur, dan berpendidikan tinggi. Ini adalah impian sejati dari integrasi sosial!";
+            } else if (edu < 30 && umkm < 30 && infra < 30) {
+                comment = "Gawat darurat! Tanpa beasiswa, bantuan UMKM, dan perbaikan infrastruktur, ketimpangan meledak hebat. Masyarakat bawah makin sengsara dan bisa memicu tingginya kriminalitas!";
+            } else if (edu >= 70 && infra < 40) {
+                comment = "Bagus sekali peduli pada pendidikan! Tapi ingat, kalau di desa tidak ada jalan bagus dan internet, anak-anak pintar dari desa akan kesulitan bersaing atau bahkan terpaksa urbanisasi semua ke kota.";
+            } else if (infra >= 75 && edu < 40) {
+                comment = "Infrastruktur dibangun megah di mana-mana, tapi sayang SDM-nya tertinggal. Jalan tol bagus hanya akan dinikmati oleh korporasi besar, sedangkan penduduk asli hanya jadi penonton karena kurang keterampilan.";
+            } else if (umkm >= 75 && edu < 40) {
+                comment = "Permodalan usaha mikro melimpah, namun kurang didukung manajemen modern dari pendidikan yang memadai. Banyak usaha yang berpotensi mandek atau gagal bersaing dalam jangka panjang.";
+            } else {
+                comment = "Kebijakanmu sudah mengarah ke jalan yang benar, tapi masih tanggung. Coba geser terus salah satu investasi krusialmu (Pendidikan atau UMKM) di atas 80% untuk melihat akselerasi kesejahteraan warga!";
+            }
+            guruComment.textContent = comment;
+        }
+
+        function resetSliders() {
+            slidePendidikan.value = 50;
+            slideUmkm.value = 50;
+            slideInfrastruktur.value = 50;
+            runSimulation();
+        }
+
+        // Jalankan kalkulasi pertama kali di-load
+        runSimulation();
+
+
+        // 6. KUIS CEPAT KETIMPANGAN SOSIAL (5 SOAL PILIHAN GANDA DENGAN PENJELASAN)
+        const quizQuestions = [
+            {
+                question: "Dari contoh-contoh berikut ini, manakah yang paling akurat menggambarkan potret dari ketimpangan sosial di daerah perkotaan?",
+                options: [
+                    "A. Dibangunnya taman bermain anak yang sangat luas dan teduh di pusat kota.",
+                    "B. Terpajangnya iklan produk smartphone terbaru di baliho jalanan protokol.",
+                    "C. Berdirinya komplek apartemen super mewah berdampingan langsung dengan pemukiman kumuh padat penduduk.",
+                    "D. Banyaknya jumlah pedagang kaki lima yang berjualan di trotoar pada sore hari."
+                ],
+                correct: 2, // Indeks C
+                explanation: "Sip, jawabanmu tepat! Berdirinya perumahan elit atau apartemen mewah yang berdampingan langsung dengan pemukiman kumuh adalah contoh ketimpangan sosial spasial dan ekonomi yang sangat kontras di perkotaan."
+            },
+            {
+                question: "Faktor internal yang menjadi pemicu timbulnya kemiskinan atau ketimpangan di dalam diri seorang individu adalah...",
+                options: [
+                    "A. Kurangnya akses bantuan permodalan UMKM dari pemerintah pusat.",
+                    "B. Sikap malas, kepasrahan, atau minimnya keterampilan kerja dari individu itu sendiri.",
+                    "C. Terjadinya bencana alam banjir bandang yang merusak sawah warga.",
+                    "D. Sulitnya akses transportasi ke sekolah terdekat akibat jalanan rusak parah."
+                ],
+                correct: 1, // Indeks B
+                explanation: "Keren, benar sekali! Faktor internal itu bersumber dari dalam diri individu itu sendiri, seperti sikap hidup, kesehatan, malas berusaha, atau rendahnya keterampilan kerja."
+            },
+            {
+                question: "Koefisien Gini merupakan sebuah indikator statistik yang digunakan untuk mengukur tingkat...",
+                options: [
+                    "A. Pertambahan populasi penduduk pertahun.",
+                    "B. Ketimpangan atau keadilan distribusi pendapatan dalam masyarakat.",
+                    "C. Kerusakan lingkungan akibat eksploitasi industri.",
+                    "D. Keberhasilan program wajib belajar 12 tahun."
+                ],
+                correct: 2, // Indeks B
+                explanation: "Luar biasa, kamu menyimak lab simulasi dengan baik! Koefisien Gini berkisar antara 0 sampai 1. Semakin mendekati 0 maka semakin merata, dan semakin mendekati 1 artinya semakin timpang."
+            },
+            {
+                question: "Ketimpangan sosial sering kali memicu lahirnya kecemburuan sosial. Dampak sosiologis paling berbahaya jika kondisi tersebut terus dibiarkan di masyarakat adalah...",
+                options: [
+                    "A. Menurunnya jumlah kelahiran bayi pertahun.",
+                    "B. Terjadinya disintegrasi sosial atau konflik horizontal antar-kelompok sosial.",
+                    "C. Berkurangnya impor komoditas pangan dari luar negeri.",
+                    "D. Terciptanya lapangan kerja baru di sektor informal secara mandiri."
+                ],
+                correct: 1, // Indeks B
+                explanation: "Tepat sekali! Ketimpangan yang terlalu lebar dapat merusak solidaritas sosial, memicu rasa dendam kelas sosial, dan sewaktu-waktu berpotensi memicu konflik horizontal (disintegrasi sosial) yang merusak kerukunan bangsa."
+            },
+            {
+                question: "Manakah langkah strategis jangka panjang yang paling efektif untuk memutus rantai ketimpangan struktural antargenerasi?",
+                options: [
+                    "A. Memberikan bantuan bahan pokok makanan gratis setiap satu minggu sekali.",
+                    "B. Membangun pusat perbelanjaan atau mall di daerah-daerah wisata pelosok.",
+                    "C. Menyediakan akses pendidikan berkualitas gratis dan beasiswa kuliah untuk anak keluarga miskin.",
+                    "D. Menaikkan pajak penjualan barang kebutuhan pokok masyarakat luas."
+                ],
+                correct: 2, // Indeks C
+                explanation: "Sempurna! Pendidikan berkualitas adalah jembatan utama mobilitas sosial naik (social climbing). Dengan mendidik anak dari keluarga kurang mampu menjadi sarjana berkeahlian tinggi, mereka bisa mengangkat derajat ekonomi keluarganya dan memutus rantai kemiskinan turun-temurun."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = []; // melacak jawaban
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            document.getElementById('quiz-welcome').classList.add('hidden');
+            document.getElementById('quiz-results').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            // Sembunyikan panel feedback dari pertanyaan sebelumnya
+            document.getElementById('quiz-feedback').classList.add('hidden');
+
+            const q = quizQuestions[currentQuestionIndex];
+            
+            // Update Progress & Score
+            document.getElementById('quiz-progress-text').textContent = `PERTANYAAN ${currentQuestionIndex + 1} DARI ${quizQuestions.length}`;
+            const progressPercent = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
+            document.getElementById('quiz-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('quiz-score-badge').textContent = `Skor: ${score}`;
+
+            // Tampilkan Teks Pertanyaan
+            document.getElementById('quiz-question').textContent = q.question;
+
+            // Render Pilihan Jawaban
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/20 transition-all duration-150 flex items-start space-x-3 text-sm font-medium text-slate-700";
+                btn.onclick = () => selectAnswer(idx);
+                btn.innerHTML = `<span>${opt}</span>`;
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(selectedIndex) {
+            const q = quizQuestions[currentQuestionIndex];
+            const feedbackContainer = document.getElementById('quiz-feedback');
+            const feedbackIconContainer = document.getElementById('feedback-icon-container');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackText = document.getElementById('feedback-text');
+
+            // Nonaktifkan semua tombol pilihan jawaban agar tidak bisa klik dua kali
+            const buttons = document.getElementById('quiz-options').getElementsByTagName('button');
+            for (let btn of buttons) {
+                btn.disabled = true;
+                btn.classList.remove('hover:border-indigo-400', 'hover:bg-indigo-50/20');
+            }
+
+            const isCorrect = selectedIndex === q.correct;
+            
+            if (isCorrect) {
+                score += 20;
+                document.getElementById('quiz-score-badge').textContent = `Skor: ${score}`;
+                
+                // Styling Benar (Sangat seru & menyemangati)
+                feedbackContainer.className = "bg-emerald-50 border border-emerald-200 rounded-2xl p-6 shadow-sm space-y-3 animate-bounce-subtle";
+                feedbackIconContainer.className = "w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg shrink-0";
+                feedbackIconContainer.innerHTML = "🎉";
+                feedbackTitle.className = "font-extrabold text-emerald-800 text-base";
+                feedbackTitle.textContent = "KEREN BANGET! JAWABANMU TEPAT! 🎉";
+                
+                buttons[selectedIndex].className = "w-full text-left p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 flex items-start space-x-3 text-sm font-bold";
+            } else {
+                // Styling Salah (Menyemangati dan menjelaskan)
+                feedbackContainer.className = "bg-rose-50 border border-rose-200 rounded-2xl p-6 shadow-sm space-y-3";
+                feedbackIconContainer.className = "w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-lg shrink-0";
+                feedbackIconContainer.innerHTML = "💪";
+                feedbackTitle.className = "font-extrabold text-rose-800 text-base";
+                feedbackTitle.textContent = "YUK TETAP SEMANGAT, MAJU TERUS! 💪";
+                
+                buttons[selectedIndex].className = "w-full text-left p-4 rounded-xl border-2 border-rose-500 bg-rose-50 text-rose-900 flex items-start space-x-3 text-sm font-bold";
+                // Tunjukkan jawaban yang benar dengan warna hijau
+                buttons[q.correct].className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-50/40 text-emerald-900 flex items-start space-x-3 text-sm font-bold";
+            }
+
+            feedbackText.textContent = q.explanation;
+            feedbackContainer.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizQuestions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            const resultsContainer = document.getElementById('quiz-results');
+            resultsContainer.classList.remove('hidden');
+
+            document.getElementById('result-score').textContent = score;
+            const correctCount = score / 20;
+            document.getElementById('result-correct-count').textContent = `Menjawab benar ${correctCount} dari 5 pertanyaan`;
+
+            const commentaryEl = document.getElementById('result-commentary');
+            let commentaryText = "";
+
+            if (score === 100) {
+                commentaryText = "Luar biasa jenius! Nilai sempurna 100! Kamu paham betul teori, dampak, hingga solusi ketimpangan sosial secara komprehensif. Bapak/Ibu bangga sekali dengan daya analisismu yang tajam!";
+            } else if (score >= 80) {
+                commentaryText = "Keren banget! Kamu hanya meleset satu nomor saja. Pemahaman sosiologimu sudah di atas rata-rata. Pertahankan terus semangat belajarmu ini ya!";
+            } else if (score >= 60) {
+                commentaryText = "Cukup bagus! Kamu sudah menguasai sebagian besar materi dasar ketimpangan sosial. Coba baca kembali bagian bentuk-bentuk ketimpangan atau mainkan lab simulasi sekali lagi biar makin mantap!";
+            } else {
+                commentaryText = "Tidak apa-apa, jangan berkecil hati ya! Sosiologi adalah ilmu yang membutuhkan banyak latihan analisis kasus nyata. Yuk, baca ulang materi di menu pertama lalu buktikan kamu bisa lebih baik di percobaan berikutnya!";
+            }
+
+            commentaryEl.textContent = commentaryText;
+            updateStudyStatus(`Kuis Selesai! Nilai: ${score} 🏆`);
+        }
+    </script>
+
+    <!-- Custom Animation CSS -->
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.35s ease-out forwards;
+        }
+        @keyframes bounceSubtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        .animate-bounce-subtle {
+            animation: bounceSubtle 1.5s ease-in-out infinite;
+        }
+    </style>
+</body>
+</html>

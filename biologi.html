@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Interaktif: Mekanisme Kerja Otot - SMAN 1 Banguntapan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome untuk Icon menarik -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Custom scrollbar untuk keindahan visual */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #10B981;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #059669;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- HEADER / NAVBAR ATAS -->
+    <header class="bg-emerald-600 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-3">
+                <div class="bg-white p-2 rounded-full text-emerald-600">
+                    <i class="fa-solid fa-dna text-2xl animate-pulse"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg sm:text-xl tracking-wide">Bio-Active Learning</h1>
+                    <p class="text-xs text-emerald-100 font-light">SMAN 1 Banguntapan • Kelas XI MIPA</p>
+                </div>
+            </div>
+            <div class="bg-emerald-700 px-4 py-1.5 rounded-full text-xs font-semibold shadow-inner flex items-center gap-2">
+                <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-300 animate-ping"></span>
+                Belajar Seru Bersama Guru Biologi Terkece! 🧠✨
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER (Layout Responsif: Navigasi samping di Desktop, navigasi atas di Mobile) -->
+    <div class="max-w-7xl mx-auto w-full flex-grow flex flex-col md:flex-row gap-6 p-4 sm:p-6">
+        
+        <!-- SIDEBAR NAVIGASI -->
+        <aside class="w-full md:w-64 shrink-0">
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 sticky top-24">
+                <div class="mb-4 pb-3 border-b border-slate-100 text-center md:text-left">
+                    <span class="text-xs uppercase font-bold tracking-wider text-slate-400">Daftar Modul</span>
+                    <h3 class="font-bold text-slate-700 text-sm mt-1">Mekanisme Kerja Otot</h3>
+                </div>
+                <!-- Menu List -->
+                <nav class="flex flex-col gap-2" id="main-nav">
+                    <button onclick="switchTab('materi')" id="nav-materi" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-medium text-left bg-emerald-50 text-emerald-700 shadow-sm border-l-4 border-emerald-500">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span class="text-sm">1. Materi Kerja Otot</span>
+                    </button>
+                    
+                    <button onclick="switchTab('simulasi')" id="nav-simulasi" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-medium text-left text-slate-600 hover:bg-slate-50">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span class="text-sm">2. Simulasi Interaktif</span>
+                    </button>
+                    
+                    <button onclick="switchTab('keseimbangan')" id="nav-keseimbangan" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-medium text-left text-slate-600 hover:bg-slate-50">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        <span class="text-sm">3. Keseimbangan Gerak</span>
+                    </button>
+                    
+                    <button onclick="switchTab('kuis')" id="nav-kuis" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-medium text-left text-slate-600 hover:bg-slate-50">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <span class="text-sm">4. Kuis Cepat Energi</span>
+                    </button>
+                </nav>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 text-center text-xs text-slate-400">
+                    <p>Designed for SMA N 1 Banguntapan</p>
+                    <p class="mt-1 font-semibold text-emerald-600">#BanguntapanHebat</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- KONTEN UTAMA (Tab-based) -->
+        <main class="flex-grow bg-white rounded-2xl p-5 sm:p-8 shadow-sm border border-slate-100 min-h-[500px]">
+            
+            <!-- ================= TAB 1: MATERI tentang KERJA OTOT ================= -->
+            <section id="tab-materi" class="tab-content block animate-fadeIn">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="p-3 bg-emerald-100 text-emerald-700 rounded-2xl">
+                        <i class="fa-solid fa-book-open text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-emerald-600 text-xs font-bold tracking-widest uppercase">Modul Pembelajaran</span>
+                        <h2 class="text-2xl font-bold text-slate-800">Bagaimana Otot Kita Bekerja?</h2>
+                    </div>
+                </div>
+
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    Halo anak-anakku yang hebat di SMAN 1 Banguntapan! Pernahkah kalian berpikir bagaimana lengan kita bisa ditekuk dan diluruskan? Yap, itu semua berkat kerja keras <strong class="text-emerald-600">otot lurik</strong> kita yang bertindak sebagai alat gerak aktif! Yuk, kita pelajari teorinya sebelum mencoba simulasinya!
+                </p>
+
+                <!-- Grid Konsep -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <!-- Kontraksi -->
+                    <div class="bg-red-50 rounded-2xl p-6 border border-red-100 shadow-sm">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="p-2 bg-red-100 text-red-600 rounded-xl font-bold text-lg"><i class="fa-solid fa-compress"></i></span>
+                            <h3 class="font-bold text-lg text-red-800">1. Fase Kontraksi (Kerja)</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                            Saat berkontraksi, otot akan <strong>memendek, membesar, dan menegang</strong>. Pada tingkat sel, kepala protein <strong>Miosin</strong> akan berikatan dengan <strong>Aktin</strong> membentuk jembatan penyeberangan (cross-bridge) lalu menarik aktin mendekat ke pusat sarkomer.
+                        </p>
+                        <div class="bg-white p-3 rounded-xl border border-red-100 text-xs text-red-700 font-medium">
+                            <i class="fa-solid fa-bolt mr-1"></i> Membutuhkan energi berupa <strong>ATP</strong> dan ion kalsium (<strong>Ca²⁺</strong>) untuk mengikat aktin dan miosin!
+                        </div>
+                    </div>
+
+                    <!-- Relaksasi -->
+                    <div class="bg-blue-50 rounded-2xl p-6 border border-blue-100 shadow-sm">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="p-2 bg-blue-100 text-blue-600 rounded-xl font-bold text-lg"><i class="fa-solid fa-expand"></i></span>
+                            <h3 class="font-bold text-lg text-blue-800">2. Fase Relaksasi (Istirahat)</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                            Setelah selesai berkontraksi, otot akan kembali ke bentuk semula yang <strong>memanjang, mengecil, dan kendur</strong>. Aktin dan miosin akan saling melepaskan kuncian ikatannya sehingga sarkomer kembali meregang.
+                        </p>
+                        <div class="bg-white p-3 rounded-xl border border-blue-100 text-xs text-blue-700 font-medium">
+                            <i class="fa-solid fa-rotate mr-1"></i> Proses melepasnya ikatan aktin-miosin ini juga membutuhkan <strong>ATP baru</strong> agar otot tidak terus-menerus kaku!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Komponen Protein -->
+                <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200">
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><i class="fa-solid fa-cubes text-emerald-600"></i> Komponen Utama dalam Sarkomer:</h4>
+                    <ul class="space-y-3 text-sm text-slate-600">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-500 mt-1"><i class="fa-solid fa-circle-check"></i></span>
+                            <span><strong>Aktin:</strong> Filamen tipis yang nanti ditarik saat kontraksi.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-500 mt-1"><i class="fa-solid fa-circle-check"></i></span>
+                            <span><strong>Miosin:</strong> Filamen tebal yang memiliki "kepala" penarik bertenaga ATP.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-500 mt-1"><i class="fa-solid fa-circle-check"></i></span>
+                            <span><strong>Sarkomer:</strong> Unit fungsional terkecil dari otot yang dibatasi oleh pita Z ke pita Z berikutnya.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tombol Lanjut -->
+                <div class="mt-8 flex justify-end">
+                    <button onclick="switchTab('simulasi')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2">
+                        <span>Yuk, Coba Simulasinya!</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+
+            <!-- ================= TAB 2: SIMULASI HUBUNGAN KERJA OTOT ================= -->
+            <section id="tab-simulasi" class="tab-content hidden animate-fadeIn">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="p-3 bg-emerald-100 text-emerald-700 rounded-2xl">
+                        <i class="fa-solid fa-sliders text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-emerald-600 text-xs font-bold tracking-widest uppercase">Eksperimen Virtual</span>
+                        <h2 class="text-2xl font-bold text-slate-800">Simulasi Kerja Otot Lengan</h2>
+                    </div>
+                </div>
+
+                <p class="text-slate-600 mb-6 text-sm">
+                    Ayo geser tombol pengontrol (slider) di bawah ini untuk melihat pergerakan tulang lengan kita, serta mengamati bagaimana otot <strong>Bisep</strong> dan <strong>Trisep</strong> bekerja secara antagonis (berlawanan)!
+                </p>
+
+                <!-- Kotak Simulasi Utama -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    
+                    <!-- Sisi Kiri: Animasi SVG -->
+                    <div class="lg:col-span-7 flex flex-col items-center justify-center bg-white p-4 rounded-xl shadow-inner border border-slate-100 min-h-[320px]">
+                        
+                        <!-- Visual Lengan Interaktif via Inline SVG -->
+                        <svg id="arm-svg" viewBox="0 0 400 400" class="w-full max-w-[320px] h-auto">
+                            <!-- Bagian Bahu/Lengan Atas Statis (Humerus Base) -->
+                            <path d="M 120 100 Q 110 80 140 80 T 170 100" fill="none" stroke="#CBD5E1" stroke-width="12" stroke-linecap="round"/>
+                            <rect x="135" y="90" width="30" height="120" rx="15" fill="#E2E8F0" stroke="#94A3B8" stroke-width="4" />
+                            
+                            <!-- Otot Bisep (Depan) - Dikontrol JS -->
+                            <path id="bicep-muscle" d="M 135 110 Q 115 150 135 200" fill="none" stroke="#EF4444" stroke-width="26" stroke-linecap="round" class="transition-all duration-100" />
+                            
+                            <!-- Otot Trisep (Belakang) - Dikontrol JS -->
+                            <path id="tricep-muscle" d="M 165 110 Q 185 150 165 200" fill="none" stroke="#3B82F6" stroke-width="20" stroke-linecap="round" class="transition-all duration-100" />
+
+                            <!-- Sendi Bahu -->
+                            <circle cx="150" cy="100" r="14" fill="#64748B" />
+
+                            <!-- Lengan Bawah (Radius/Ulna) yang Bergerak - Rotasi dikontrol JS -->
+                            <g id="forearm-group" class="transition-all duration-100" style="transform-origin: 150px 210px;">
+                                <!-- Tulang Lengan Bawah -->
+                                <rect x="138" y="210" width="24" height="130" rx="12" fill="#E2E8F0" stroke="#94A3B8" stroke-width="4" />
+                                <!-- Telapak Tangan sederhana -->
+                                <circle cx="150" cy="340" r="16" fill="#FCA5A5" />
+                                <circle cx="150" cy="355" r="8" fill="#FCA5A5" />
+                                
+                                <!-- Sambungan Tendon Bisep ke Lengan Bawah -->
+                                <path d="M 135 200 L 142 225" fill="none" stroke="#F87171" stroke-width="4" stroke-dasharray="2" />
+                            </g>
+
+                            <!-- Sendi Siku (Pivot) -->
+                            <circle cx="150" cy="210" r="12" fill="#475569" />
+                        </svg>
+
+                        <!-- Legend Status Otot -->
+                        <div class="flex gap-4 mt-4 text-xs font-semibold">
+                            <span class="flex items-center gap-1.5"><span class="w-3.5 h-3.5 bg-red-500 rounded-full inline-block"></span> Bisep</span>
+                            <span class="flex items-center gap-1.5"><span class="w-3.5 h-3.5 bg-blue-500 rounded-full inline-block"></span> Trisep</span>
+                        </div>
+                    </div>
+
+                    <!-- Sisi Kanan: Panel Kontrol & Status -->
+                    <div class="lg:col-span-5 flex flex-col justify-between h-full gap-6">
+                        <div>
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Kondisi Lengan</span>
+                            <h3 id="condition-title" class="text-xl font-bold text-slate-800 mt-1">Lengan Lurus (Ekstensi)</h3>
+                            
+                            <!-- Deskripsi Real-time -->
+                            <div class="mt-4 space-y-3">
+                                <div class="bg-white p-3 rounded-xl border border-slate-100 flex justify-between items-center shadow-sm">
+                                    <span class="text-xs font-medium text-slate-500">Otot Bisep:</span>
+                                    <span id="bicep-status" class="px-2.5 py-1 text-xs font-bold rounded-full bg-blue-100 text-blue-700">RELAKSASI (Kendur)</span>
+                                </div>
+                                <div class="bg-white p-3 rounded-xl border border-slate-100 flex justify-between items-center shadow-sm">
+                                    <span class="text-xs font-medium text-slate-500">Otot Trisep:</span>
+                                    <span id="tricep-status" class="px-2.5 py-1 text-xs font-bold rounded-full bg-red-100 text-red-700">KONTRAKSI (Tegang)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SLIDER CONTROL -->
+                        <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
+                            <label for="arm-slider" class="block text-xs font-bold text-emerald-800 mb-2 flex justify-between">
+                                <span>KONTROL TEKUKAN LENGAN:</span>
+                                <span id="angle-display" class="font-mono text-emerald-600">0% (Lurus)</span>
+                            </label>
+                            <input type="range" id="arm-slider" min="0" max="100" value="0" class="w-full h-2.5 bg-emerald-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+                            <div class="flex justify-between text-[10px] text-emerald-600 mt-1 font-semibold">
+                                <span>LURUS (Ekstensi)</span>
+                                <span>TEKUK (Fleksi)</span>
+                            </div>
+                        </div>
+
+                        <!-- Info Edukasi Singkat -->
+                        <div class="text-xs text-slate-500 bg-slate-100 p-3 rounded-lg leading-relaxed">
+                            <i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i>
+                            <strong>Tahukah kamu?</strong> Otot Bisep & Trisep disebut bekerja secara <strong>Antagonis</strong> karena saat yang satu memendek (kontraksi), yang satunya wajib memanjang (relaksasi)!
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Tombol Lanjut -->
+                <div class="mt-8 flex justify-between items-center">
+                    <button onclick="switchTab('materi')" class="text-slate-500 hover:text-slate-700 font-semibold text-sm transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Kembali ke Teori</span>
+                    </button>
+                    <button onclick="switchTab('keseimbangan')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2">
+                        <span>Lanjut ke Keseimbangan Gerak</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+
+            <!-- ================= TAB 3: KESEIMBANGAN KONTRAKSI RELAKSASI ================= -->
+            <section id="tab-keseimbangan" class="tab-content hidden animate-fadeIn">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="p-3 bg-emerald-100 text-emerald-700 rounded-2xl">
+                        <i class="fa-solid fa-scale-balanced text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-emerald-600 text-xs font-bold tracking-widest uppercase">Bioregulasi Seluler</span>
+                        <h2 class="text-2xl font-bold text-slate-800">Homeostasis: Keseimbangan Kontraksi & Relaksasi</h2>
+                    </div>
+                </div>
+
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    Mengapa keseimbangan antara kontraksi dan relaksasi itu mutlak diperlukan tubuh kita? Bayangkan jika salah satu dari mereka gagal beristirahat atau bekerja! Tubuh kita bisa mengalami gangguan serius, mulai dari kram parah hingga kelumpuhan.
+                </p>
+
+                <!-- Card Layout Interaktif Sederhana -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    
+                    <!-- Ca2+ Peran -->
+                    <div class="bg-white p-5 rounded-2xl border border-emerald-100 hover:shadow-md transition-all">
+                        <div class="text-amber-500 text-2xl mb-3"><i class="fa-solid fa-vial"></i></div>
+                        <h4 class="font-bold text-slate-800 mb-2">Peran Ion Kalsium (Ca²⁺)</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Kalsium dilepaskan dari <strong>Retikulum Sarkoplasma</strong> untuk membuka situs pengikatan aktin. Saat kalsium dipompa kembali masuk, relaksasi terjadi. Tanpa kalsium, kontraksi tidak akan pernah terjadi!
+                        </p>
+                    </div>
+
+                    <!-- Kram/Kejang -->
+                    <div class="bg-white p-5 rounded-2xl border border-red-100 hover:shadow-md transition-all">
+                        <div class="text-red-500 text-2xl mb-3"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <h4 class="font-bold text-slate-800 mb-2">Kram Otot (Spasme)</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Terjadi ketika pasokan <strong>ATP menipis</strong> atau terjadi ketidakseimbangan elektrolit. Karena lepasnya kepala miosin dari aktin butuh ATP, maka tanpa ATP yang cukup, otot akan terkunci dalam keadaan kontraksi terus-menerus!
+                        </p>
+                    </div>
+
+                    <!-- Rigor Mortis -->
+                    <div class="bg-white p-5 rounded-2xl border border-indigo-100 hover:shadow-md transition-all">
+                        <div class="text-indigo-500 text-2xl mb-3"><i class="fa-solid fa-skull"></i></div>
+                        <h4 class="font-bold text-slate-800 mb-2">Kejang Mayat (Rigor Mortis)</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Beberapa jam setelah kematian, produksi ATP berhenti total. Akibatnya, kepala miosin tidak dapat lepas dari aktin, membuat seluruh tubuh jenazah menjadi kaku sempurna. Ini bukti mutlak bahwa relaksasi pun butuh energi!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Box Kutipan Guru -->
+                <div class="bg-emerald-50 rounded-2xl p-5 border-l-4 border-emerald-500 flex items-start gap-4">
+                    <span class="text-3xl text-emerald-600"><i class="fa-solid fa-comment-dots"></i></span>
+                    <div>
+                        <h5 class="font-bold text-emerald-800 text-sm">Pesan Hangat Guru Biologi:</h5>
+                        <p class="text-xs text-emerald-700 italic leading-relaxed mt-1">
+                            "Anak-anakku, tubuh kita adalah mahakarya Sang Pencipta yang luar biasa seimbang. Otot yang sehat bukan hanya yang kuat berkontraksi, tapi juga yang mampu berelaksasi secara optimal. Jadi, pastikan minum cukup air dan penuhi kebutuhan elektrolit harianmu ya, terutama setelah berolahraga berat di lapangan sekolah kita!"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tombol Lanjut -->
+                <div class="mt-8 flex justify-between items-center">
+                    <button onclick="switchTab('simulasi')" class="text-slate-500 hover:text-slate-700 font-semibold text-sm transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Kembali ke Simulasi</span>
+                    </button>
+                    <button onclick="switchTab('kuis')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2">
+                        <span>Ayo Uji Pemahamanmu (Kuis)!</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+
+            <!-- ================= TAB 4: KUIS CEPAT KONTRAKSI OTOT ================= -->
+            <section id="tab-kuis" class="tab-content hidden animate-fadeIn">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="p-3 bg-emerald-100 text-emerald-700 rounded-2xl">
+                            <i class="fa-solid fa-circle-question text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-emerald-600 text-xs font-bold tracking-widest uppercase">Asesmen Cepat</span>
+                            <h2 class="text-2xl font-bold text-slate-800">Kuis Cepat Kontraksi Otot</h2>
+                        </div>
+                    </div>
+                    <!-- Skor Badge -->
+                    <div class="bg-slate-100 px-4 py-2 rounded-xl border border-slate-200">
+                        <span class="text-xs text-slate-500 font-semibold block">Skor Kamu:</span>
+                        <span id="score-display" class="font-bold text-lg text-emerald-600">0 / 100</span>
+                    </div>
+                </div>
+
+                <p class="text-slate-600 mb-6 text-sm">
+                    Mari kita uji seberapa jauh pemahamanmu tentang pemakaian energi (ATP) dan proses kimiawi di dalam sel otot kita. Jawab 5 pertanyaan di bawah ini dengan saksama!
+                </p>
+
+                <!-- Progress Bar Kuis -->
+                <div class="w-full bg-slate-100 rounded-full h-2 mb-6">
+                    <div id="quiz-progress" class="bg-emerald-500 h-2 rounded-full transition-all duration-300" style="width: 20%"></div>
+                </div>
+
+                <!-- Box Soal (Rendered by JS) -->
+                <div id="quiz-container" class="space-y-6">
+                    <!-- Dinamis Diisi oleh JS -->
+                </div>
+
+                <!-- Modal Hasil Kuis (Pop-up di dalam card) -->
+                <div id="quiz-result-card" class="hidden bg-emerald-50 border border-emerald-100 rounded-2xl p-6 text-center animate-bounceIn">
+                    <div class="text-5xl mb-4"><i class="fa-solid fa-trophy text-amber-500"></i></div>
+                    <h3 id="result-greeting" class="text-2xl font-bold text-emerald-800 mb-2">Hebat Banget! 🎉</h3>
+                    <p id="result-feedback" class="text-sm text-slate-600 max-w-md mx-auto mb-6">
+                        Kamu berhasil menyelesaikan kuis ini dengan sangat luar biasa!
+                    </p>
+                    <button onclick="resetQuiz()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-2.5 rounded-xl transition-all shadow">
+                        Coba Lagi Kuis
+                    </button>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-6 mt-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>© 2026 Media Pembelajaran Interaktif Biologi SMA N 1 Banguntapan.</p>
+            <p class="text-xs text-slate-600 mt-1">Dibuat dengan segenap cinta ilmu pengetahuan untuk para siswa calon generasi emas bangsa.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // ================= UTILITY & TAB NAVIGATION =================
+        function switchTab(tabId) {
+            // Sembunyikan semua tab-content
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+                tab.classList.remove('block');
+            });
+            
+            // Tunjukkan tab yang dipilih
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            activeTab.classList.remove('hidden');
+            activeTab.classList.add('block');
+
+            // Update styling navigasi sidebar
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = "nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-medium text-left text-slate-600 hover:bg-slate-50";
+            });
+            
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            activeBtn.className = "nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-medium text-left bg-emerald-50 text-emerald-700 shadow-sm border-l-4 border-emerald-500";
+        }
+
+
+        // ================= TAB 2: LOGIC SIMULASI KERJA OTOT =================
+        const armSlider = document.getElementById('arm-slider');
+        const angleDisplay = document.getElementById('angle-display');
+        const forearmGroup = document.getElementById('forearm-group');
+        const bicepMuscle = document.getElementById('bicep-muscle');
+        const tricepMuscle = document.getElementById('tricep-muscle');
+        const conditionTitle = document.getElementById('condition-title');
+        const bicepStatus = document.getElementById('bicep-status');
+        const tricepStatus = document.getElementById('tricep-status');
+
+        armSlider.addEventListener('input', (e) => {
+            const value = parseInt(e.target.value); // 0 sampai 100
+            
+            // 1. Update text angka persentase tekukan
+            angleDisplay.textContent = `${value}% ${value > 80 ? '(Tekuk Sempurna)' : value > 20 ? '(Menekuk)' : '(Lurus)'}`;
+
+            // 2. Rotasi lengan bawah (SVG Group)
+            // Lengan bawah berotasi dari 0 derajat (lurus ke bawah) ke -95 derajat (menekuk ke atas)
+            const angleRotation = -(value * 0.95);
+            forearmGroup.style.transform = `rotate(${angleRotation}deg)`;
+
+            // 3. Deformasi Otot Bisep (Depan)
+            // Saat ditekuk (kontraksi): Bisep menebal (stroke-width naik) dan melengkung keluar lebih tebal
+            // M 135 110 Q {control_x} 150 135 200
+            const bicepWidth = 26 + (value * 0.18); // dari lebar 26 ke 44
+            const bicepControlX = 115 - (value * 0.45); // melengkung makin kiri
+            bicepMuscle.setAttribute('stroke-width', bicepWidth);
+            bicepMuscle.setAttribute('d', `M 135 110 Q ${bicepControlX} 155 135 200`);
+
+            // 4. Deformasi Otot Trisep (Belakang)
+            // Saat ditekuk (relaksasi): Trisep meregang, memanjang, dan menipis (stroke-width turun)
+            // M 165 110 Q {control_x} 150 165 200
+            const tricepWidth = 26 - (value * 0.1); // dari 26 turun ke 16
+            const tricepControlX = 185 - (value * 0.25); // melurus mengikuti sendi
+            tricepMuscle.setAttribute('stroke-width', tricepWidth);
+            tricepMuscle.setAttribute('d', `M 165 110 Q ${tricepControlX} 155 165 200`);
+
+            // 5. Update Status Text & Desain Warna Kondisi
+            if (value >= 60) {
+                conditionTitle.textContent = "Lengan Menekuk (Fleksi)";
+                conditionTitle.className = "text-xl font-bold text-red-600 mt-1";
+                
+                bicepStatus.textContent = "KONTRAKSI (Memendek & Tegang)";
+                bicepStatus.className = "px-2.5 py-1 text-xs font-bold rounded-full bg-red-100 text-red-700";
+                
+                tricepStatus.textContent = "RELAKSASI (Memanjang & Kendur)";
+                tricepStatus.className = "px-2.5 py-1 text-xs font-bold rounded-full bg-blue-100 text-blue-700";
+            } else if (value <= 40) {
+                conditionTitle.textContent = "Lengan Lurus (Ekstensi)";
+                conditionTitle.className = "text-xl font-bold text-blue-600 mt-1";
+                
+                bicepStatus.textContent = "RELAKSASI (Memanjang & Kendur)";
+                bicepStatus.className = "px-2.5 py-1 text-xs font-bold rounded-full bg-blue-100 text-blue-700";
+                
+                tricepStatus.textContent = "KONTRAKSI (Memendek & Tegang)";
+                tricepStatus.className = "px-2.5 py-1 text-xs font-bold rounded-full bg-red-100 text-red-700";
+            } else {
+                conditionTitle.textContent = "Gerakan Transisi Lengan";
+                conditionTitle.className = "text-xl font-bold text-amber-600 mt-1";
+                
+                bicepStatus.textContent = "MULAI BEKERJA...";
+                bicepStatus.className = "px-2.5 py-1 text-xs font-bold rounded-full bg-amber-100 text-amber-700";
+                
+                tricepStatus.textContent = "MULAI MEREGANG...";
+                tricepStatus.className = "px-2.5 py-1 text-xs font-bold rounded-full bg-amber-100 text-amber-700";
+            }
+        });
+
+
+        // ================= TAB 4: LOGIC KUIS KONTRAKSI OTOT =================
+        const questions = [
+            {
+                id: 1,
+                question: "Dari mana sumber energi UTAMA dan LANGSUNG yang digunakan oleh kepala miosin untuk menarik filamen aktin saat otot berkontraksi?",
+                options: [
+                    { key: "A", text: "Asam Laktat yang terakumulasi di otot" },
+                    { key: "B", text: "Adenosin Trifosfat (ATP) hasil respirasi sel" },
+                    { key: "C", text: "Glikogen cadangan yang tersimpan di hati" },
+                    { key: "D", text: "Lemak yang dipecah oleh hormon insulin" }
+                ],
+                correct: "B",
+                explanation: "ATP adalah mata uang energi seluler yang langsung dipakai oleh kepala miosin untuk mengikat dan menarik aktin. Tanpa adanya ATP, kepala miosin tidak akan bisa melekat ataupun terlepas!"
+            },
+            {
+                id: 2,
+                question: "Pada fase RELAKSASI, mengapa sel otot tetap membutuhkan energi (ATP) baru?",
+                options: [
+                    { key: "A", text: "Untuk memaksa pembelahan sel otot baru" },
+                    { key: "B", text: "Untuk menghancurkan timbunan kalsium secara kimiawi" },
+                    { key: "C", text: "Untuk memutus ikatan kepala miosin dari filamen aktin" },
+                    { key: "D", text: "Untuk memproduksi oksigen ekstra di dalam sel" }
+                ],
+                correct: "C",
+                explanation: "Relaksasi otot bukanlah proses pasif yang tanpa energi! Pelepasan kepala miosin dari aktin agar otot kembali memanjang justru butuh pengikatan ATP baru. Itulah mengapa jenazah mengeras (Rigor Mortis) karena tidak punya ATP lagi untuk melepas kaitan tersebut."
+            },
+            {
+                id: 3,
+                question: "Jika persediaan oksigen di dalam otot menipis saat kita melakukan sprint 100 meter, sel otot akan membongkar energi secara anaerob. Proses ini menghasilkan zat sisa berupa...",
+                options: [
+                    { key: "A", text: "Asam amino yang merusak jaringan otot" },
+                    { key: "B", text: "Glukosa murni yang membuat tubuh berenergi" },
+                    { key: "C", text: "Gas Karbon Monoksida yang berbahaya" },
+                    { key: "D", text: "Asam Laktat yang memicu pegal dan kram otot" }
+                ],
+                correct: "D",
+                explanation: "Saat kekurangan oksigen (keadaan anaerob), otot melakukan fermentasi asam laktat untuk mendapatkan energi cepat. Akumulasi asam laktat inilah yang membuat otot kita terasa lelah, pegal, bahkan kram!"
+            },
+            {
+                id: 4,
+                question: "Bagaimanakah keterkaitan antara senyawa Kreatin Fosfat dengan regenerasi energi di dalam sel otot kita?",
+                options: [
+                    { key: "A", text: "Kreatin fosfat mendonasikan gugus fosfatnya ke ADP untuk membentuk ATP kembali secara cepat" },
+                    { key: "B", text: "Kreatin fosfat bertindak sebagai pelumas sendi siku agar gerakan fleksibel" },
+                    { key: "C", text: "Kreatin fosfat membakar lemak langsung di mitokondria tanpa lewat siklus sel" },
+                    { key: "D", text: "Kreatin fosfat menampung sisa asam laktat agar tidak pegal" }
+                ],
+                correct: "A",
+                explanation: "Kreatin fosfat adalah cadangan fosfat energi tinggi yang sangat cepat mendonasikan fosfatnya ke ADP (Adenosin Difosfat) agar segera tercipta ATP baru yang siap digunakan kembali untuk kontraksi otot!"
+            },
+            {
+                id: 5,
+                question: "Seorang atlet angkat besi mengalami kram hebat mendadak di tengah pertandingan dan tangannya mengunci keras. Berdasarkan materi yang kita pelajari, peristiwa biologis apa yang sedang terjadi pada sel ototnya?",
+                options: [
+                    { key: "A", text: "Otot kehabisan air sehingga serabut aktin memuai" },
+                    { key: "B", text: "Otot kehabisan ATP sehingga kepala miosin terkunci di aktin dan gagal relaksasi" },
+                    { key: "C", text: "Saraf motorik mati rasa akibat benturan keras" },
+                    { key: "D", text: "Terjadi penumpukan kalsium yang berlebihan di luar pembungkus sel" }
+                ],
+                correct: "B",
+                explanation: "Kram terjadi karena deplesi (kehabisan) ATP secara drastis akibat kerja terus-menerus. Akibatnya, jembatan penyeberangan miosin-aktin tidak dapat terlepas, mengunci otot dalam keadaan tegang (kontraksi terus menerus)."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answeredList = {}; // Menyimpan jawaban siswa {questionId: selectedOption}
+
+        const quizContainer = document.getElementById('quiz-container');
+        const scoreDisplay = document.getElementById('score-display');
+        const quizProgress = document.getElementById('quiz-progress');
+        const quizResultCard = document.getElementById('quiz-result-card');
+
+        function initQuiz() {
+            quizContainer.innerHTML = '';
+            quizResultCard.classList.add('hidden');
+            score = 0;
+            answeredList = {};
+            updateScoreDisplay();
+            renderQuestion(0);
+        }
+
+        function renderQuestion(index) {
+            if (index >= questions.length) {
+                showQuizResult();
+                return;
+            }
+
+            // Update Progress Bar
+            const percent = ((index + 1) / questions.length) * 100;
+            quizProgress.style.width = `${percent}%`;
+
+            const q = questions[index];
+            
+            let html = `
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 animate-fadeIn">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full">Soal ${index + 1} dari ${questions.length}</span>
+                        <span class="text-xs text-slate-400 font-semibold">Energi & Metabolisme Otot</span>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-base md:text-lg mb-6 leading-relaxed">${q.question}</h3>
+                    
+                    <div class="space-y-3">
+            `;
+
+            q.options.forEach(opt => {
+                html += `
+                    <button onclick="checkAnswer(${q.id}, '${opt.key}')" id="btn-${q.id}-${opt.key}" class="quiz-opt-btn w-full text-left p-4 rounded-xl border-2 border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/50 transition-all duration-200 flex items-start gap-3">
+                        <span class="bg-slate-200 text-slate-700 font-bold rounded-lg px-2.5 py-1 text-xs shrink-0">${opt.key}</span>
+                        <span class="text-slate-600 text-sm font-medium leading-relaxed">${opt.text}</span>
+                    </button>
+                `;
+            });
+
+            html += `
+                    </div>
+                    <!-- Box Feedback Dinamis -->
+                    <div id="feedback-box" class="hidden mt-6 p-4 rounded-xl border transition-all duration-300">
+                        <p id="feedback-status" class="font-bold text-sm mb-1"></p>
+                        <p id="feedback-explanation" class="text-xs text-slate-600 leading-relaxed"></p>
+                        <div class="mt-4 flex justify-end">
+                            <button onclick="nextQuestion()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow transition-all">
+                                Lanjut Soal Berikutnya <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            quizContainer.innerHTML = html;
+        }
+
+        function checkAnswer(qId, selectedKey) {
+            // Cegah klik ganda jika sudah dijawab
+            if (answeredList[qId]) return;
+            answeredList[qId] = selectedKey;
+
+            const q = questions.find(item => item.id === qId);
+            const feedbackBox = document.getElementById('feedback-box');
+            const feedbackStatus = document.getElementById('feedback-status');
+            const feedbackExplanation = document.getElementById('feedback-explanation');
+            
+            // Nonaktifkan semua opsi tombol agar tidak bisa diklik lagi
+            document.querySelectorAll('.quiz-opt-btn').forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('hover:border-emerald-300', 'hover:bg-emerald-50/50');
+            });
+
+            const selectedBtn = document.getElementById(`btn-${qId}-${selectedKey}`);
+            const correctBtn = document.getElementById(`btn-${qId}-${q.correct}`);
+
+            if (selectedKey === q.correct) {
+                // Jawaban BENAR
+                score += 20;
+                updateScoreDisplay();
+                
+                selectedBtn.className = "quiz-opt-btn w-full text-left p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50 flex items-start gap-3";
+                
+                // Greeting seru ala guru SMA N 1 Banguntapan
+                const greetings = [
+                    "Wuih, mantap betul anakku! Jawabanmu 100% tepat! Kelas dunia! 🌟",
+                    "Keren abis! Otakmu bekerja secepat kontraksi otot bicep tadi! Salut! 🚀",
+                    "Luar biasa cerdas! Guru bangga sama pemahaman biologi kamu! Juara! 🏆",
+                    "Jooos gandooos! SMAN 1 Banguntapan bangga punya murid sepertimu! 🎉"
+                ];
+                const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+                
+                feedbackStatus.textContent = randomGreeting;
+                feedbackStatus.className = "font-bold text-emerald-700 text-sm flex items-center gap-2";
+                feedbackStatus.innerHTML = `<i class="fa-solid fa-circle-check text-lg text-emerald-500"></i> ${randomGreeting}`;
+                
+                feedbackBox.className = "mt-6 p-4 rounded-xl border border-emerald-200 bg-emerald-50/70 animate-bounceIn";
+            } else {
+                // Jawaban SALAH
+                selectedBtn.className = "quiz-opt-btn w-full text-left p-4 rounded-xl border-2 border-red-400 bg-red-50 flex items-start gap-3";
+                correctBtn.className = "quiz-opt-btn w-full text-left p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50 flex items-start gap-3";
+                
+                // Semangat seru
+                const cheerUps = [
+                    "Waduh, belum tepat nih. Jangan sedih, kegagalan adalah kontraksi awal menuju kesuksesan! 💪",
+                    "Aduh sayang sekali! Tapi tak apa, dari salah kita belajar konsep yang benar. Semangat ya! 🔥",
+                    "Hampir mendekati! Yuk baca pembahasannya biar makin paham dan tidak keliru lagi! 🧠"
+                ];
+                const randomCheer = cheerUps[Math.floor(Math.random() * cheerUps.length)];
+                
+                feedbackStatus.textContent = randomCheer;
+                feedbackStatus.className = "font-bold text-red-700 text-sm flex items-center gap-2";
+                feedbackStatus.innerHTML = `<i class="fa-solid fa-circle-xmark text-lg text-red-500"></i> ${randomCheer}`;
+                
+                feedbackBox.className = "mt-6 p-4 rounded-xl border border-red-200 bg-red-50/70 animate-bounceIn";
+            }
+
+            // Tampilkan penjelasan ilmiah/edukatif
+            feedbackExplanation.innerHTML = `<strong>Pembahasan:</strong> ${q.explanation}`;
+            feedbackBox.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            renderQuestion(currentQuestionIndex);
+        }
+
+        function updateScoreDisplay() {
+            scoreDisplay.textContent = `${score} / 100`;
+        }
+
+        function showQuizResult() {
+            quizContainer.innerHTML = '';
+            quizProgress.style.width = '100%';
+            
+            const resultGreeting = document.getElementById('result-greeting');
+            const resultFeedback = document.getElementById('result-feedback');
+            
+            if (score === 100) {
+                resultGreeting.textContent = "Sempurna! Kamu Sang Maestro Otot! 🏆🥇";
+                resultFeedback.textContent = "Luar biasa! Kamu menjawab semua pertanyaan dengan benar. Pemahamanmu tentang penggunaan energi (ATP), ion kalsium, dan fermentasi asam laktat sungguh istimewa. Pertahankan prestasimu ya!";
+            } else if (score >= 60) {
+                resultGreeting.textContent = "Keren Sekali, Siswa Hebat! 🎉✨";
+                resultFeedback.textContent = `Kamu mendapatkan skor ${score}/100. Ini sudah sangat bagus dan di atas KKM kita! Kamu sudah menguasai sebagian besar mekanisme pemanfaatan energi otot dengan baik. Sedikit belajar lagi pasti bisa 100!`;
+            } else {
+                resultGreeting.textContent = "Tetap Semangat & Jangan Menyerah! 💪🔥";
+                resultFeedback.textContent = `Skor kamu ${score}/100. Tidak apa-apa, belajar adalah sebuah proses berkesinambungan. Coba ulangi membaca materi bagian Kesetimbangan & lakukan simulasi interaktif lagi, lalu uji dirimu kembali di sini ya!`;
+            }
+            
+            quizResultCard.classList.remove('hidden');
+        }
+
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            initQuiz();
+        }
+
+        // Jalankan kuis pertama kali saat halaman dimuat
+        window.onload = function() {
+            initQuiz();
+        };
+
+    </script>
+
+    <!-- Tailwind Animation Helper (Custom fade in) -->
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        .animate-bounceIn {
+            animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+    </style>
+</body>
+</html>

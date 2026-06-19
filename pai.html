@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dakwah Islam Masa Kini - Media Interaktif PAI SMA</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        accent: {
+                            DEFAULT: '#0ea5e9',
+                            dark: '#0369a1'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Canvas Confetti Library for Achievements -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom Animations */
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(15deg); }
+        }
+        .animate-wave {
+            animation: wave 1.5s ease-in-out infinite;
+            transform-origin: bottom right;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.95);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col">
+
+    <!-- TOP NAVIGATION BAR (Mobile Friendly) -->
+    <header class="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-brand-600 text-white p-2.5 rounded-xl shadow-md flex items-center justify-center animate-bounce">
+                    <i class="fa-solid fa-mosque text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-semibold text-brand-600 tracking-wider uppercase block">PAI & Budi Pekerti SMA</span>
+                    <h1 class="text-lg font-extrabold tracking-tight text-slate-900 dark:text-white">KETAWA <span class="text-brand-600 font-medium text-xs bg-brand-100 dark:bg-brand-900/40 px-1.5 py-0.5 rounded-md ml-1 inline-block">Khutbah, Tabligh, Dakwah</span></h1>
+                </div>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="flex items-center space-x-3">
+                <!-- Theme Toggle -->
+                <button onclick="toggleDarkMode()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all text-slate-600 dark:text-slate-300" title="Ganti Tema">
+                    <i id="theme-icon" class="fa-solid fa-moon"></i>
+                </button>
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileSidebar()" class="md:hidden p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex-grow flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6 relative">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 p-6 flex flex-col transform -translate-x-full transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:w-64 md:z-auto md:bg-transparent md:dark:bg-transparent md:border-r-0 md:p-0">
+            <!-- Mobile Sidebar Header -->
+            <div class="flex items-center justify-between md:hidden mb-6">
+                <span class="font-bold text-lg text-slate-950 dark:text-white">Navigasi Bab</span>
+                <button onclick="toggleMobileSidebar()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-500">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Teacher Avatar Card -->
+            <div class="bg-gradient-to-br from-brand-500 to-brand-700 text-white rounded-2xl p-4 shadow-lg mb-6 relative overflow-hidden">
+                <div class="absolute -right-8 -bottom-8 opacity-10 text-9xl">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-full bg-white text-brand-600 flex items-center justify-center font-bold text-xl shadow-inner">
+                        👨‍🏫
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm">Pak Guru PAI</h4>
+                        <p class="text-xs text-brand-100">Guru Kreatif SMA</p>
+                    </div>
+                </div>
+                <div class="mt-4 bg-white/20 rounded-xl p-2.5 text-xs border border-white/10">
+                    "Halo Sahabat Hebat! Yuk kuasai seni menyampaikan kebaikan secara interaktif hari ini! 🚀"
+                </div>
+            </div>
+
+            <!-- Menu Links -->
+            <nav class="space-y-1.5 flex-grow overflow-y-auto max-h-[450px] pr-1">
+                <button onclick="switchTab('beranda')" class="menu-btn w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl text-left font-medium transition-all duration-200 active-menu-btn" id="btn-beranda">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400">
+                        <i class="fa-solid fa-house"></i>
+                    </span>
+                    <span>Beranda</span>
+                </button>
+
+                <button onclick="switchTab('cptp')" class="menu-btn w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl text-left font-medium transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" id="btn-cptp">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </span>
+                    <span>CP & Tujuan</span>
+                </button>
+
+                <button onclick="switchTab('khutbah')" class="menu-btn w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl text-left font-medium transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" id="btn-khutbah">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500">
+                        <i class="fa-solid fa-microphone-lines"></i>
+                    </span>
+                    <span>Materi I: Khutbah</span>
+                </button>
+
+                <button onclick="switchTab('tabligh')" class="menu-btn w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl text-left font-medium transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" id="btn-tabligh">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </span>
+                    <span>Materi II: Tabligh</span>
+                </button>
+
+                <button onclick="switchTab('dakwah')" class="menu-btn w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl text-left font-medium transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" id="btn-dakwah">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500">
+                        <i class="fa-solid fa-users-viewfinder"></i>
+                    </span>
+                    <span>Materi III: Dakwah</span>
+                </button>
+
+                <button onclick="switchTab('komparasi')" class="menu-btn w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl text-left font-medium transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" id="btn-komparasi">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500">
+                        <i class="fa-solid fa-table-list"></i>
+                    </span>
+                    <span>Tabel Komparasi</span>
+                </button>
+
+                <button onclick="switchTab('kuis')" class="menu-btn w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl text-left font-medium transition-all duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" id="btn-kuis">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500">
+                        <i class="fa-solid fa-user-check"></i>
+                    </span>
+                    <span>Asesmen Pemahaman</span>
+                </button>
+            </nav>
+
+            <!-- Copyright footer -->
+            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 text-center text-xs text-slate-400">
+                &copy; 2026 Media PAI SMA Kreatif.
+            </div>
+        </aside>
+
+        <!-- MAIN DISPLAY PANEL -->
+        <main class="flex-grow w-full md:max-w-4xl">
+            <div class="space-y-6">
+
+                <!-- SECTION 0: BERANDA -->
+                <section id="content-beranda" class="tab-content block">
+                    <div class="glass-card border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-md relative overflow-hidden">
+                        <div class="bg-gradient-to-r from-emerald-500 to-brand-600 -mx-6 sm:-mx-8 -mt-6 sm:-mt-8 p-8 text-white relative mb-8 rounded-t-3xl overflow-hidden">
+                            <div class="absolute right-0 bottom-0 opacity-10 text-9xl">
+                                <i class="fa-solid fa-mosque"></i>
+                            </div>
+                            <span class="bg-white/25 text-white text-xs font-bold px-3 py-1 rounded-full inline-block mb-3">KETAWA App v2.0</span>
+                            <h2 class="text-3xl font-extrabold">Selamat Datang di Portal Pembelajaran Interaktif! 🕌</h2>
+                            <p class="text-brand-100 text-sm mt-1 max-w-xl">Belajar ketentuan Khutbah, Tabligh, dan Dakwah secara modern, santai, menyenangkan, dan tuntas sesuai Kurikulum Merdeka.</p>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <span class="text-4xl">✨</span>
+                                <div>
+                                    <h3 class="font-extrabold text-lg text-slate-800 dark:text-white">Mengapa Belajar "KETAWA"?</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+                                        Singkatan kreatif dari <strong>Khutbah, Tabligh, dan Dakwah</strong>. Melalui media ajar ini, kamu tidak hanya menghafal materi, tapi juga merasakan simulasi interaktif tantangan dakwah era digital sekaligus menguji kompetensimu lewat asesmen standar kelulusan.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+                                <div onclick="switchTab('khutbah')" class="cursor-pointer border border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 rounded-2xl p-4 transition-all hover:shadow-md bg-white dark:bg-slate-800/40">
+                                    <div class="text-emerald-500 text-2xl mb-2"><i class="fa-solid fa-microphone-lines"></i></div>
+                                    <h4 class="font-bold text-sm">Materi I: Khutbah</h4>
+                                    <p class="text-xs text-slate-400 mt-1">Kuasai rukun, syarat, dan adab pelaksanaan syiar formal.</p>
+                                </div>
+                                <div onclick="switchTab('tabligh')" class="cursor-pointer border border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 rounded-2xl p-4 transition-all hover:shadow-md bg-white dark:bg-slate-800/40">
+                                    <div class="text-indigo-500 text-2xl mb-2"><i class="fa-solid fa-bullhorn"></i></div>
+                                    <h4 class="font-bold text-sm">Materi II: Tabligh</h4>
+                                    <p class="text-xs text-slate-400 mt-1">Gagas strategi menyampaikan kebaikan di era digital.</p>
+                                </div>
+                                <div onclick="switchTab('dakwah')" class="cursor-pointer border border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 rounded-2xl p-4 transition-all hover:shadow-md bg-white dark:bg-slate-800/40">
+                                    <div class="text-amber-500 text-2xl mb-2"><i class="fa-solid fa-users-viewfinder"></i></div>
+                                    <h4 class="font-bold text-sm">Materi III: Dakwah</h4>
+                                    <p class="text-xs text-slate-400 mt-1">Rangkul sesama dengan kebijaksanaan dan kasih sayang.</p>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 flex justify-center">
+                                <button onclick="switchTab('cptp')" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-md transition-all flex items-center gap-2 text-sm">
+                                    <span>Mulai Eksplorasi</span> <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION: CP & TUJUAN PEMBELAJARAN -->
+                <section id="content-cptp" class="tab-content hidden">
+                    <div class="glass-card border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-md">
+                        <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+                            <span class="p-2.5 bg-brand-600 text-white rounded-xl text-lg"><i class="fa-solid fa-graduation-cap"></i></span>
+                            <div>
+                                <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Capaian & Tujuan Pembelajaran (CP & TP)</h2>
+                                <p class="text-xs text-slate-500">Arah kompetensi pembelajaran mandiri Pendidikan Agama Islam</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Capaian Pembelajaran Box -->
+                            <div class="bg-brand-50/50 dark:bg-brand-950/20 p-5 rounded-2xl border border-brand-100 dark:border-brand-900/40">
+                                <h3 class="font-extrabold text-brand-800 dark:text-brand-300 text-base mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-award"></i> Capaian Pembelajaran (CP) - Fase F
+                                </h3>
+                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    Peserta didik mampu menganalisis ketentuan khutbah, tabligh, dan dakwah; mempraktikkan simulasi khutbah, tabligh, dan dakwah; serta membiasakan sikap menebarkan kedamaian (rahmatan lil alamin) dalam kehidupan sehari-hari demi terjaganya kerukunan intern dan antarumat beragama.
+                                </p>
+                            </div>
+
+                            <!-- Tujuan Pembelajaran Box -->
+                            <div>
+                                <h3 class="font-extrabold text-slate-800 dark:text-white text-base mb-3 flex items-center gap-2">
+                                    <i class="fa-solid fa-list-check text-brand-500"></i> Alur Tujuan Pembelajaran (ATP)
+                                </h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                                        <span class="text-xs font-bold text-brand-600 block mb-1">Tujuan 1</span>
+                                        <p class="text-xs text-slate-600 dark:text-slate-300 font-semibold">Mampu menganalisis perbedaan serta persamaan ketentuan khutbah, tabligh, dan dakwah secara analitis.</p>
+                                    </div>
+                                    <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                                        <span class="text-xs font-bold text-brand-600 block mb-1">Tujuan 2</span>
+                                        <p class="text-xs text-slate-600 dark:text-slate-300 font-semibold">Memahami urutan serta keselarasan rukun-rukun wajib dalam khutbah Jumat agar rangkaian ibadah bernilai sah.</p>
+                                    </div>
+                                    <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                                        <span class="text-xs font-bold text-brand-600 block mb-1">Tujuan 3</span>
+                                        <p class="text-xs text-slate-600 dark:text-slate-300 font-semibold">Merancang strategi penyiaran tabligh berbasis media kreatif era digital yang sesuai dengan karakter Generasi Z.</p>
+                                    </div>
+                                    <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                                        <span class="text-xs font-bold text-brand-600 block mb-1">Tujuan 4</span>
+                                        <p class="text-xs text-slate-600 dark:text-slate-300 font-semibold">Membiasakan penyampaian dakwah kedamaian (bil hikmah, mau'idzah hasanah, dan mujadalah husnah) di lingkungan sosial.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 1: KHUTBAH -->
+                <section id="content-khutbah" class="tab-content hidden">
+                    <div class="glass-card border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-md relative overflow-hidden">
+                        <!-- Hero Section -->
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 pb-6 border-b border-slate-100 dark:border-slate-800">
+                            <div class="space-y-2">
+                                <span class="bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-400 text-xs font-bold px-3 py-1.5 rounded-full inline-block">Materi I</span>
+                                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white">Khutbah: Syiar Agama yang Terstruktur 🎙️</h2>
+                                <p class="text-slate-500 dark:text-slate-400">Memahami rukun, ketentuan, dan adab utama pelaksanaan ibadah formal khutbah.</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <div class="bg-gradient-to-tr from-brand-500 to-brand-600 text-white w-16 h-16 rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-brand-500/20">
+                                    <i class="fa-solid fa-microphone-lines animate-pulse"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <!-- Arti Khutbah -->
+                            <div class="bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <span class="p-2 bg-brand-500 text-white rounded-xl text-xs"><i class="fa-solid fa-book-open"></i></span>
+                                    <h3 class="font-bold text-lg">Makna Khutbah</h3>
+                                </div>
+                                <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                                    Khutbah berasal dari bahasa Arab yang berarti pidato atau ceramah. Secara terminologi fikih, khutbah adalah ceramah berisi nasihat keagamaan yang memiliki rukun-rukun tertentu, dibatasi waktu, serta menjadi bagian dari rangkaian ibadah ritual (seperti Shalat Jumat, Idulfitri, Iduladha, dll).
+                                </p>
+                            </div>
+
+                            <!-- Karakteristik Khutbah -->
+                            <div class="bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <span class="p-2 bg-emerald-500 text-white rounded-xl text-xs"><i class="fa-solid fa-clipboard-check"></i></span>
+                                    <h3 class="font-bold text-lg">Karakteristik Unik</h3>
+                                </div>
+                                <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                                    Khutbah bersifat searah dan sangat mengikat secara hukum ibadah. Sebagai contoh, saat khatib berkhutbah pada ibadah Jumat, jamaah tidak boleh berbicara ataupun menyela sedikit pun agar kualitas pahala Jumatnya tetap terjaga secara sempurna.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Feature: 5 Rukun Khutbah Jumat -->
+                        <div class="bg-brand-50/50 dark:bg-brand-950/20 rounded-2xl p-5 border border-brand-100 dark:border-brand-900/30 mb-6">
+                            <h3 class="font-bold text-lg text-brand-900 dark:text-brand-300 mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-star animate-spin"></i> 5 Rukun Wajib Khutbah Jumat
+                            </h3>
+                            <p class="text-xs text-slate-500 mb-4">Urutan rukun di bawah ini bersifat mutlak harus dipenuhi agar khutbah dinilai sah. Klik masing-masing kartu untuk melihat penjelasannya!</p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-5 gap-3">
+                                <div onclick="toggleFlipCard('rukun-1')" id="rukun-1" class="cursor-pointer border border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 rounded-xl p-4 bg-white dark:bg-slate-800 transition-all text-center flex flex-col justify-center items-center h-28">
+                                    <div class="show-prompt">
+                                        <span class="font-bold text-brand-600 text-lg block">1</span>
+                                        <span class="text-xs font-semibold text-slate-500 block">Puji Syukur</span>
+                                    </div>
+                                    <div class="hidden-content hidden">
+                                        <p class="text-xs text-slate-700 dark:text-slate-200 font-semibold leading-snug">Membaca hamdalah (Alhamdulillah) di pembuka khutbah.</p>
+                                    </div>
+                                </div>
+
+                                <div onclick="toggleFlipCard('rukun-2')" id="rukun-2" class="cursor-pointer border border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 rounded-xl p-4 bg-white dark:bg-slate-800 transition-all text-center flex flex-col justify-center items-center h-28">
+                                    <div class="show-prompt">
+                                        <span class="font-bold text-brand-600 text-lg block">2</span>
+                                        <span class="text-xs font-semibold text-slate-500 block">Shalawat</span>
+                                    </div>
+                                    <div class="hidden-content hidden">
+                                        <p class="text-xs text-slate-700 dark:text-slate-200 font-semibold leading-snug">Mengucapkan shalawat atas Nabi Muhammad SAW.</p>
+                                    </div>
+                                </div>
+
+                                <div onclick="toggleFlipCard('rukun-3')" id="rukun-3" class="cursor-pointer border border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 rounded-xl p-4 bg-white dark:bg-slate-800 transition-all text-center flex flex-col justify-center items-center h-28">
+                                    <div class="show-prompt">
+                                        <span class="font-bold text-brand-600 text-lg block">3</span>
+                                        <span class="text-xs font-semibold text-slate-500 block">Wasiat Taqwa</span>
+                                    </div>
+                                    <div class="hidden-content hidden">
+                                        <p class="text-xs text-slate-700 dark:text-slate-200 font-semibold leading-snug">Mengajak jamaah senantiasa bertakwa kepada Allah.</p>
+                                    </div>
+                                </div>
+
+                                <div onclick="toggleFlipCard('rukun-4')" id="rukun-4" class="cursor-pointer border border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 rounded-xl p-4 bg-white dark:bg-slate-800 transition-all text-center flex flex-col justify-center items-center h-28">
+                                    <div class="show-prompt">
+                                        <span class="font-bold text-brand-600 text-lg block">4</span>
+                                        <span class="text-xs font-semibold text-slate-500 block">Ayat Al-Qur'an</span>
+                                    </div>
+                                    <div class="hidden-content hidden">
+                                        <p class="text-xs text-slate-700 dark:text-slate-200 font-semibold leading-snug">Membaca minimal satu ayat Al-Qur'an di salah satu khutbah.</p>
+                                    </div>
+                                </div>
+
+                                <div onclick="toggleFlipCard('rukun-5')" id="rukun-5" class="cursor-pointer border border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 rounded-xl p-4 bg-white dark:bg-slate-800 transition-all text-center flex flex-col justify-center items-center h-28">
+                                    <div class="show-prompt">
+                                        <span class="font-bold text-brand-600 text-lg block">5</span>
+                                        <span class="text-xs font-semibold text-slate-500 block">Doa Umat</span>
+                                    </div>
+                                    <div class="hidden-content hidden">
+                                        <p class="text-xs text-slate-700 dark:text-slate-200 font-semibold leading-snug">Membaca doa untuk kaum mukminin pada khutbah kedua.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Teacher's Corner -->
+                        <div class="mt-4 p-4 rounded-2xl bg-brand-50/50 dark:bg-brand-950/20 border border-brand-100 dark:border-brand-900/30">
+                            <h4 class="font-bold text-brand-900 dark:text-brand-200">Tips dari Pak Guru:</h4>
+                            <p class="text-sm text-brand-800 dark:text-brand-300 leading-relaxed mt-1">
+                                "Guys! Menjadi khatib itu keren abis loh. Bukan cuma modal suara keras, tapi harus tahu cara mengatur emosi audiens agar dakwah kita diterima dengan sejuk. Tetap semangat melatih diri berbicara di depan umum ya!"
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 2: TABLIGH -->
+                <section id="content-tabligh" class="tab-content hidden">
+                    <div class="glass-card border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-md relative overflow-hidden">
+                        <!-- Hero Section -->
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 pb-6 border-b border-slate-100 dark:border-slate-800">
+                            <div class="space-y-2">
+                                <span class="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-400 text-xs font-bold px-3 py-1.5 rounded-full inline-block">Materi II</span>
+                                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white">Tabligh: Suara Kebaikan yang Bergerak 📣</h2>
+                                <p class="text-slate-500 dark:text-slate-400">Mempelajari cara menyampaikan kebenaran ke berbagai penjuru dunia secara aktif.</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <div class="bg-gradient-to-tr from-indigo-400 to-indigo-600 text-white w-16 h-16 rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-indigo-500/20">
+                                    <i class="fa-solid fa-bullhorn animate-pulse"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <!-- Arti Tabligh -->
+                            <div class="bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <span class="p-2 bg-indigo-500 text-white rounded-xl text-xs"><i class="fa-solid fa-circle-question"></i></span>
+                                    <h3 class="font-bold text-lg">Makna Tabligh</h3>
+                                </div>
+                                <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                                    Kata <strong>Tabligh</strong> berasal dari bahasa Arab yang berarti "menyampaikan". Dalam ajaran Islam, tabligh adalah menyampaikan risalah ajaran Allah SWT dan petunjuk nabi kepada orang lain tanpa mengurangi atau menambahnya agar diamalkan dalam kehidupan sehari-hari.
+                                </p>
+                            </div>
+
+                            <!-- Karakteristik Tabligh -->
+                            <div class="bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <span class="p-2 bg-pink-500 text-white rounded-xl text-xs"><i class="fa-solid fa-heart-circle-check"></i></span>
+                                    <h3 class="font-bold text-lg">Karakteristik Utama</h3>
+                                </div>
+                                <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                                    Tabligh tidak dibatasi oleh syarat podium, tempat salat, atau batasan ketat waktu seperti khutbah. Siapa saja, di mana saja, dan kapan saja, bisa menyampaikan kebaikan! Sifat dasarnya adalah proaktif mengajak manusia mendekat kepada kebenaran.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Feature: Tabligh Digital Simulator -->
+                        <div class="bg-indigo-50/50 dark:bg-indigo-950/20 rounded-2xl p-5 border border-indigo-100 dark:border-indigo-900/30">
+                            <h3 class="font-bold text-lg text-indigo-900 dark:text-indigo-300 mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-mobile-screen-button animate-bounce"></i> Tabligh Era Digital (Simulasi Kreatif)
+                            </h3>
+                            <p class="text-xs text-slate-500 mb-4">Sebagai generasi Z, cara kalian bertabligh tentu berbeda! Klik tombol media di bawah ini untuk melihat strategi tabligh modern yang asyik!</p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <button onclick="showTablighStrategy('video')" class="p-4 bg-white dark:bg-slate-800 hover:bg-slate-100 rounded-xl text-left shadow-sm border border-slate-100 dark:border-slate-700 transition-all flex items-center space-x-3 group">
+                                    <span class="p-2.5 bg-red-100 dark:bg-red-900/30 text-red-600 rounded-lg text-lg group-hover:scale-110 transition-transform"><i class="fa-brands fa-youtube"></i></span>
+                                    <div>
+                                        <p class="font-bold text-sm text-slate-800 dark:text-slate-200">Video Pendek</p>
+                                        <p class="text-xs text-slate-400">TikTok / Reels</p>
+                                    </div>
+                                </button>
+
+                                <button onclick="showTablighStrategy('podcast')" class="p-4 bg-white dark:bg-slate-800 hover:bg-slate-100 rounded-xl text-left shadow-sm border border-slate-100 dark:border-slate-700 transition-all flex items-center space-x-3 group">
+                                    <span class="p-2.5 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-lg text-lg group-hover:scale-110 transition-transform"><i class="fa-solid fa-microphone-lines"></i></span>
+                                    <div>
+                                        <p class="font-bold text-sm text-slate-800 dark:text-slate-200">Podcast Santai</p>
+                                        <p class="text-xs text-slate-400">Spotify / Audio</p>
+                                    </div>
+                                </button>
+
+                                <button onclick="showTablighStrategy('visual')" class="p-4 bg-white dark:bg-slate-800 hover:bg-slate-100 rounded-xl text-left shadow-sm border border-slate-100 dark:border-slate-700 transition-all flex items-center space-x-3 group">
+                                    <span class="p-2.5 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-lg text-lg group-hover:scale-110 transition-transform"><i class="fa-solid fa-palette"></i></span>
+                                    <div>
+                                        <p class="font-bold text-sm text-slate-800 dark:text-slate-200">Infografis Visual</p>
+                                        <p class="text-xs text-slate-400">Instagram Carousel</p>
+                                    </div>
+                                </button>
+                            </div>
+
+                            <!-- Strategy Output Box -->
+                            <div id="tabligh-strategy-box" class="mt-4 p-4 bg-white dark:bg-slate-800 rounded-xl shadow-inner border border-slate-100 dark:border-slate-700 min-h-[100px] flex items-center justify-center text-center">
+                                <span class="text-slate-400 text-sm"><i class="fa-solid fa-pointer"></i> Klik salah satu strategi di atas untuk melihat penjelasannya!</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 3: DAKWAH -->
+                <section id="content-dakwah" class="tab-content hidden">
+                    <div class="glass-card border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-md relative overflow-hidden">
+                        <!-- Hero Section -->
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 pb-6 border-b border-slate-100 dark:border-slate-800">
+                            <div class="space-y-2">
+                                <span class="bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-400 text-xs font-bold px-3 py-1.5 rounded-full inline-block">Materi III</span>
+                                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white">Dakwah: Mengajak Dengan Penuh Kasih 🕊️</h2>
+                                <p class="text-slate-500 dark:text-slate-400">Mengetahui cara merangkul sesama menuju jalan kebenaran.</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <div class="bg-gradient-to-tr from-amber-400 to-amber-600 text-white w-16 h-16 rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-amber-500/20">
+                                    <i class="fa-solid fa-users-viewfinder animate-pulse"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <!-- Definisi Dakwah -->
+                            <div class="bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <span class="p-2 bg-amber-500 text-white rounded-xl text-xs"><i class="fa-solid fa-flag"></i></span>
+                                    <h3 class="font-bold text-lg">Definisi Dakwah</h3>
+                                </div>
+                                <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                                    Kata <strong>Dakwah</strong> berasal dari kata Arab yang berarti "memanggil, menyeru, atau mengundang". Secara terminologis, dakwah adalah aktivitas mengajak orang lain agar beriman dan menaati Allah SWT demi kebahagiaan hidup di dunia dan akhirat.
+                                </p>
+                            </div>
+
+                            <!-- Perbedaan dengan Khutbah & Tabligh -->
+                            <div class="bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <span class="p-2 bg-emerald-500 text-white rounded-xl text-xs"><i class="fa-solid fa-code-compare"></i></span>
+                                    <h3 class="font-bold text-lg">Perbedaan Penting</h3>
+                                </div>
+                                <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                                    Jika khutbah sangat formal (ada rukun), tabligh cenderung satu arah (menyampaikan pesan), maka **dakwah mencakup area yang paling luas**. Dakwah bisa berupa diskusi dua arah, tulisan, sikap perbuatan langsung (*dakwah bil hal*), hingga keteladanan sehari-hari.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Feature: Metode Dakwah (QS. An-Nahl: 125) -->
+                        <div class="bg-amber-50/50 dark:bg-amber-950/20 rounded-2xl p-5 border border-amber-100 dark:border-amber-900/30">
+                            <h3 class="font-bold text-lg text-amber-900 dark:text-amber-300 mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-nodes"></i> Metode Utama Dakwah (QS. An-Nahl: 125)
+                            </h3>
+                            <p class="text-xs text-slate-500 mb-4">Al-Qur'an mengajarkan tiga pendekatan yang sangat elegan dalam berdakwah. Geser kursor atau ketuk tab di bawah ini untuk melihat detail strateginya:</p>
+
+                            <div class="space-y-3">
+                                <!-- Card 1: Bil Hikmah -->
+                                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                    <div class="space-y-1">
+                                        <span class="text-xs font-bold px-2.5 py-1 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 rounded-md">Metode 1</span>
+                                        <h4 class="font-bold text-base text-slate-800 dark:text-white">Bil Hikmah (Kebijaksanaan)</h4>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400">Menyampaikan pesan kebenaran dengan argumen yang jelas, santun, dan memperhatikan kondisi psikis dari orang yang diajak.</p>
+                                    </div>
+                                    <button onclick="simulateDakwahCase('hikmah')" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded-lg shadow-md transition-all whitespace-nowrap">Simulasi Kasus</button>
+                                </div>
+
+                                <!-- Card 2: Mau'idzah Hasanah -->
+                                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                    <div class="space-y-1">
+                                        <span class="text-xs font-bold px-2.5 py-1 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 rounded-md">Metode 2</span>
+                                        <h4 class="font-bold text-base text-slate-800 dark:text-white">Mau'idzah Hasanah (Nasihat yang Baik)</h4>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400">Memberikan pengajaran dan teladan baik yang mampu melembutkan nurani, menyentuh batin, tanpa terkesan menggurui.</p>
+                                    </div>
+                                    <button onclick="simulateDakwahCase('nasihat')" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded-lg shadow-md transition-all whitespace-nowrap">Simulasi Kasus</button>
+                                </div>
+
+                                <!-- Card 3: Mujadalah Husnah -->
+                                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                    <div class="space-y-1">
+                                        <span class="text-xs font-bold px-2.5 py-1 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 rounded-md">Metode 3</span>
+                                        <h4 class="font-bold text-base text-slate-800 dark:text-white">Mujadalah Husnah (Berdiskusi Elegan)</h4>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400">Apabila harus bertukar argumen, gunakan metode dialog yang sehat, didasari rasa saling menghargai, dan menjauhi debat kusir.</p>
+                                    </div>
+                                    <button onclick="simulateDakwahCase('dialog')" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded-lg shadow-md transition-all whitespace-nowrap">Simulasi Kasus</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION: TABEL KOMPARASI -->
+                <section id="content-komparasi" class="tab-content hidden">
+                    <div class="glass-card border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-md">
+                        <div class="border border-slate-200 dark:border-slate-800 rounded-2xl p-5 bg-white dark:bg-slate-800/40 shadow-sm">
+                            <h3 class="font-extrabold text-xl text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-table-list text-brand-600"></i> Tabel Komparasi Sintesis (Khutbah, Tabligh, & Dakwah)
+                            </h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">
+                                Untuk mempermudah pemahamanmu, mari kita lihat persamaan serta perbedaan struktural dari ketiga metode penyampaian risalah Islam tersebut di bawah ini:
+                            </p>
+
+                            <!-- Persamaan Box -->
+                            <div class="mb-5 p-4 bg-emerald-50/60 dark:bg-brand-950/20 rounded-xl border border-brand-100 dark:border-brand-900/30">
+                                <h4 class="font-bold text-sm text-brand-800 dark:text-brand-300 flex items-center gap-2 mb-2">
+                                    <i class="fa-solid fa-arrows-to-eye"></i> Persamaan Utama:
+                                </h4>
+                                <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 list-disc list-inside">
+                                    <li>Sama-sama bertujuan mengajak manusia ke jalan Allah SWT demi kebahagiaan dunia-akhirat.</li>
+                                    <li>Sama-sama bersumber kepada dasar hukum utama yang sah, yaitu Al-Qur'an dan Hadis.</li>
+                                    <li>Berfungsi memperbaiki moral, akidah, akhlak, dan tatanan sosial umat agar lebih harmonis.</li>
+                                    <li>Mengandung muatan dakwah kedamaian (rahmatan lil 'alamin) dan gerakan amar ma'ruf nahi munkar.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Responsive Perbedaan Table -->
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs border-collapse">
+                                    <thead>
+                                        <tr class="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border-b border-slate-200 dark:border-slate-600">
+                                            <th class="p-3 font-extrabold">Kriteria Perbedaan</th>
+                                            <th class="p-3 font-extrabold">Khutbah</th>
+                                            <th class="p-3 font-extrabold">Tabligh</th>
+                                            <th class="p-3 font-extrabold">Dakwah</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-200 dark:divide-slate-700 text-slate-600 dark:text-slate-300">
+                                        <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
+                                            <td class="p-3 font-bold bg-slate-50/30 dark:bg-slate-800/10">Waktu & Tempat</td>
+                                            <td class="p-3">Sangat terikat (Contoh: Hari Jumat siang di Masjid Jami').</td>
+                                            <td class="p-3">Bebas & Fleksibel (Kapan saja di lapangan, aula, atau medsos).</td>
+                                            <td class="p-3">Sangat Bebas (Kapan saja, di mana saja, dalam dinamika hidup).</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
+                                            <td class="p-3 font-bold bg-slate-50/30 dark:bg-slate-800/10">Rukun & Syarat</td>
+                                            <td class="p-3">Memiliki rukun ketat wajib dipenuhi (Hamdalah, Shalawat, dll) agar sah.</td>
+                                            <td class="p-3">Tidak terikat rukun formal, yang penting pesan tersampaikan utuh.</td>
+                                            <td class="p-3">Tanpa rukun formal, dijalankan adaptif sesuai kebutuhan obyek dakwah.</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
+                                            <td class="p-3 font-bold bg-slate-50/30 dark:bg-slate-800/10">Metode & Komunikasi</td>
+                                            <td class="p-3">Komunikasi satu arah (Jamaah dilarang berbicara atau sahnya hilang).</td>
+                                            <td class="p-3">Mayoritas satu arah (ceramah umum), namun bisa diskusi tanya jawab.</td>
+                                            <td class="p-3">Komunikasi dua arah aktif (dialog, diskusi bebas, keteladanan aksi).</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
+                                            <td class="p-3 font-bold bg-slate-50/30 dark:bg-slate-800/10">Pelaku (Kualifikasi)</td>
+                                            <td class="p-3">Hanya kalangan khusus memenuhi syarat (Laki-laki dewasa untuk Shalat Jumat).</td>
+                                            <td class="p-3">Siapa saja yang memiliki kapasitas ilmu agama (Laki-laki/Perempuan).</td>
+                                            <td class="p-3">Kewajiban individu setiap muslim sesuai profesi & kapasitas diri masing-masing.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 4: ASESMEN UJI PEMAHAMAN -->
+                <section id="content-kuis" class="tab-content hidden">
+                    <div class="glass-card border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-md relative overflow-hidden">
+                        
+                        <!-- Quiz Mode Selector -->
+                        <div id="quiz-intro" class="text-center py-6 space-y-6">
+                            <span class="text-4xl animate-bounce inline-block">📝</span>
+                            <div class="space-y-2">
+                                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white">Asesmen Uji Pemahaman</h2>
+                                <p class="text-slate-500 dark:text-slate-400 max-w-md mx-auto text-sm">Ayo uji tingkat pemahamanmu terhadap materi Khutbah, Tabligh, dan Dakwah. Kerjakan 10 soal asesmen berikut secara teliti!</p>
+                            </div>
+
+                            <div class="flex justify-center max-w-sm mx-auto">
+                                <!-- Start PAI button -->
+                                <button onclick="startQuiz('pai')" class="w-full p-5 bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-2xl hover:scale-[1.03] transition-all shadow-lg hover:shadow-emerald-500/20 text-center font-bold text-lg flex items-center justify-center gap-3">
+                                    <span>🕌</span> Mulai Asesmen PAI
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Active Quiz Container -->
+                        <div id="quiz-container" class="hidden space-y-6">
+                            <!-- Progress & Timer bar -->
+                            <div class="flex items-center justify-between text-xs font-bold text-slate-400">
+                                <span id="quiz-title-badge" class="px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 uppercase tracking-widest">Asesmen</span>
+                                <span id="quiz-progress-text">Soal 1 dari 10</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div id="quiz-progress-bar" class="bg-brand-500 h-full transition-all duration-300" style="width: 10%;"></div>
+                            </div>
+
+                            <!-- Question Card -->
+                            <div class="bg-slate-50 dark:bg-slate-800/60 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+                                <h3 id="quiz-question-text" class="text-lg font-bold leading-relaxed text-slate-800 dark:text-white"></h3>
+                            </div>
+
+                            <!-- Options Panel (A, B, C, D, E) -->
+                            <div class="grid grid-cols-1 gap-3" id="quiz-options">
+                                <!-- Dynamically generated by JS -->
+                            </div>
+
+                            <!-- Inline Feedback Box -->
+                            <div id="quiz-feedback-box" class="hidden p-4 rounded-xl border flex items-start gap-3 transition-all duration-300">
+                                <!-- Filled by JS -->
+                            </div>
+
+                            <!-- Bottom Action Button -->
+                            <div class="flex justify-end">
+                                <button id="quiz-next-btn" onclick="nextQuestion()" class="hidden px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl transition-all shadow-md shadow-brand-600/10">Pertanyaan Berikutnya <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Quiz Result / Summary Card -->
+                        <div id="quiz-results" class="hidden text-center py-8 space-y-6">
+                            <div class="relative w-40 h-40 mx-auto">
+                                <div class="absolute inset-0 bg-brand-500 opacity-10 rounded-full animate-ping"></div>
+                                <div class="relative w-36 h-36 mx-auto bg-brand-100 dark:bg-brand-900/40 rounded-full flex items-center justify-center border-4 border-brand-500">
+                                    <span class="text-4xl font-extrabold text-brand-600" id="quiz-score-circle">80</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <h3 id="quiz-result-title" class="text-2xl font-black text-slate-900 dark:text-white">Luar Biasa! 🎉</h3>
+                                <p id="quiz-result-feedback" class="text-slate-500 dark:text-slate-400 max-w-md mx-auto"></p>
+                            </div>
+
+                            <div class="flex justify-center gap-4">
+                                <button onclick="restartCurrentQuiz()" class="px-5 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-md shadow-brand-600/10 transition-all"><i class="fa-solid fa-rotate-left mr-1"></i> Ulangi Asesmen</button>
+                                <button onclick="showQuizMenu()" class="px-5 py-3 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-bold rounded-xl transition-all"><i class="fa-solid fa-bars mr-1"></i> Menu Asesmen</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL POPUPS (Avoiding standard alert) -->
+    <div id="custom-modal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 dark:border-slate-700 transform scale-95 transition-transform">
+            <div class="flex items-center justify-between mb-4">
+                <span id="modal-badge" class="px-2.5 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-xs font-bold rounded-lg">STUDI KASUS</span>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="space-y-3">
+                <h3 id="modal-title" class="text-xl font-bold text-slate-900 dark:text-white"></h3>
+                <p id="modal-body" class="text-sm leading-relaxed text-slate-600 dark:text-slate-300"></p>
+            </div>
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeModal()" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-xs transition-all shadow-md">Oke, Mengerti!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC & STATE ENGINE -->
+    <script>
+        // Global State
+        let currentTab = 'beranda';
+        let isDarkMode = false;
+        let activeQuizType = 'pai';
+        let activeQuestionIndex = 0;
+        let activeScore = 0;
+        let answersState = []; // Track correct/wrong per question
+
+        // Quiz Questions Data Base (10 Questions, 5 Options each: A, B, C, D, E)
+        const quizData = {
+            pai: [
+                {
+                    q: "Apa perbedaan paling pokok antara Khutbah dengan Tabligh dan Dakwah dalam aspek keabsahan rangkaian ibadah ritual?",
+                    a: [
+                        "Khutbah wajib memiliki rukun tertentu dan dibatasi oleh syarat ibadah formal, sedangkan Tabligh dan Dakwah tidak terikat rukun formal.",
+                        "Tabligh harus dilakukan di atas mimbar tinggi masjid, sedangkan Khutbah bebas di mana saja di area luar masjid.",
+                        "Dakwah hanya boleh disampaikan oleh khatib laki-laki dewasa, sedangkan Khutbah bebas disampaikan siapa saja tanpa syarat gender.",
+                        "Khutbah wajib menggunakan pengeras suara berkabel, sedangkan Tabligh bebas memanfaatkan media transmisi tanpa kabel.",
+                        "Khutbah tidak memerlukan persiapan penyusunan naskah, sedangkan Tabligh/Dakwah wajib menyertakan draf makalah tebal."
+                    ],
+                    correct: 0,
+                    explanation: "Betul sekali! Khutbah Jumat itu punya 5 rukun mutlak yang harus dipenuhi (seperti hamdalah, shalawat, wasiat taqwa, dll) agar rangkaian ibadah Jumat sah. Tabligh dan dakwah tidak dibatasi oleh rukun formal tersebut."
+                },
+                {
+                    q: "Berikut ini yang termasuk ke dalam rukun kedua dari khutbah Jumat yang harus dipenuhi oleh khatib adalah...",
+                    a: [
+                        "Membaca Alhamdulillah pada awal khutbah pertama.",
+                        "Mengajak jamaah agar selalu berbuat adil dalam masalah sosial.",
+                        "Membaca shalawat kepada nabi agung Muhammad SAW.",
+                        "Membaca doa kebaikan untuk seluruh umat Muslim pada khutbah kedua.",
+                        "Membaca ayat suci Al-Qur'an pada salah satu di antara dua khutbah."
+                    ],
+                    correct: 2,
+                    explanation: "Keren, jawabanmu tepat! Urutan rukun khutbah yang lazim adalah membaca hamdalah terlebih dahulu, kemudian dilanjutkan dengan membaca shalawat atas Nabi Muhammad SAW sebagai rukun kedua."
+                },
+                {
+                    q: "Metode dakwah yang diwujudkan melalui keteladanan akhlak mulia dan aksi nyata menolong sesama dalam kehidupan dinamakan...",
+                    a: [
+                        "Dakwah bil lisan (menggunakan ucapan santun)",
+                        "Dakwah bil kitabah (menggunakan tulisan karya ilmiah)",
+                        "Dakwah bil hal (menggunakan tindakan dan perbuatan langsung)",
+                        "Dakwah bil hikmah (menggunakan kebijaksanaan argumentatif)",
+                        "Dakwah bil mal (menggunakan penyaluran harta benda pribadi)"
+                    ],
+                    correct: 2,
+                    explanation: "Benar sekali! Dakwah bil hal menekankan keteladanan akhlak (uswatun hasanah) lewat perilaku konkret sehari-hari. Sering kali perilaku ramahmu jauh lebih membekas daripada ucapan teoritis."
+                },
+                {
+                    q: "Berdasarkan Al-Qur'an surah An-Nahl ayat 125, ketika kita dihadapkan pada proses dialog atau pertukaran pendapat, Allah menyuruh kita menggunakan metode...",
+                    a: [
+                        "Bil Hikmah yang menitikberatkan pada argumentasi logis.",
+                        "Mau'idzah Hasanah yang mengedepankan petuah lemah lembut.",
+                        "Mujadalah Husnah yang mengutamakan diskusi sehat penuh rasa hormat.",
+                        "Bil Kitabah yang menekankan publikasi tulisan kritis.",
+                        "Bil Ma'ruf yang menekankan instruksi formal berwewenang."
+                    ],
+                    correct: 2,
+                    explanation: "Tepat! Mujadalah Husnah adalah metode berdebat atau bertukar argumen secara sehat, santun, ilmiah, menghindari caci maki, serta menjunjung tinggi rasa saling menghargai."
+                },
+                {
+                    q: "Sifat utama Rasulullah SAW yang melandasi urgensi pentingnya penyebaran tabligh di era globalisasi informasi ini adalah...",
+                    a: [
+                        "Siddiq (benar dan lurus dalam ucapan sehari-hari)",
+                        "Amanah (dapat dipercaya mengemban tugas kepemimpinan)",
+                        "Fathanah (cerdas dan bijaksana dalam mencari penyelesaian masalah)",
+                        "Sabar (tahan uji menghadapi berbagai hambatan dakwah)",
+                        "Tabligh (menyampaikan amanah kebenaran dari Allah tanpa ada yang disembunyikan)"
+                    ],
+                    correct: 4,
+                    explanation: "Sangat bagus! Sifat Tabligh (menyampaikan) merupakan modal utama tugas kenabian. Di era digital saat ini, umat Islam dituntut aktif menyampaikan pesan damai tanpa mengubah esensi ajaran."
+                },
+                {
+                    q: "Mengapa para jamaah shalat Jumat dilarang keras berbicara atau menegur teman di sebelahnya sewaktu khutbah sedang berlangsung?",
+                    a: [
+                        "Dapat membatalkan kondisi wudhu jamaah secara langsung sesuai ijma' ulama.",
+                        "Akan menghapus pahala ibadah shalat Jumatnya sehingga menjadi sia-sia.",
+                        "Suara obrolan jamaah dikhawatirkan mengganggu transmisi sinyal pengeras suara.",
+                        "Ibadah Jumat merupakan pengganti shalat fardhu ashar sehingga tidak boleh terganggu.",
+                        "Khatib bisa kehilangan kefasihan dalam melafalkan rukun khutbah berbahasa Arab."
+                    ],
+                    correct: 1,
+                    explanation: "Luar biasa! Berbicara saat khutbah Jumat melanggar adab mendengar khutbah. Sesuai hadis, menegur orang lain dengan ucapan 'diamlah' saja sudah cukup menghilangkan pahala Jumat kita."
+                },
+                {
+                    q: "Manakah di bawah ini pernyataan yang paling tepat menggambarkan makna sosiologis dari kegiatan Tabligh?",
+                    a: [
+                        "Menyampaikan pesan-pesan keislaman secara proaktif dan komunikatif agar umat mengamalkannya.",
+                        "Membaca naskah khutbah di atas podium secara formal seminggu sekali.",
+                        "Mengajak masyarakat non-Muslim untuk memeluk agama Islam dengan paksaan fisik.",
+                        "Menulis artikel bertema keislaman di media cetak internasional secara eksklusif.",
+                        "Mengumpulkan bantuan sosial finansial untuk pembangunan sarana ibadah di pelosok negeri."
+                    ],
+                    correct: 0,
+                    explanation: "Hebat! Secara harfiah dan maknawi, tabligh adalah menyampaikan pesan perdamaian dan tuntunan Allah SWT kepada umat secara persuasif agar diamalkan dalam rutinitas keseharian mereka."
+                },
+                {
+                    q: "Di bawah ini yang merupakan salah satu syarat wajib utama agar khutbah shalat Jumat dinilai sah di hadapan syariat adalah...",
+                    a: [
+                        "Khatib harus berumur minimal 40 tahun saat pertama kali berkhutbah.",
+                        "Khatib wajib mengetahui rukun, syarat, dan tata cara pelaksanaan khutbah secara syar'i.",
+                        "Khatib memiliki ijazah formal kelulusan pesantren besar terakreditasi.",
+                        "Khatib mampu membawakan seluruh materi tanpa melihat naskah (menghafal).",
+                        "Khatib mengenakan pakaian adat tertentu saat berdiri di atas mimbar jumat."
+                    ],
+                    correct: 1,
+                    explanation: "Benar sekali! Memahami syarat, rukun, dan sunnah khutbah adalah syarat kelayakan mutlak seorang khatib agar khutbah yang disampaikannya sah secara fiqih ibadah."
+                },
+                {
+                    q: "Dalam merespons masyarakat digital yang kritis, bagaimana penerapan metode dakwah 'Bil Hikmah' yang paling ideal?",
+                    a: [
+                        "Meneror platform media sosial dengan ancaman dosa besar tanpa kompromi.",
+                        "Menolak berdiskusi interaktif di internet dan hanya mengandalkan teks pasif searah.",
+                        "Menghadirkan argumen yang logis, santun, edukatif, serta peka terhadap keresahan audiens.",
+                        "Memaksa semua orang menganut paham keagamaan yang sama tanpa toleransi perbedaan.",
+                        "Mempublikasikan materi ceramah super panjang tanpa memikirkan relevansi solusi kehidupan."
+                    ],
+                    correct: 2,
+                    explanation: "Top markotop! Bil Hikmah menuntut kebijaksanaan, pemahaman psikologi massa, serta argumentasi rasional yang kokoh untuk menyentuh hati masyarakat modern yang kritis."
+                },
+                {
+                    q: "Manakah yang merupakan hikmah sosial terbesar dari pelaksanaan Dakwah, Tabligh, dan Khutbah yang dikemas secara sejuk?",
+                    a: [
+                        "Melipatgandakan pamor mubaligh di ranah media sosial secara instan.",
+                        "Terwujudnya tatanan masyarakat yang berakhlak mulia, rukun, saling menghargai, dan damai.",
+                        "Mempercepat proses pengumpulan dana infak untuk fasilitas tempat ibadah.",
+                        "Mempersingkat alokasi waktu pelaksanaan shalat fardhu berjamaah.",
+                        "Menyeragamkan seluruh perbedaan mazhab fiqih yang berkembang di kalangan umat Islam."
+                    ],
+                    correct: 1,
+                    explanation: "Tepat sekali! Hikmah akhir dan puncak dari dakwah, tabligh, serta khutbah yang sejuk adalah terwujudnya kedamaian sosial (rahmatan lil 'alamin) yang penuh toleransi dan akhlakul karimah."
+                }
+            ]
+        };
+
+        // Theme Toggle Logic
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            const docClass = document.documentElement.classList;
+            const icon = document.getElementById('theme-icon');
+            if (isDarkMode) {
+                docClass.add('dark');
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                docClass.remove('dark');
+                icon.className = 'fa-solid fa-moon';
+            }
+        }
+
+        // Sidebar Navigation
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('-translate-x-full');
+        }
+
+        function switchTab(tabId) {
+            // Update Tab Visibility
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+                tab.classList.remove('block');
+            });
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+            document.getElementById(`content-${tabId}`).classList.add('block');
+
+            // Update Active Buttons styles
+            document.querySelectorAll('.menu-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white', 'shadow-md');
+                btn.classList.add('text-slate-600', 'dark:text-slate-300', 'hover:bg-slate-100', 'dark:hover:bg-slate-800');
+                
+                const badge = btn.querySelector('span');
+                if (badge) {
+                    badge.classList.remove('bg-brand-500', 'text-white');
+                    badge.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-500');
+                }
+            });
+
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-brand-600', 'text-white', 'shadow-md');
+                activeBtn.classList.remove('text-slate-600', 'dark:text-slate-300', 'hover:bg-slate-100', 'dark:hover:bg-slate-800');
+                
+                const badge = activeBtn.querySelector('span');
+                if (badge) {
+                    badge.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-500');
+                    badge.classList.add('bg-brand-500', 'text-white');
+                }
+            }
+
+            currentTab = tabId;
+
+            // Close sidebar on mobile after clicking
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
+                toggleMobileSidebar();
+            }
+
+            // Scroll window to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Tab 1: Flip Cards Logic
+        function toggleFlipCard(cardId) {
+            const card = document.getElementById(cardId);
+            const prompt = card.querySelector('.show-prompt');
+            const content = card.querySelector('.hidden-content');
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                content.classList.add('block');
+                prompt.classList.add('hidden');
+                prompt.classList.remove('block');
+                card.classList.add('bg-brand-50', 'dark:bg-brand-900/30', 'border-brand-300');
+            } else {
+                content.classList.add('hidden');
+                content.classList.remove('block');
+                prompt.classList.remove('hidden');
+                prompt.classList.add('block');
+                card.classList.remove('bg-brand-50', 'dark:bg-brand-900/30', 'border-brand-300');
+            }
+        }
+
+        // Tab 2: Tabligh Digital Strategy Simulator
+        function showTablighStrategy(type) {
+            const box = document.getElementById('tabligh-strategy-box');
+            let content = '';
+
+            switch(type) {
+                case 'video':
+                    content = `
+                        <div class="text-left space-y-2 py-2">
+                            <span class="text-xs font-bold text-red-500"><i class="fa-brands fa-youtube mr-1"></i> VIDEO REELS/TIKTOK</span>
+                            <h4 class="font-extrabold text-slate-800 dark:text-white">Gaya Dakwah Mikro & Cepat</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-300">Gunakan video vertikal durasi 15-60 detik. Fokuskan pada visual grafis dinamis, teks kutipan estetik, dan musik latar syahdu. Sangat efektif menjangkau perhatian instan remaja masa kini!</p>
+                        </div>
+                    `;
+                    break;
+                case 'podcast':
+                    content = `
+                        <div class="text-left space-y-2 py-2">
+                            <span class="text-xs font-bold text-green-500"><i class="fa-solid fa-microphone-lines mr-1"></i> PODCAST SANTAI</span>
+                            <h4 class="font-extrabold text-slate-800 dark:text-white">Dialog Dua Arah Tanpa Sekat</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-300">Buat konsep obrolan kasual membahas kegundahan hidup remaja (mental health, pertemanan, mimpi masa depan) dengan menyisipkan nilai Al-Qur'an secara mengalir tanpa nada menghakimi.</p>
+                        </div>
+                    `;
+                    break;
+                case 'visual':
+                    content = `
+                        <div class="text-left space-y-2 py-2">
+                            <span class="text-xs font-bold text-blue-500"><i class="fa-solid fa-palette mr-1"></i> INFOGRAFIS INSTAGRAM</span>
+                            <h4 class="font-extrabold text-slate-800 dark:text-white">Estetika Informasi Islami</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-300">Kombinasi warna palet pastel, ilustrasi minimalis, dan pesan hadis yang diringkas padat. Menarik mata pembaca saat menjelajah timeline sosial media sehari-hari.</p>
+                        </div>
+                    `;
+                    break;
+            }
+
+            box.innerHTML = content;
+            box.classList.add('ring-2', 'ring-indigo-500/20');
+            setTimeout(() => {
+                box.classList.remove('ring-2', 'ring-indigo-500/20');
+            }, 500);
+        }
+
+        // Tab 3: Modal Simulator Cases
+        function simulateDakwahCase(method) {
+            const modal = document.getElementById('custom-modal');
+            const title = document.getElementById('modal-title');
+            const body = document.getElementById('modal-body');
+
+            if (method === 'hikmah') {
+                title.textContent = "Kasih Sayang Atasi Amarah";
+                body.textContent = "Ketika mendapati teman sebayamu gemar bolos sekolah atau berperilaku buruk, dakwah 'Bil Hikmah' bukan dengan meneriaki kesalahannya di ruang publik atau mempermalukannya. Caranya: dekati ia secara privat, traktir minum jus di kantin, lalu ajak mengobrol santai dari hati ke hati mengenai impiannya kelak. Ubah cara pandangnya dengan kebijaksanaan penuh empati!";
+            } else if (method === 'nasihat') {
+                title.textContent = "Menghidupkan Lentera Jiwa";
+                body.textContent = "Menggunakan 'Mau'idzah Hasanah' berarti kamu menasihati adik kelas yang sering melakukan bullying dengan menceritakan kisah-kisah mengharukan tentang betapa beratnya kehidupan rasul menahan cacian, namun rasul membalasnya dengan doa mulia. Memberikan teladan sikapmu yang selalu melindungi kaum lemah sehingga batin sang perundung bergetar untuk berubah menjadi lebih ramah.";
+            } else if (method === 'dialog') {
+                title.textContent = "Diskusi Tanpa Caci-Maki";
+                body.textContent = "Bila sedang berdebat sengit di kolom komentar sosial media mengenai perbedaan furu'iyah (cabang ibadah), pendekatan 'Mujadalah Husnah' melarangmu mengeluarkan kata makian kasar. Kamu harus membalas dengan argumen ilmiah, menyebutkan referensi kitab ulama dengan santun, diakhiri doa agar sama-sama diberkahi Allah. Ketenangan hatimu saat berdialog adalah cerminan kematangan dakwahmu!";
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('custom-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Tab 4: ASESMEN UJI PEMAHAMAN QUIZ ENGINE
+        function startQuiz(type) {
+            activeQuizType = type;
+            activeQuestionIndex = 0;
+            activeScore = 0;
+            answersState = [];
+
+            // Hide Selector, Show Quiz
+            document.getElementById('quiz-intro').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('quiz-results').classList.add('hidden');
+
+            // Setup Badge Title
+            const titleBadge = document.getElementById('quiz-title-badge');
+            titleBadge.textContent = 'ASESMEN PEMAHAMAN: KHUTBAH, TABLIGH & DAKWAH';
+            titleBadge.className = 'px-2.5 py-1 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 font-bold';
+
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const currentSet = quizData[activeQuizType];
+            const currentQ = currentSet[activeQuestionIndex];
+
+            // Update progress
+            const progressPercent = ((activeQuestionIndex + 1) / currentSet.length) * 100;
+            document.getElementById('quiz-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('quiz-progress-text').textContent = `Soal ${activeQuestionIndex + 1} dari ${currentSet.length}`;
+
+            // Set text
+            document.getElementById('quiz-question-text').textContent = currentQ.q;
+
+            // Clear feedback box
+            const feedbackBox = document.getElementById('quiz-feedback-box');
+            feedbackBox.classList.add('hidden');
+
+            // Render options (5 Options)
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            // Hide Next button initially
+            document.getElementById('quiz-next-btn').classList.add('hidden');
+
+            currentQ.a.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full p-4 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-left border border-slate-200 dark:border-slate-700 rounded-xl transition-all shadow-sm font-medium text-sm flex items-start space-x-3";
+                btn.innerHTML = `
+                    <span class="flex-shrink-0 w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 flex items-center justify-center text-xs font-bold">${String.fromCharCode(65 + idx)}</span>
+                    <span class="text-slate-700 dark:text-slate-200">${opt}</span>
+                `;
+                btn.onclick = () => selectOption(idx);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedIdx) {
+            const currentSet = quizData[activeQuizType];
+            const currentQ = currentSet[activeQuestionIndex];
+            const optionsContainer = document.getElementById('quiz-options');
+            const feedbackBox = document.getElementById('quiz-feedback-box');
+
+            // Disable all option buttons to prevent multiple clicks
+            Array.from(optionsContainer.children).forEach(btn => {
+                btn.disabled = true;
+            });
+
+            const isCorrect = selectedIdx === currentQ.correct;
+            
+            // Build Teacher Feedback Tone
+            let feedbackText = '';
+            let boxClass = '';
+            
+            if (isCorrect) {
+                activeScore++;
+                answersState.push(true);
+                // Trigger Confetti!
+                confetti({
+                    particleCount: 50,
+                    spread: 60,
+                    origin: { y: 0.8 }
+                });
+                feedbackText = `🎉 <strong>Gokil, jawabanmu BENAR!</strong><br><p class="mt-1 text-xs">${currentQ.explanation}</p>`;
+                boxClass = 'bg-emerald-50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300';
+                
+                // Style Selected Correct Answer
+                optionsContainer.children[selectedIdx].className = "w-full p-4 bg-emerald-500 text-white text-left border border-emerald-500 rounded-xl transition-all shadow-md font-medium text-sm flex items-start space-x-3";
+                optionsContainer.children[selectedIdx].querySelector('span').className = "flex-shrink-0 w-6 h-6 rounded-full bg-white text-emerald-600 flex items-center justify-center text-xs font-bold";
+            } else {
+                answersState.push(false);
+                feedbackText = `❌ <strong>Aduh, hampir betul, tetap semangat ya!</strong><br><p class="mt-1 text-xs">${currentQ.explanation}</p>`;
+                boxClass = 'bg-rose-50 dark:bg-rose-950/20 border-rose-300 dark:border-rose-800 text-rose-800 dark:text-rose-300';
+                
+                // Style Selected Wrong Answer
+                optionsContainer.children[selectedIdx].className = "w-full p-4 bg-rose-500 text-white text-left border border-rose-500 rounded-xl transition-all shadow-md font-medium text-sm flex items-start space-x-3";
+                optionsContainer.children[selectedIdx].querySelector('span').className = "flex-shrink-0 w-6 h-6 rounded-full bg-white text-rose-600 flex items-center justify-center text-xs font-bold";
+
+                // Highlight correct answer
+                optionsContainer.children[currentQ.correct].className = "w-full p-4 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-left border-2 border-dashed border-emerald-500 rounded-xl transition-all font-medium text-sm flex items-start space-x-3";
+                optionsContainer.children[currentQ.correct].querySelector('span').className = "flex-shrink-0 w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold";
+            }
+
+            feedbackBox.className = `p-4 rounded-xl border flex flex-col gap-1 transition-all duration-300 ${boxClass}`;
+            feedbackBox.innerHTML = feedbackText;
+            feedbackBox.classList.remove('hidden');
+
+            // Show Next Button
+            document.getElementById('quiz-next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            const currentSet = quizData[activeQuizType];
+            if (activeQuestionIndex < currentSet.length - 1) {
+                activeQuestionIndex++;
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('quiz-results').classList.remove('hidden');
+
+            const currentSet = quizData[activeQuizType];
+            const finalScore = Math.round((activeScore / currentSet.length) * 100);
+
+            document.getElementById('quiz-score-circle').textContent = finalScore;
+
+            const titleEl = document.getElementById('quiz-result-title');
+            const feedbackEl = document.getElementById('quiz-result-feedback');
+
+            if (finalScore === 100) {
+                // Perfect score confetti explosion
+                const duration = 2 * 1000;
+                const end = Date.now() + duration;
+
+                (function frame() {
+                    confetti({
+                        particleCount: 5,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 }
+                    });
+                    confetti({
+                        particleCount: 5,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 }
+                    });
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+
+                titleEl.textContent = "Sempurna! Kamu Jenius! 👑🏆";
+                feedbackEl.textContent = `Hebat banget, kamu berhasil menjawab seluruh 10 pertanyaan asesmen dengan sempurna! Pemahamanmu luar biasa. Pak Guru bangga sekali!`;
+            } else if (finalScore >= 70) {
+                titleEl.textContent = "Luar Biasa Hebat! 🎉";
+                feedbackEl.textContent = `Keren pol! Skor kamu ${finalScore}/100. Hanya sedikit kesalahan kecil dari 10 soal. Kamu benar-benar sudah menguasai materi ini dengan sangat baik!`;
+            } else {
+                titleEl.textContent = "Tetap Semangat, Yuk Coba Lagi! 💪";
+                feedbackEl.textContent = `Skor kamu ${finalScore}/100. Gak masalah sama sekali, belajar itu proses! Baca kembali ulasan materi di bab depan dan tabel komparasi, lalu tes kemampuanmu lagi di kuis ini ya. Kamu pasti bisa!`;
+            }
+        }
+
+        function restartCurrentQuiz() {
+            startQuiz(activeQuizType);
+        }
+
+        function showQuizMenu() {
+            document.getElementById('quiz-intro').classList.remove('hidden');
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('quiz-results').classList.add('hidden');
+        }
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            // Set initial dynamic strategies visually active
+            showTablighStrategy('video');
+        }
+    </script>
+</body>
+</html>
